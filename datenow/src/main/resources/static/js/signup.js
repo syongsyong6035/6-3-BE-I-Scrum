@@ -8,7 +8,7 @@ const isValid = {
 };
 
 const apiMap = {
-  userId: '/api/members/exists/userId?userId=',
+  userId: '/api/members/exists?userId=',
   email: '/api/members/check/email?email=',
   nickname: '/api/members/check/nickname?nickname='
 };

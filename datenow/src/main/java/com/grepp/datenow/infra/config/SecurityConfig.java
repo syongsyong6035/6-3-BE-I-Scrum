@@ -103,7 +103,7 @@ public class SecurityConfig {
                         "/member/find-password").permitAll()
                     .requestMatchers(POST, "/member/signin", "/member/signup",
                         "/member/find-password").permitAll()
-                    .requestMatchers("/api/members/exists/userId", "/api/members/check/email",
+                    .requestMatchers("/api/members/exists", "/api/members/check/email",
                         "/api/members/check/nickname", "/api/members/signup").permitAll()
                     .requestMatchers(
                         "/v3/api-docs/**",

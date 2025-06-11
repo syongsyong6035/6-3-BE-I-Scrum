@@ -66,6 +66,22 @@ public class MemberService {
     }
 
     @Transactional
+    public boolean isExistsId(String userID){
+        return memberRepository.existsByUserId(userID);
+    }
+
+    @Transactional
+    public boolean isExistsEmail(String email){
+        return memberRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public boolean isExistsNickname(String nickname){
+        return memberRepository.existsByNickname(nickname);
+    }
+
+
+    @Transactional
     public void updateMember(String userId, MemberUpdateRequest request) {
         Member member = findByUserId(userId);
 
