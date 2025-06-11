@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>관리자 코스 상세페이지</title>
+
+  <link rel="stylesheet" th:href="@{/css/editor_pick_detail.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="course-header">
+  <img id="thumbnail" src="" alt="코스 썸네일" class="course-thumbnail" />
+</div>
+
+<div class="course-detail-container">
+
+  <div class="course-info">
+
+
+
+    <p id="courseInstructor" class="course-instructor"></p>
+    <p id="courseDate" class="course-date"></p>
+    <div class="title-button">
+      <h1 id="courseTitle" class="course-title"></h1>
+      <button
+          th:attr="data-recommend-id=${recommendId}"
+          th:classappend="${isLiked} ? ' liked' : ' unliked'"
+          class="like-button"
+          onclick="toggleEditorLike(this)">
+        <span th:text="${isLiked} ? '❤️' : '🩶'"></span>
+      </button>
+    </div>
+    <div id="imageGallery" class="image-gallery"></div>
+    <div class="course-description">
+      <p id="courseDescription" class="course-description-text"></p>
+    </div>
+    <h1 id="placeTitle" class="course-title">데이트는 어디에서?</h1>
+    <div id="placeList" class="place-list"></div>
+
+  </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script>
+  const recommendId = [[${recommendId}]];
+
+  fetch(`/api/editor-recommend-courses/${recommendId}`)
+  .then(res => res.json())
+  .then(data => {
+    const imageUrl = data.imageUrl && data.imageUrl.length > 0
+        ? data.imageUrl[0]
+        : "/image/bg_night.jpg";
+    document.getElementById("thumbnail").src = imageUrl;
+
+    document.getElementById("courseTitle").innerText = data.title;
+    document.getElementById("courseInstructor").innerText = `${data.nickname} 에디터의 픽!`;
+    document.getElementById("courseDate").innerText = `등록일: ${data.createdAt.split("T")[0]}`;
+    document.getElementById("courseDescription").innerText = data.description;
+    const imageGallery = document.getElementById("imageGallery");
+    imageGallery.innerHTML = ""; // 초기화
+
+    if (data.imageUrl && data.imageUrl.length > 0) {
+      data.imageUrl.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "장소 이미지";
+        img.className = "gallery-image";
+
+        imageGallery.appendChild(img);
+      });
+    }
+
+    const placeList = document.getElementById("placeList");
+    placeList.innerHTML = "";
+    data.places.forEach(place => {
+      const div = document.createElement("div");
+      div.className = "place-card";
+      div.innerHTML = `
+    <h3>${place.title}</h3>
+    <p>${place.address}</p>
+  `;
+      placeList.appendChild(div);
+    });
+
+  })
+  .catch(err => {
+    console.error("코스 정보를 불러오는 데 실패했습니다.", err);
+  });
+  function toggleEditorLike(button) {
+    const recommendId = button.dataset.recommendId;
+
+    fetch(`/api/admin/${recommendId}/likes`, {
+      method: 'POST',
+      credentials: "include",
+    })
+    .then(response => {
+      if (response.ok) {
+        const span = button.querySelector('span');
+        const isLiked = span.textContent === '❤️';
+        span.textContent = isLiked ? '🩶' : '❤️';
+        button.classList.toggle('liked');
+        button.classList.toggle('unliked');
+      } else {
+        alert("찜 실패!");
+      }
+    });
+  }
+</script>
+</body>
+</html>

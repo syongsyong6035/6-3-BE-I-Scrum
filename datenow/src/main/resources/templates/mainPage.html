@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1440, initial-scale=1.0"/>
+  <title>유저 메인페이지</title>
+  <link rel="stylesheet" th:href="@{/css/mainPage.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-content">
+  <!-- 왼쪽 컬럼 -->
+  <div class="left-column">
+    <div class="left-up">
+      <!-- 에디터 픽 슬라이드 -->
+      <div class="section-title-row">
+        <h2 class="section-title">에디터 픽 데이트 코스</h2>
+        <div class="section-subtitle-row">
+          <h2>에디터들이 엄선한 데이트 코스들이에요</h2>
+          <a th:href="@{/editor-recommend-courses}" class="more-link">더보기</a>
+        </div>
+        <div class="carousel-wrapper">
+          <div class="carousel" id="editor-carousel"></div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="left-down">
+      <!-- 인기 추천 코스 배너 -->
+      <div class="section-title-row">
+        <h2 class="section-title"> 가장 핫한 데이트 코스 🔥</h2>
+        <div class="section-subtitle-row">
+          <h2>가장 많은 사람들이 좋아한 코스에요</h2>
+        </div>
+        <div class="top-liked-banner">
+          <div class="banner-card" id="top-liked-card"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 오른쪽 컬럼 -->
+  <div class="right-column">
+    <div class="section-title-row">
+      <h2 class="section-title">추천 데이트 코스</h2>
+      <div class="section-subtitle-row">
+        <h2>유저들이 추천하는 데이트 코스들이에요</h2>
+        <a th:href="@{/recommend-courses}" class="more-link" id="user-more">더보기</a>
+      </div>
+    </div>
+    <div class="card-list" id="recommend-list"></div>
+  </div>
+</div>
+
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- JS 스크립트 링크 -->
+<script th:src="@{/js/mainPage.js}"></script>
+</body>
+
+</html>

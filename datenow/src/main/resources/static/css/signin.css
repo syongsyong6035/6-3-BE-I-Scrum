@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  background-color: #FFF2F8;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.signin-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 80px 20px 40px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #FF4DA1;
+  margin-bottom: 60px;
+}
+
+.field {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #E3E3E3;
+  border-radius: 22px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.field input:focus {
+  border-color: #FF85BC;
+  outline: none;
+}
+
+.error-global {
+  color: #D8000C;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.error-field {
+  color: #D8000C;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.btn-login {
+  width: 100%;
+  height: 50px;
+  background-color: #FF4DA1;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-login:disabled {
+  background-color: #FFC0D1;
+}
+
+.links {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #FF4DA1;
+}
+
+.links a {
+  color: #FF4DA1;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.links span {
+  color: #FF4DA1;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.remember-checkbox {
+  margin-right: 6px;
+}

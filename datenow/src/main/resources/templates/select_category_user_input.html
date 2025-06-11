@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DateNow - 추천 경로 만들기</title>
+  <link rel="stylesheet" th:href="@{/css/select_category_user_input.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+  <div class="main-container">
+    <button class="back-btn">뒤로가기</button>
+    <div class="form-area">
+      <h2>어떤 데이트를 원하시나요?</h2>
+      <div class="form-group">
+        <label>날짜</label>
+        <div class="date-picker-wrap">
+          <input type="date" id="dateInput" placeholder="날짜 선택">
+          <span class="calendar-icon">&#128197;</span>
+        </div>
+      </div>
+      <div class="category-list" th:each="mood : ${moods}">
+        <button class="category-btn"
+                th:attr="data-code=${mood.name()}"
+                th:text="${mood.description}">분위기명</button>
+      </div>
+
+      <button class="ai-btn">AI 추천코스 받아보기</button>
+    </div>
+<!--    <div id="loadingMessage" style="display: none; text-align: center; margin-top: 16px; color: #555;">-->
+<!--      <div class="spinner" style="margin: 0 auto;"></div>-->
+<!--      <p>🤖 AI가 추천 중입니다... 잠시만 기다려주세요!</p>-->
+<!--    </div>-->
+  </div>
+<div id="loadingOverlay" style="display: none;">
+  <div class="loading-backdrop"></div>
+  <div class="loading-spinner-container">
+    <div class="spinner"></div>
+    <p class="loading-text">🤖 AI가 추천 중입니다... 잠시만 기다려주세요!</p>
+  </div>
+</div>
+
+  <script src="/js/select_category_user_input.js"></script>
+</body>
+
+</html> 

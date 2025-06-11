@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  background-color: #FFF2F8;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.signin-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 80px 20px 40px;
+  text-align: center;
+}
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #FF4DA1;
+  margin-bottom: 60px;
+}
+.field {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.field label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #E3E3E3;
+  border-radius: 22px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.check-btn {
+  margin-top: 8px;
+  font-size: 12px;
+  padding: 6px 12px;
+  background-color: #ff4da1;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.error-field {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.success-field {
+  color: green;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.btn-login {
+  width: 100%;
+  height: 50px;
+  background-color: #FF4DA1;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.btn-login:disabled {
+  background-color: #FFC0D1;
+}

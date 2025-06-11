@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"xmlns:th="http://www.thymeleaf.org" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에디터픽 코스 목록</title>
+  <link rel="stylesheet" th:href="@{/css/admin_userManager.css}" />
+  <link rel="stylesheet" th:href="@{/css/course_list.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+  <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="admin-layout">
+  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+<!--  <nav class="sidebar">-->
+<!--    <ul>-->
+<!--      <li><a th:href="@{/admin/users}">회원관리</a></li>-->
+<!--      <li><a th:href="@{/admin/recommend-courses}">에디터픽코스</a></li>-->
+<!--      <li><a th:href="@{/admin/editor-course}">에디터픽코스추가</a></li>-->
+<!--    </ul>-->
+<!--  </nav>-->
+  <main class="main-content">
+<div class="course-list-container">
+  <h1>에디터픽 코스 목록</h1>
+  <div class="course-list" id="courseList">
+    <!-- JS로 코스 카드가 렌더링됩니다 -->
+  </div>
+</div>
+  </main>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/sidebar.js}"></script>
+</body>
+</html>
+<script>
+  const courseList = document.getElementById('courseList');
+
+  fetch('/api/admin/recommend-courses')
+  .then(response => {
+    if (!response.ok) throw new Error("데이터를 불러오지 못했습니다");
+    return response.json();
+  })
+  .then(courses => {
+    courses.forEach(course => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.onclick = () => {
+        window.location.href = `/editor-recommend-courses/${course.courseId}`;
+
+      };
+
+      card.innerHTML = `
+        <img src="${course.imageurl}" alt="${course.title} 썸네일" />
+        <div class="course-card-content">
+          <div class="course-title">${course.title}</div>
+          <div class="card-author">
+            <div class="author-avatar" style="background-image:url('/images/user.jpg');"></div>
+          <div class="course-instructor">${course.editorNickname} 에디터</div>
+          </div>
+          <div class="card-actions">
+           <button class="action-btn delete-btn" data-id="${course.courseId}">삭제</button>
+           </div>
+        </div>
+      `;
+      courseList.appendChild(card);
+    });
+    // 삭제 버튼 이벤트 등록
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation(); // 부모 카드 클릭 이벤트 방지
+        const id = this.dataset.id;
+        if (confirm('정말 삭제하시겠습니까?')) {
+          fetch(`/api/admin/recommend-courses/${id}`, {
+            method: 'POST'
+          })
+          .then(res => {
+            if (res.ok) {
+              alert('삭제되었습니다.');
+              location.reload();
+              const cardToRemove = document.querySelector(`.course-card[data-id='${id}']`);
+              if (cardToRemove) cardToRemove.remove();
+            } else {
+              alert('삭제 실패');
+            }
+          })
+          .catch(err => {
+            console.error('삭제 요청 중 오류 발생:', err);
+            alert('삭제 중 오류가 발생했습니다.');
+          });
+        }
+      });
+    });
+  })
+
+  .catch(error => {
+    console.error('에러 발생:', error);
+    courseList.innerHTML = '<p>코스를 불러오는 데 실패했습니다.</p>';
+  });
+</script>

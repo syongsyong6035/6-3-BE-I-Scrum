@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!-- fragments/footer.html -->
+<footer th:fragment="footer" class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>DateNow</h4>
+      <p>데이트 코스를 추천해드리는 서비스입니다.</p>
+    </div>
+    <div class="footer-section">
+      <h5>바로가기</h5>
+      <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+      <ul>
+        <li><a th:href="@{/}">홈</a></li>
+        <li><a th:href="@{/mypage}">마이페이지</a></li>
+        <li><a th:href="@{/recommend-course}">코스 만들기</a></li>
+      </ul>
+      </div>
+      <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <ul>
+          <li><a th:href="@{/}">홈</a></li>
+          <li><a th:href="@{/admin/users}">관리자 대시보드 </a></li>
+          <li><a th:href="@{/admin/editor-course}">에디터 픽 코스 만들기</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h5>고객지원</h5>
+      <ul>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">문의하기</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h5>Contact</h5>
+      <p>Email: support@datenow.com</p>
+      <p>&copy; 2025 DateNow. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

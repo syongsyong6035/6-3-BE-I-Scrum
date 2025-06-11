@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div th:fragment="sidebar">
+  <aside class="sidebar">
+    <div class="user-info">
+      <p class="user-name">닉네임: 로딩 중...</p>
+      <p class="user-email">이메일: 로딩 중...</p>
+    </div>
+    <ul class="menu">
+      <li><a th:href="@{/}">홈</a></li>
+      <li><a th:href="@{/my-page}">회원정보 수정</a></li>
+      <li><a th:href="@{/my-courses}">내가 만든 데이트 코스</a></li>
+      <li><a th:href="@{/my-favorites}">내가 찜한 코스</a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <button id="deactivateBtn" class="deactivate-button" onclick="deactivateAccount()">회원 탈퇴</button>
+    </div>
+  </aside>
+</div>
+</body>
+</html>

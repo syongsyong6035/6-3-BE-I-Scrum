@@ -1,0 +1,140 @@
+/* 메인 페이지 스타일 */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f7f8fa;
+  margin: 0;
+  padding: 0;
+}
+
+.course-list-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #222;
+}
+
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  width: 300px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.course-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.course-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.course-title {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  color: #222;
+  font-weight: 600;
+}
+
+.course-instructor {
+  color: #777;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.course-rating {
+  color: #f59e42;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.course-desc {
+  color: #444;
+  font-size: 0.95rem;
+  flex-grow: 1;
+  margin-bottom: 12px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  background-color: #ff4fa0;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #e63c89;
+}
+
+.card-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.author-avatar {
+  width: 30px;
+  height: 30px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #fff0fa;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: 13px;
+  color: #555;
+  margin-top: 16px;
+}
+
+.card-stats {
+  display: flex;
+  align-items: center;
+}

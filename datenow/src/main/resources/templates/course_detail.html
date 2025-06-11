@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>사용자 코스 상세페이지</title>
+  <link rel="stylesheet" th:href="@{/css/editor_pick_detail.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/review.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="course-detail-container">
+  <div class="course-header">
+    <img id="thumbnail" src="" alt="코스 썸네일" class="course-thumbnail" />
+  </div>
+  <div class="course-info">
+    <div class="title-button">
+      <h1 id="courseTitle" class="course-title"></h1>
+      <button
+          th:attr="data-recommend-id=${recommendId}"
+          th:classappend="${isLiked} ? ' liked' : ' unliked'"
+          class="like-button"
+          onclick="toggleLike(this)">
+        <span th:text="${isLiked} ? '❤️' : '🩶'"></span>
+      </button>
+    </div>
+
+    <p id="courseInstructor" class="course-instructor"></p>
+    <p id="courseDate" class="course-date"></p>
+    <div id="imageGallery" class="image-gallery"></div>
+    <div class="course-description">
+      <p id="courseDescription" class="course-description-text"></p>
+    </div>
+    <div id="placeList" class="place-list"></div>
+  </div>
+
+</div>
+
+<div class="review-form">
+  <h3>리뷰 작성</h3>
+  <textarea id="reviewContent" placeholder="리뷰를 입력하세요"></textarea>
+  <br />
+  <label>별점:
+    <select id="reviewStar">
+      <option value="1">1점</option>
+      <option value="2">2점</option>
+      <option value="3">3점</option>
+      <option value="4">4점</option>
+      <option value="5" selected>5점</option>
+    </select>
+  </label>
+  <br />
+  <button onclick="submitReview()">리뷰 등록</button>
+</div>
+<div class="review-list-container">
+  <h3>리뷰 목록</h3>
+  <div id="reviewList" class="review-list"></div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script>
+  const recommendId = [[${recommendId}]];
+  const currentUserNickname = '[[${loginNickname}]]';
+
+  fetch(`/api/recommend-courses/${recommendId}`)
+  .then(res => res.json())
+  .then(data => {
+    const imageUrl = data.imageUrl && data.imageUrl.length > 0
+        ? data.imageUrl[0]
+        : "/image/bg_night.jpg";
+    document.getElementById("thumbnail").src = imageUrl;
+
+    document.getElementById("courseTitle").innerText = data.title;
+    document.getElementById("courseInstructor").innerText = `작성자: ${data.nickname}`;
+    document.getElementById("courseDate").innerText = `등록일: ${data.createdAt.split("T")[0]}`;
+    document.getElementById("courseDescription").innerText = data.description;
+    const imageGallery = document.getElementById("imageGallery");
+    imageGallery.innerHTML = ""; // 초기화
+
+    if (data.imageUrl && data.imageUrl.length > 0) {
+      data.imageUrl.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = "장소 이미지";
+        img.className = "gallery-image";
+
+        imageGallery.appendChild(img);
+      });
+    }
+
+    const placeList = document.getElementById("placeList");
+    placeList.innerHTML = "";
+    data.places.forEach(place => {
+      const div = document.createElement("div");
+      div.className = "place-card";
+      div.innerHTML = `
+    <h3>${place.title}</h3>
+    <p>${place.address}</p>
+  `;
+      placeList.appendChild(div);
+    });
+
+  })
+  .catch(err => {
+    console.error("코스 정보를 불러오는 데 실패했습니다.", err);
+  });
+
+
+
+  function toggleLike(button) {
+    const recommendId = button.dataset.recommendId;
+
+    fetch(`/api/users/${recommendId}/likes`, {
+      method: 'POST',
+      credentials: "include",
+    })
+    .then(response => {
+      if (response.ok) {
+        const span = button.querySelector('span');
+        const isLiked = span.textContent === '❤️';
+        span.textContent = isLiked ? '🩶' : '❤️';
+        button.classList.toggle('liked');
+        button.classList.toggle('unliked');
+      } else {
+        alert("찜 실패!");
+      }
+    });
+  }
+
+
+
+  function submitReview() {
+    const content = document.getElementById("reviewContent").value;
+    const star = parseInt(document.getElementById("reviewStar").value);
+
+    if (!content) {
+      alert("리뷰 내용을 입력하세요.");
+      return;
+    }
+
+    fetch(`/api/recommend-courses/${recommendId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        content: content,
+        star: star
+      })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("응답 오류");
+      return res.json();
+    })
+    .then(data => {
+      alert("리뷰 등록 성공!");
+      location.reload();
+    })
+    .catch(err => {
+      console.error("리뷰 등록 중 오류:", err);
+      alert("리뷰 등록 실패");
+    });
+
+  }
+
+  function loadReviews() {
+    fetch(`/api/recommend-courses/${recommendId}/reviews`)
+    .then(res => res.json())
+    .then(data => {
+      const reviewList = document.getElementById("reviewList");
+      reviewList.innerHTML = "";
+
+      if (!data.length) {
+        reviewList.innerHTML = "<p>아직 등록된 리뷰가 없습니다.</p>";
+        return;
+      }
+
+      data.forEach(review => {
+        const div = document.createElement("div");
+        div.className = "review-item";
+        const isMyReview = review.nickname === currentUserNickname;
+        div.innerHTML = `
+            <div class="review-header">
+              <span class="review-nickname">${review.nickname}</span>
+              <span class="review-date">${review.createdAt.split("T")[0]}</span>
+            </div>
+            <div class="review-star">${'⭐'.repeat(review.star)} (${review.star}점)</div>
+            <div class="review-content">${review.content}</div>
+            ${isMyReview ? `<button class="review-delete-button" onclick="deleteReview(${review.reviewId})">삭제</button>` : ""}
+          `;
+        reviewList.appendChild(div);
+      });
+    })
+    .catch(err => {
+      console.error("리뷰 불러오기 실패", err);
+    });
+  }
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadReviews();
+  });
+  function deleteReview(reviewId) {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    fetch(`/api/recommend-courses/delete/${reviewId}`, {
+      method: "POST",
+      credentials: "include"
+    })
+    .then(res => {
+      if (res.ok) {
+        alert("삭제 완료");
+        loadReviews();
+      } else {
+        alert("삭제 실패");
+      }
+    })
+    .catch(err => {
+      console.error("삭제 중 오류 발생", err);
+      alert("에러 발생");
+    });
+  }
+
+
+</script>
+</body>
+</html>
+
+

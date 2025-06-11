@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>DateNow – 로그인</title>
+  <link rel="stylesheet" th:href="@{/css/signin.css}" />
+</head>
+<body>
+<div class="signin-container">
+  <h1 class="logo">💖 DateNow.</h1>
+
+  <form th:action="@{/member/signin}" th:object="${signinRequest}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <div class="field">
+      <label for="userId">아이디</label>
+      <input type="text" id="userId" th:field="*{userId}" placeholder="아이디를 입력하세요." />
+    </div>
+
+    <div class="field">
+      <label for="password">비밀번호</label>
+      <input type="password" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요." />
+    </div>
+
+    <label class="remember-label">
+      <input type="checkbox" name="remember-me" class="remember-checkbox" />
+      로그인 유지
+    </label>
+
+    <button type="submit" class="btn-login">로그인</button>
+  </form>
+
+  <div class="links">
+    <a th:href="@{/member/signup}">아직 회원이 아니신가요?</a>
+  </div>
+  <div class="links">
+    <a th:href="@{/member/find-password}">비밀번호 찾기</a>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const error = params.get("error");
+
+  if (error) {
+    alert(error);
+  }
+</script>
+
+<div th:if="${param.msg}" th:text="${param.msg}" id="alert-msg" style="display:none;"></div>
+<script>
+    var msg = document.getElementById('alert-msg');
+    if (msg && msg.textContent) {
+        alert(msg.textContent);
+    }
+</script>
+</body>
+</html>

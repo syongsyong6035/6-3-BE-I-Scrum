@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"xmlns:th="http://www.thymeleaf.org" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에디터픽 코스 목록</title>
+  <link rel="stylesheet" th:href="@{/css/course_list.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="course-list-container">
+  <h1>에디터픽 코스 목록</h1>
+  <div class="course-list" id="courseList">
+    <!-- JS로 코스 카드가 렌더링됩니다 -->
+  </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
+<script>
+  const courseList = document.getElementById('courseList');
+
+  fetch('/api/editor-recommend-courses')
+  .then(response => {
+    if (!response.ok) throw new Error("데이터를 불러오지 못했습니다");
+    return response.json();
+  })
+  .then(courses => {
+    courses.forEach(course => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.onclick = () => {
+        window.location.href = `/editor-recommend-courses/${course.courseId}`;
+
+      };
+
+      card.innerHTML = `
+        <img src="${course.imageurl}" alt="${course.title} 썸네일" />
+        <div class="course-card-content">
+          <div class="course-title">${course.title}</div>
+          <div class="card-author">
+            <div class="author-avatar" style="background-image:url('/images/user.jpg');"></div>
+          <div class="course-instructor">${course.editorNickname} 에디터</div>
+          </div>
+           <div class="card-footer">
+          <div class ="card-stats">❤️ ${course.favoriteCnt}</div>
+        </div>
+        </div>
+
+      `;
+      courseList.appendChild(card);
+    });
+  })
+  .catch(error => {
+    console.error('에러 발생:', error);
+    courseList.innerHTML = '<p>코스를 불러오는 데 실패했습니다.</p>';
+  });
+</script>

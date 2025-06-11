@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>DateNow - 내가 만든 데이트 코스</title>
+  <link rel="stylesheet" th:href="@{/css/mypage.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+  <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+  <main class="main-content">
+    <section id="mycourse-section">
+      <h2>내가 만든 데이트 코스</h2>
+      <div id="mycourse-list" class="card-list"></div>
+    </section>
+  </main>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/my_courses.js}"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+<script th:src="@{/js/member_gg.js}"></script>
+</body>
+</html>

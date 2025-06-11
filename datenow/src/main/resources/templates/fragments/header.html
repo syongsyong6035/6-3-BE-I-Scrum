@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>헤더</title>
+</head>
+<body>
+<div th:fragment="header">
+  <div class="navbar">
+    <a th:href="@{/}" class="logo-link">
+      <span class="logo">💖 DateNow</span>
+    </a>
+    <div class="navbar-right">
+      <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin/editor-course}">에디터 픽 코스 만들기</a>
+        <a th:href="@{/admin/users}">관리자 대시보드</a>
+      </div>
+      <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+        <a th:href="@{/recommend-course}">나의 코스 만들기</a>
+        <a th:href="@{/my-page}">마이페이지</a>
+      </div>
+      <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit" class="logout-button">로그아웃</button>
+      </form>
+      <span class="profile-icon"></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

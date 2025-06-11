@@ -1,0 +1,726 @@
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fff;
+}
+
+.navbar {
+  width: 100vw;
+  height: 56px;
+  background: #ffeaf6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+.back-arrow {
+  font-size: 22px;
+  color: #ff4fa0;
+  margin-right: 8px;
+  cursor: pointer;
+}
+.logo {
+  font-weight: bold;
+  color: #ff4fa0;
+  font-size: 18px;
+  background: #fff0fa;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+.navbar-right a {
+  color: #ff4fa0;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.profile-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: url('https://cdn-icons-png.flaticon.com/512/3135/3135715.png') no-repeat center/cover;
+  border-radius: 50%;
+  margin-left: 8px;
+  border: 2px solid #fff0fa;
+}
+
+.course-meta {
+  margin-bottom: 20px;
+  width: 100%;              /* ✅ 부모 기준으로 꽉 차게 */
+  box-sizing: border-box;
+  padding: 0 16px;  /* ✅ 좌우 여백 추가 */
+}
+
+.course-meta label {
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.course-meta input,
+.course-meta textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.course-meta textarea {
+  height: 200px;
+}
+
+
+
+.container {
+  display: flex;
+  height: calc(100vh - 56px);
+}
+.left-panel, .right-panel {
+  flex: 1;
+  padding: 32px 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
+}
+.left-panel {
+  border-right: 2px solid #f2f2f2;
+}
+.search-bar {
+  display: flex;
+  margin-bottom: 24px;
+}
+#searchInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 4px 0 0 4px;
+  font-size: 15px;
+  outline: none;
+}
+#searchBtn {
+  background: #ff4fa0;
+  color: #fff;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 8px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.place-list {
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+}
+.place-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eaeaea;
+  padding: 18px 0 10px 0;
+  font-size: 16px;
+}
+.add-btn {
+  min-width: 120px;               /* ✅ 최소 너비 설정 */
+  height: 36px;                   /* ✅ 버튼 높이 통일 */
+  background: #ff4fa0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.add-btn:hover {
+  background: #e03e8c;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.course-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;  /* 아이템 간 간격 */
+}
+.course-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff6fb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 79, 162, 0.07);
+  padding: 14px 20px;
+  border: 1.5px solid #ffe0f0;
+
+  flex-shrink: 0; /* ✅ 고정 높이를 넘지 않게 함 */
+}
+.course-item span {
+  font-size: 17px;
+  font-weight: 500;
+  color: #ff4fa2;
+  letter-spacing: 0.5px;
+}
+.course-info {
+  color: #222;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.course-title {
+  font-weight: 500;
+  font-size: 16px;
+}
+.delete-btn {
+  background: #fff;
+  color: #ff4fa2;
+  border: 1.5px solid #ffb6d5;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 18px;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: 0 2px 8px rgba(255,79,162,0.08);
+}
+.delete-btn:hover {
+  background: #ff4fa2;
+  color: #fff;
+  border: 1.5px solid #ff4fa2;
+}
+.register-btn {
+  background: #ff4fa0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 8px;
+  transition: background 0.2s;
+  display: block;
+  margin-left: auto;
+}
+.register-btn:hover {
+  background: #e03e8c;
+}
+
+/* 스크롤바 스타일 */
+.left-panel::-webkit-scrollbar, .right-panel::-webkit-scrollbar, .place-list::-webkit-scrollbar, .course-list::-webkit-scrollbar {
+  width: 10px;
+  background: #f2f2f2;
+  border-radius: 8px;
+}
+.left-panel::-webkit-scrollbar-thumb, .right-panel::-webkit-scrollbar-thumb, .place-list::-webkit-scrollbar-thumb, .course-list::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .left-panel, .right-panel {
+    padding: 18px 8px;
+  }
+}
+
+.map_wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#menu_wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  margin: 10px;
+  padding: 15px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1;
+  font-size: 14px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#menu_wrap .option {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+#menu_wrap .option form {
+  display: flex;
+  gap: 10px;
+}
+
+#menu_wrap .option input {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid #ff9eaa;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#menu_wrap .option input:focus {
+  border-color: #ff9eaa;
+  box-shadow: 0 0 0 3px rgba(255, 158, 170, 0.1);
+}
+
+#menu_wrap .option button {
+  padding: 10px 20px;
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#menu_wrap .option button:hover {
+  background-color: #ffb3bd;
+}
+
+#placesList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#placesList .item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+#placesList .item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#placesList .item .info {
+  margin-bottom: 10px;
+}
+
+#placesList .item h5 {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+#placesList .item span {
+  display: block;
+  margin: 5px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+#placesList .item .tel {
+  color: #888;
+  font-size: 12px;
+}
+
+#placesList .item .add-btn {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#placesList .item .add-btn:hover {
+  background-color: #ffb3bd;
+  transform: translateY(-1px);
+}
+
+#pagination {
+  margin: 15px auto;
+  text-align: center;
+}
+
+#pagination a {
+  display: inline-block;
+  margin: 0 3px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+#pagination a:hover {
+  background-color: #ff4757;
+  color: white;
+}
+
+#pagination a.on {
+  background-color: #ff4757;
+  color: white;
+  font-weight: bold;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px;
+  margin: 10px 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.place-info {
+  flex-grow: 1;
+}
+
+.place-info h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+.place-info p {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.delete-btn {
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #ffb3bd;
+  transform: scale(1.1);
+}
+
+/*  ai 추천 코스 부분*/
+.recommendation-section {
+  padding: 20px 30px;
+  background-color: #fff8fa;
+  border-bottom: 1px solid #ffe0e9;
+}
+
+.recommendation-section h2 {
+  font-size: 18px;
+  color: #ff4d88;
+  margin-bottom: 12px;
+}
+
+.recommend-card p {
+  margin: 3px 0;
+  color: #555;
+  font-size: 13px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  width: 40%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+#menu_wrap .option input:focus {
+  border-color: #ff9eaa;
+  box-shadow: 0 0 0 3px rgba(255, 158, 170, 0.1);
+}
+
+#menu_wrap .option button {
+  padding: 10px 20px;
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#menu_wrap .option button:hover {
+  background-color: #ffb3bd;
+}
+
+#placesList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#placesList .item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+#placesList .item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#placesList .item .info {
+  margin-bottom: 10px;
+}
+
+#placesList .item h5 {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+#placesList .item span {
+  display: block;
+  margin: 5px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+#placesList .item .tel {
+  color: #888;
+  font-size: 12px;
+}
+
+#placesList .item .add-btn {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#placesList .item .add-btn:hover {
+  background-color: #ffb3bd;
+  transform: translateY(-1px);
+}
+
+#pagination {
+  margin: 15px auto;
+  text-align: center;
+}
+
+#pagination a {
+  display: inline-block;
+  margin: 0 3px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+#pagination a:hover {
+  background-color: #ff4757;
+  color: white;
+}
+
+#pagination a.on {
+  background-color: #ff4757;
+  color: white;
+  font-weight: bold;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 15px;
+  margin: 10px 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.place-info {
+  flex-grow: 1;
+}
+
+.place-info h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+.place-info p {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.delete-btn {
+  background-color: #ff9eaa;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background-color: #ffb3bd;
+  transform: scale(1.1);
+}
+
+/*  ai 추천 코스 부분*/
+.recommendation-section {
+  padding: 20px 30px;
+  background-color: #fff8fa;
+  border-bottom: 1px solid #ffe0e9;
+}
+
+.recommendation-section h2 {
+  font-size: 18px;
+  color: #ff4d88;
+  margin-bottom: 12px;
+}
+
+
+.recommend-card h4 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: #333;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.ai-recommendations{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  height: auto;             /* ✅ 고정 높이 제거 */
+  min-height: 200px;        /* ✅ 최소 높이만 주면 작을 때도 안정감 있음 */
+}
+
+.course-section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+
+  flex: 1;
+  /*overflow-y: auto;        !* ✅ 내부 스크롤 *!*/
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  flex-shrink: 0;          /* ✅ 공간 부족해도 줄어들지 않게 */
+
+
+}
+
+.ai-recommendations h3,
+.course-section h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #ff4d88;
+}
+
+.recommend-results .recommend-card {
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}

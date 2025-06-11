@@ -1,0 +1,1875 @@
+[
+  {
+    "place_id": 1,
+    "place_name": "이디야커피랩",
+    "category": "카페/디저트",
+    "address": "서울 강남구 논현동 221-17",
+    "latitude": 37.51047297,
+    "longitude": 127.0329815,
+    "keywords": ["특별한 커피 경험", "세련된 분위기", "데이트 시작", "사진 찍기 좋은 곳"]
+  },
+  {
+    "place_id": 2,
+    "place_name": "삼원가든",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 623-5",
+    "latitude": 37.52482605,
+    "longitude": 127.0326428,
+    "keywords": ["격식 있는 식사", "넓은 정원", "부모님과 함께", "중요한 날 기념"]
+  },
+  {
+    "place_id": 3,
+    "place_name": "새벽집 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 129-10",
+    "latitude": 37.52552601,
+    "longitude": 127.0528874,
+    "keywords": ["늦은 시간까지", "든든한 식사", "편안한 분위기", "소주 한 잔"]
+  },
+  {
+    "place_id": 4,
+    "place_name": "진미평양냉면 별관",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 115-10",
+    "latitude": 37.51613579,
+    "longitude": 127.0360472,
+    "keywords": ["깔끔한 맛", "미식 데이트", "냉면 마니아", "점심 식사"]
+  },
+  {
+    "place_id": 5,
+    "place_name": "영천영화 뜰",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 50-13",
+    "latitude": 37.5239597,
+    "longitude": 127.0495785,
+    "keywords": ["고즈넉한 분위기", "정갈한 한식", "어른들과 함께", "조용한 대화"]
+  },
+  {
+    "place_id": 6,
+    "place_name": "압구정공주떡",
+    "category": "카페/디저트",
+    "address": "서울 강남구 신사동 569-31",
+    "latitude": 37.52356597,
+    "longitude": 127.0274668,
+    "keywords": ["전통적인 맛", "선물 구매", "달콤한 간식", "특별한 떡"]
+  },
+  {
+    "place_id": 7,
+    "place_name": "강강술래 역삼점",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 797-19",
+    "latitude": 37.49414836,
+    "longitude": 127.0394788,
+    "keywords": ["푸짐한 고기", "회식 분위기", "가족 외식", "넓은 공간"]
+  },
+  {
+    "place_id": 8,
+    "place_name": "중앙해장",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 996-16",
+    "latitude": 37.5082736,
+    "longitude": 127.0654725,
+    "keywords": ["얼큰한 국물", "속 풀리는 아침", "현지인 맛집", "소박한 분위기"]
+  },
+  {
+    "place_id": 9,
+    "place_name": "스타벅스 강남세곡DT점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 세곡동 21-3",
+    "latitude": 37.46699426,
+    "longitude": 127.1183313,
+    "keywords": ["드라이브 스루", "빠른 커피", "편안한 만남", "작업하기 좋은"]
+  },
+  {
+    "place_id": 10,
+    "place_name": "한우리 본점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 91-18",
+    "latitude": 37.52114937,
+    "longitude": 127.0347283,
+    "keywords": ["따뜻한 국물 요리", "깔끔한 맛", "어른들과 식사", "다양한 메뉴"]
+  },
+  {
+    "place_id": 11,
+    "place_name": "스케줄 청담",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 90-19",
+    "latitude": 37.52459669,
+    "longitude": 127.0427031,
+    "keywords": ["분위기 있는 식사", "특별한 날", "세련된 인테리어", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 12,
+    "place_name": "런던베이글뮤지엄 도산점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 신사동 642-25",
+    "latitude": 37.52606833,
+    "longitude": 127.0364388,
+    "keywords": ["인스타 감성", "브런치 데이트", "다양한 베이글", "웨이팅 필수"]
+  },
+  {
+    "place_id": 13,
+    "place_name": "울프강스테이크하우스",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 89-6",
+    "latitude": 37.52439983,
+    "longitude": 127.0414156,
+    "keywords": ["고급 스테이크", "특별한 기념일", "근사한 저녁", "와인과 함께"]
+  },
+  {
+    "place_id": 14,
+    "place_name": "몽중헌 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 97",
+    "latitude": 37.52429227,
+    "longitude": 127.0448161,
+    "keywords": ["고급 중식", "조용한 룸", "비즈니스 미팅", "특별한 날 식사"]
+  },
+  {
+    "place_id": 15,
+    "place_name": "강강술래 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 125-16",
+    "latitude": 37.52508587,
+    "longitude": 127.0518667,
+    "keywords": ["넓고 쾌적한 공간", "단체 모임", "고기 외 다양한 메뉴", "가족 식사"]
+  },
+  {
+    "place_id": 16,
+    "place_name": "한일관 압구정점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 619-4",
+    "latitude": 37.52782463,
+    "longitude": 127.0324914,
+    "keywords": ["오랜 전통", "익숙한 맛", "어른들과 함께", "격식 있는 자리"]
+  },
+  {
+    "place_id": 17,
+    "place_name": "금수복국 압구정점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 627-13",
+    "latitude": 37.52353758,
+    "longitude": 127.0327837,
+    "keywords": ["시원한 국물", "건강한 식사", "해장 데이트", "특별한 메뉴"]
+  },
+  {
+    "place_id": 18,
+    "place_name": "백마김씨네 도곡본점 주차장",
+    "category": "맛집",
+    "address": "서울 강남구 도곡동 180-24",
+    "latitude": 37.48700918,
+    "longitude": 127.0458646,
+    "keywords": ["주차 편리", "접근성 좋음", "식사 전후 편리", "차량 이용 데이트"]
+  },
+  {
+    "place_id": 19,
+    "place_name": "포브라더스 도곡점",
+    "category": "맛집",
+    "address": "서울 강남구 도곡동 423-5",
+    "latitude": 37.48399911,
+    "longitude": 127.0453302,
+    "keywords": ["이국적인 분위기", "베트남 음식", "색다른 데이트", "가성비 좋은"]
+  },
+  {
+    "place_id": 20,
+    "place_name": "뱃고동",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 663",
+    "latitude": 37.52684989,
+    "longitude": 127.0380434,
+    "keywords": ["신선한 해산물", "술과 함께", "저녁 데이트", "활기찬 분위기"]
+  },
+  {
+    "place_id": 21,
+    "place_name": "영동장어",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 98-8",
+    "latitude": 37.52031666,
+    "longitude": 127.0353388,
+    "keywords": ["몸보신", "활력 충전", "여름 데이트", "특별한 메뉴"]
+  },
+  {
+    "place_id": 22,
+    "place_name": "김영모과자점 도곡타워점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 도곡동 467-19",
+    "latitude": 37.48740337,
+    "longitude": 127.0513431,
+    "keywords": ["맛있는 빵과 케이크", "선물 구매", "달콤한 데이트", "커피와 함께"]
+  },
+  {
+    "place_id": 23,
+    "place_name": "신의주찹쌀순대",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 68-7",
+    "latitude": 37.52251381,
+    "longitude": 127.0551873,
+    "keywords": ["푸짐한 순대", "서민적인 맛", "든든한 한 끼", "로컬 맛집 탐방"]
+  },
+  {
+    "place_id": 24,
+    "place_name": "농민백암순대 본점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 896-33",
+    "latitude": 37.50370815,
+    "longitude": 127.0530077,
+    "keywords": ["깊은 맛의 순대국", "뜨끈한 국물", "해장 데이트", "순대국 마니아"]
+  },
+  {
+    "place_id": 25,
+    "place_name": "수담한정식",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 113",
+    "latitude": 37.5106038,
+    "longitude": 127.045939,
+    "keywords": ["정갈한 한상차림", "상견례 장소", "귀한 손님 접대", "전통적인 분위기"]
+  },
+  {
+    "place_id": 26,
+    "place_name": "몽중헌 대치점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 983-17",
+    "latitude": 37.50331443,
+    "longitude": 127.065527,
+    "keywords": ["고급 중식 요리", "조용한 분위기", "가족 외식", "특별한 날 식사"]
+  },
+  {
+    "place_id": 27,
+    "place_name": "효미역 도곡점",
+    "category": "맛집",
+    "address": "서울 강남구 도곡동 423-7",
+    "latitude": 37.48418646,
+    "longitude": 127.0454886,
+    "keywords": ["저렴하고 맛있는", "간단한 식사", "혼밥 데이트", "빠른 식사"]
+  },
+  {
+    "place_id": 28,
+    "place_name": "청담골",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 19-17",
+    "latitude": 37.66733781,
+    "longitude": 126.9566395,
+    "keywords": ["푸근한 분위기", "다양한 향토 음식", "술과 함께", "편안한 저녁"]
+  },
+  {
+    "place_id": 29,
+    "place_name": "해목",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 95-21",
+    "latitude": 35.16181404,
+    "longitude": 129.1596608,
+    "keywords": ["일본 가정식", "정갈한 밥상", "조용한 식사", "색다른 메뉴"]
+  },
+  {
+    "place_id": 30,
+    "place_name": "밀란국수 개포본점",
+    "category": "맛집",
+    "address": "서울 강남구 개포동 1215",
+    "latitude": 37.47853838,
+    "longitude": 127.0491381,
+    "keywords": ["다양한 종류의 국수", "저렴한 가격", "간단한 점심", "현지인 맛집"]
+  },
+  {
+    "place_id": 31,
+    "place_name": "보노보노플러스 삼성점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 942-10",
+    "latitude": 37.50694039,
+    "longitude": 127.058043,
+    "keywords": ["다양한 해산물", "푸짐한 뷔페", "특별한 날 외식", "넓은 공간"]
+  },
+  {
+    "place_id": 32,
+    "place_name": "아베크 청담",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 665-1",
+    "latitude": 37.52563491,
+    "longitude": 127.0393415,
+    "keywords": ["고급스러운 분위기", "데이트", "브런치", "다양한 메뉴"]
+
+  },
+  {
+    "place_id": 33,
+    "place_name": "곰바위 봉은사 본점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 76-10",
+    "latitude": 37.51488687,
+    "longitude": 127.058807,
+    "keywords": ["고급스러운 한식", "조용한 룸", "상견례 장소", "귀한 손님 대접"]
+  },
+  {
+    "place_id": 34,
+    "place_name": "신동궁감자탕 역삼직영점",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 823-35",
+    "latitude": 37.49788595,
+    "longitude": 127.0329082,
+    "keywords": ["푸짐한 감자탕", "얼큰한 국물", "저녁 식사", "술과 함께"]
+  },
+  {
+    "place_id": 35,
+    "place_name": "대려도",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 833",
+    "latitude": 37.49352886,
+    "longitude": 127.0322685,
+    "keywords": ["가성비 좋은 한식", "편안한 분위기", "점심 식사", "혼밥도 괜찮은"]
+  },
+  {
+    "place_id": 36,
+    "place_name": "폴바셋 일원역점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 일원동 717",
+    "latitude": 37.48400286,
+    "longitude": 127.0844509,
+    "keywords": ["고급 커피", "넓고 조용한 공간", "여유로운 데이트", "작업하기 좋은"]
+  },
+  {
+    "place_id": 37,
+    "place_name": "한성칼국수",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 98-12",
+    "latitude": 37.45629597,
+    "longitude": 127.0091866,
+    "keywords": ["시원한 칼국수", "간단한 식사", "점심 메뉴", "오래된 맛집"]
+  },
+  {
+    "place_id": 38,
+    "place_name": "만강 수서점",
+    "category": "맛집",
+    "address": "서울 강남구 율현동 536",
+    "latitude": 37.47411969,
+    "longitude": 127.1153568,
+    "keywords": ["다양한 중식 요리", "가족 외식", "넓은 테이블", "편안한 분위기"]
+  },
+  {
+    "place_id": 39,
+    "place_name": "테라로사 포스코센터점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 대치동 892",
+    "latitude": 37.50596474,
+    "longitude": 127.0558798,
+    "keywords": ["분위기 좋은 카페", "맛있는 커피", "디저트와 함께", "책 읽기 좋은"]
+  },
+  {
+    "place_id": 40,
+    "place_name": "대도식당 삼성점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 127-3",
+    "latitude": 37.5101713,
+    "longitude": 127.0544487,
+    "keywords": ["최상급 한우", "특별한 날 외식", "고급스러운 분위기", "회식 장소"]
+  },
+  {
+    "place_id": 41,
+    "place_name": "비비브라운",
+    "category": "카페/디저트",
+    "address": "서울 강남구 청담동 2-10",
+    "latitude": 37.52303596,
+    "longitude": 127.0406976,
+    "keywords": ["예쁜 브런치", "여성스러운 분위기", "사진 찍기 좋은", "가벼운 식사"]
+  },
+  {
+    "place_id": 42,
+    "place_name": "봉화면옥 개포본점",
+    "category": "맛집",
+    "address": "서울 강남구 개포동 1194-3",
+    "latitude": 37.47471041,
+    "longitude": 127.0481147,
+    "keywords": ["전통 평양냉면", "깊은 육수 맛", "미식가 데이트", "어른들과 함께"]
+  },
+  {
+    "place_id": 43,
+    "place_name": "영양센타 대치점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 1023-8",
+    "latitude": 37.49771404,
+    "longitude": 127.0581568,
+    "keywords": ["추억의 맛", "저렴한 치킨", "간단한 저녁", "맥주와 함께"]
+  },
+  {
+    "place_id": 44,
+    "place_name": "공리특허짬뽕 논현본점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 176-24",
+    "latitude": 37.50905507,
+    "longitude": 127.0319856,
+    "keywords": ["매콤한 짬뽕", "해장 데이트", "푸짐한 해산물", "스트레스 해소"]
+  },
+  {
+    "place_id": 45,
+    "place_name": "능라도 강남점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 151-7",
+    "latitude": 37.50967705,
+    "longitude": 127.0555342,
+    "keywords": ["수준 높은 평양냉면", "미슐랭 맛집", "깔끔한 식사", "어른들과 함께"]
+  },
+  {
+    "place_id": 46,
+    "place_name": "이도곰탕 본점",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 671-17",
+    "latitude": 37.5033732,
+    "longitude": 127.0384612,
+    "keywords": ["깊고 진한 곰탕", "든든한 한 끼", "아침 또는 점심", "어른들과 함께"]
+  },
+  {
+    "place_id": 47,
+    "place_name": "피양옥",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 616-8",
+    "latitude": 37.5280519,
+    "longitude": 127.0316769,
+    "keywords": ["정통 평양냉면", "슴슴한 맛", "미식 데이트", "냉면 애호가"]
+  },
+  {
+    "place_id": 48,
+    "place_name": "신동궁감자탕뼈숯불구이 선릉직영점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 890-44",
+    "latitude": 37.50408482,
+    "longitude": 127.0528926,
+    "keywords": ["매콤한 뼈숯불구이", "푸짐한 감자탕", "저녁 식사", "술과 함께"]
+  },
+  {
+    "place_id": 49,
+    "place_name": "연타발 압구정본점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 629-33",
+    "latitude": 37.52143842,
+    "longitude": 127.0321493,
+    "keywords": ["고급 갈비", "넓은 룸", "회식 또는 가족 모임", "격식 있는 식사"]
+  },
+  {
+    "place_id": 50,
+    "place_name": "마켓오 압구정점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 91-6",
+    "latitude": 37.52161768,
+    "longitude": 127.0354389,
+    "keywords": ["세련된 캐주얼 레스토랑", "맛있는 퓨전 음식", "분위기 좋은 저녁", "와인과 함께"]
+  },
+  {
+    "place_id": 51,
+    "place_name": "퀸즈파크 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 83-18",
+    "latitude": 37.52592607,
+    "longitude": 127.0415816,
+    "keywords": ["브런치", "카페 분위기", "여성스러운 모임", "케이크 맛집"]
+  },
+  {
+    "place_id": 52,
+    "place_name": "오엔 카페앤레스토랑",
+    "category": "맛집",
+    "address": "서울 강남구 압구정동 380-2",
+    "latitude": 37.52770254,
+    "longitude": 127.0176643,
+    "keywords": ["한강뷰", "분위기 좋은 식사", "특별한 날", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 53,
+    "place_name": "한티옥",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 1024-4",
+    "latitude": 37.51284749,
+    "longitude": 127.1243973,
+    "keywords": ["따뜻한 설렁탕", "든든한 한 끼", "아침 식사", "어른들과 함께"]
+  },
+  {
+    "place_id": 54,
+    "place_name": "강남면옥 대치점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 1023-4",
+    "latitude": 37.49751981,
+    "longitude": 127.0573526,
+    "keywords": ["매콤한 갈비찜", "시원한 냉면", "가족 외식", "푸짐한 식사"]
+  },
+  {
+    "place_id": 55,
+    "place_name": "도수향",
+    "category": "카페/디저트",
+    "address": "서울 강남구 신사동 662-7",
+    "latitude": 37.52717772,
+    "longitude": 127.0384644,
+    "keywords": ["고급스러운 떡", "선물용", "전통 디저트", "특별한 날"]
+  },
+  {
+    "place_id": 56,
+    "place_name": "김인복의광평 삼성본점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 162-29",
+    "latitude": 37.51434218,
+    "longitude": 127.0648851,
+    "keywords": ["맛있는 돼지갈비", "가족 외식", "넓은 공간", "편안한 분위기"]
+  },
+  {
+    "place_id": 57,
+    "place_name": "평양면옥 도곡점",
+    "category": "맛집",
+    "address": "서울 강남구 도곡동 423-15",
+    "latitude": 37.48333617,
+    "longitude": 127.0448052,
+    "keywords": ["깔끔한 평양냉면", "미식 데이트", "여름 메뉴", "점심 식사"]
+  },
+  {
+    "place_id": 58,
+    "place_name": "팀호완 삼성점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 148-15",
+    "latitude": 37.51142707,
+    "longitude": 127.0568475,
+    "keywords": ["다양한 딤섬", "홍콩 음식", "색다른 데이트", "캐주얼한 식사"]
+  },
+  {
+    "place_id": 59,
+    "place_name": "보메청담 주차장",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 91-6",
+    "latitude": 37.52423269,
+    "longitude": 127.0426938,
+    "keywords": ["주차 편리", "발렛파킹", "차량 이용 고객", "접근성 용이"]
+  },
+  {
+    "place_id": 60,
+    "place_name": "압구정하루",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 663-9",
+    "latitude": 37.52677052,
+    "longitude": 127.0382945,
+    "keywords": ["분위기 좋은 이자카야", "사케와 함께", "저녁 데이트", "조용한 대화"]
+  },
+  {
+    "place_id": 61,
+    "place_name": "대가방 본점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 278-4",
+    "latitude": 37.51070224,
+    "longitude": 127.0429293,
+    "keywords": ["오래된 중식 맛집", "푸짐한 요리", "편안한 분위기", "가족 외식"]
+  },
+  {
+    "place_id": 62,
+    "place_name": "홍박사생고기 강남점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 7-15",
+    "latitude": 37.51904641,
+    "longitude": 127.0279855,
+    "keywords": ["신선한 생고기", "가성비 좋은", "퇴근 후 식사", "소주와 함께"]
+  },
+  {
+    "place_id": 63,
+    "place_name": "미엘",
+    "category": "카페/디저트",
+    "address": "서울 강남구 청담동 94-3",
+    "latitude": 37.52521894,
+    "longitude": 127.0436492,
+    "keywords": ["예쁜 인테리어", "다양한 디저트", "사진 찍기 좋은", "여성스러운 분위기"]
+  },
+  {
+    "place_id": 64,
+    "place_name": "가담",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 608-8",
+    "latitude": 37.52637641,
+    "longitude": 127.0302689,
+    "keywords": ["퓨전 한식", "세련된 분위기", "특별한 날", "와인과 함께"]
+  },
+  {
+    "place_id": 65,
+    "place_name": "스타벅스 강남세곡점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 세곡동 551",
+    "latitude": 37.46727525,
+    "longitude": 127.0999276,
+    "keywords": ["편안한 분위기", "조용한 대화", "간단한 만남", "작업하기 좋은"]
+  },
+  {
+    "place_id": 66,
+    "place_name": "나리식당 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 89-8",
+    "latitude": 37.52448082,
+    "longitude": 127.0416939,
+    "keywords": ["레트로 분위기", "삼겹살", "편안한 저녁", "소주와 함께"]
+  },
+  {
+    "place_id": 67,
+    "place_name": "스타벅스 대치점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 대치동 988-17",
+    "latitude": 37.49957613,
+    "longitude": 127.0622589,
+    "keywords": ["접근성 좋음", "편리한 만남", "간단한 음료", "잠깐의 휴식"]
+  },
+  {
+    "place_id": 68,
+    "place_name": "더라운드 삼성점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 78",
+    "latitude": 37.52005652,
+    "longitude": 127.0575995,
+    "keywords": ["분위기 있는 이탈리안", "특별한 날", "데이트 코스", "와인과 함께"]
+  },
+  {
+    "place_id": 69,
+    "place_name": "뜨락",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 130-13",
+    "latitude": 37.52443006,
+    "longitude": 127.055579,
+    "keywords": ["고급 한정식", "조용한 분위기", "상견례", "특별한 기념일"]
+  },
+  {
+    "place_id": 70,
+    "place_name": "이남장 삼성점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 165-12",
+    "latitude": 37.51356846,
+    "longitude": 127.0644501,
+    "keywords": ["깊은 맛 설렁탕", "든든한 식사", "아침 또는 점심", "어른들과 함께"]
+  },
+  {
+    "place_id": 71,
+    "place_name": "하이디라오 COEX점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.5116618,
+    "longitude": 127.0577525,
+    "keywords": ["색다른 훠궈", "즐거운 식사", "데이트 코스", "다양한 토핑"]
+  },
+  {
+    "place_id": 72,
+    "place_name": "명인등심 압구정본점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 587-14",
+    "latitude": 37.52057412,
+    "longitude": 127.029615,
+    "keywords": ["고급 등심", "특별한 날", "격식 있는 식사", "와인과 함께"]
+  },
+  {
+    "place_id": 73,
+    "place_name": "무탄 압구정 본점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 613-2",
+    "latitude": 37.52729542,
+    "longitude": 127.0303077,
+    "keywords": ["트렌디한 중식", "분위기 있는 식사", "데이트 코스", "색다른 메뉴"]
+  },
+  {
+    "place_id": 74,
+    "place_name": "청국장과보리밥 수서점",
+    "category": "맛집",
+    "address": "서울 강남구 수서동 450-4",
+    "latitude": 37.48612847,
+    "longitude": 127.0993376,
+    "keywords": ["건강한 한식", "푸짐한 보리밥", "어른들과 함께", "편안한 식사"]
+  },
+  {
+    "place_id": 75,
+    "place_name": "강서면옥 압구정점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 645-30",
+    "latitude": 37.52556416,
+    "longitude": 127.035124,
+    "keywords": ["시원한 냉면", "갈비찜", "가족 외식", "점심 또는 저녁"]
+  },
+  {
+    "place_id": 76,
+    "place_name": "오아시스",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 88-5",
+    "latitude": 37.52477404,
+    "longitude": 127.0405764,
+    "keywords": ["분위기 좋은 레스토랑", "특별한 날", "데이트 코스", "와인과 함께"]
+  },
+  {
+    "place_id": 77,
+    "place_name": "빌즈 강남",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 736-1",
+    "latitude": 37.49974504,
+    "longitude": 127.0349536,
+    "keywords": ["브런치", "팬케이크", "캐주얼한 식사", "데이트"]
+  },
+  {
+    "place_id": 78,
+    "place_name": "연타발 선릉점",
+    "category": "맛집",
+    "address": "서울 강남구 대치동 891-6",
+    "latitude": 37.5056809,
+    "longitude": 127.0539931,
+    "keywords": ["고급 갈비", "회식 장소", "가족 모임", "넓은 공간"]
+  },
+  {
+    "place_id": 79,
+    "place_name": "세종한우 학동역점",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 89-22",
+    "latitude": 37.51495095,
+    "longitude": 127.0330288,
+    "keywords": ["고품질 한우", "특별한 날", "데이트 코스", "조용한 분위기"]
+  },
+  {
+    "place_id": 80,
+    "place_name": "오미가",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 585",
+    "latitude": 37.52283065,
+    "longitude": 127.0278964,
+    "keywords": ["세련된 한식", "데이트 코스", "특별한 날", "조용한 분위기"]
+  },
+  {
+    "place_id": 81,
+    "place_name": "마코토 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 92-18",
+    "latitude": 37.52436121,
+    "longitude": 127.0435853,
+    "keywords": ["일본 가정식", "정갈한 식사", "데이트 코스", "조용한 분위기"]
+  },
+  {
+    "place_id": 82,
+    "place_name": "페어링룸",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 117-12",
+    "latitude": 37.52538311,
+    "longitude": 127.0478214,
+    "keywords": ["창의적인 요리", "분위기 좋은", "데이트 코스", "와인 페어링"]
+  },
+  {
+    "place_id": 83,
+    "place_name": "하모",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 627-17",
+    "latitude": 35.57117476,
+    "longitude": 126.8214659,
+    "keywords": ["남도 음식", "특별한 해산물", "데이트 코스", "술과 함께"]
+  },
+  {
+    "place_id": 84,
+    "place_name": "금돈옥 청담점",
+    "category": "맛집",
+    "address": "서울 강남구 청담동 32-6",
+    "latitude": 37.51949125,
+    "longitude": 127.0483154,
+    "keywords": ["맛있는 돼지고기", "편안한 분위기", "저녁 식사", "술과 함께"]
+  },
+  {
+    "place_id": 85,
+    "place_name": "평양면옥",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 66-2",
+    "latitude": 37.51895243,
+    "longitude": 127.0291483,
+    "keywords": ["전통 평양냉면", "미식 데이트", "여름 메뉴", "어른들과 함께"]
+  },
+  {
+    "place_id": 86,
+    "place_name": "홍명",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 37-9",
+    "latitude": 37.51453743,
+    "longitude": 127.0294588,
+    "keywords": ["다양한 중식 요리", "편안한 분위기", "가족 외식", "저녁 식사"]
+  },
+  {
+    "place_id": 87,
+    "place_name": "오스테리아 꼬또 압구정점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 624-20",
+    "latitude": 37.52509196,
+    "longitude": 127.0322244,
+    "keywords": ["분위기 좋은 이탈리안", "데이트 코스", "파스타", "와인"]
+  },
+  {
+    "place_id": 88,
+    "place_name": "추오정 남원추어탕",
+    "category": "맛집",
+    "address": "서울 강남구 자곡동 302-6",
+    "latitude": 37.42291134,
+    "longitude": 126.9116637,
+    "keywords": ["건강한 추어탕", "든든한 식사", "어른들과 함께", "보양식"]
+  },
+  {
+    "place_id": 89,
+    "place_name": "조선팰리스 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 676",
+    "latitude": 37.50287487,
+    "longitude": 127.0413471,
+    "keywords": ["럭셔리 호텔", "기념일", "특별한 경험", "도심 속 휴식"]
+  },
+  {
+    "place_id": 90,
+    "place_name": "벌교한상",
+    "category": "맛집",
+    "address": "서울 강남구 수서동 450-8",
+    "latitude": 37.4858401,
+    "longitude": 127.0993915,
+    "keywords": ["남도 음식", "다양한 해산물", "가족 외식", "푸짐한 한상"]
+  },
+  {
+    "place_id": 91,
+    "place_name": "애란궁",
+    "category": "맛집",
+    "address": "서울 강남구 수서동 490-4",
+    "latitude": 37.48483227,
+    "longitude": 127.0978299,
+    "keywords": ["가성비 좋은 한식", "동네 맛집", "편안한 식사", "혼밥도 괜찮은"]
+  },
+  {
+    "place_id": 92,
+    "place_name": "마포숯불갈비",
+    "category": "맛집",
+    "address": "서울 강남구 논현동 62-3",
+    "latitude": 37.52080752,
+    "longitude": 127.0328673,
+    "keywords": ["숯불 돼지갈비", "퇴근 후 데이트", "편안한 분위기", "술과 함께"]
+  },
+  {
+    "place_id": 93,
+    "place_name": "단미그린비",
+    "category": "맛집",
+    "address": "서울 강남구 자곡동 286",
+    "latitude": 37.47931037,
+    "longitude": 127.1026932,
+    "keywords": ["건강한 샐러드", "브런치 데이트", "가벼운 식사", "예쁜 분위기"]
+  },
+  {
+    "place_id": 94,
+    "place_name": "흑돈가 삼성역점",
+    "category": "맛집",
+    "address": "서울 강남구 삼성동 147-15",
+    "latitude": 37.51250582,
+    "longitude": 127.056328,
+    "keywords": ["제주 흑돼지", "회식 장소", "고급스러운 분위기", "특별한 날"]
+  },
+  {
+    "place_id": 95,
+    "place_name": "꽁티드툴레아 도산점",
+    "category": "맛집",
+    "address": "서울 강남구 신사동 646-21",
+    "latitude": 37.52556362,
+    "longitude": 127.0368888,
+    "keywords": ["브런치", "예쁜 카페", "사진 찍기 좋은 곳", "여성스러운 분위기"]
+  },
+  {
+    "place_id": 96,
+    "place_name": "현대백화점 무역센터점",
+    "category": "쇼핑",
+    "address": "서울 강남구 삼성동 159-7",
+    "latitude": 37.50865144,
+    "longitude": 127.0597748,
+    "keywords": ["쇼핑 데이트", "다양한 브랜드", "선물 구매", "데이트 코스"]
+  },
+  {
+    "place_id": 97,
+    "place_name": "현대백화점 압구정본점",
+    "category": "쇼핑",
+    "address": "서울 강남구 압구정동 429",
+    "latitude": 37.5273727,
+    "longitude": 127.0274682,
+    "keywords": ["럭셔리 쇼핑", "명품 브랜드", "특별한 선물", "데이트 코스"]
+  },
+  {
+    "place_id": 98,
+    "place_name": "코엑스",
+    "category": "영화/전시",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51266138,
+    "longitude": 127.0588278,
+    "keywords": ["영화 관람", "전시회 관람", "데이트 코스", "다양한 즐길 거리"]
+  },
+  {
+    "place_id": 99,
+    "place_name": "금강안경 갤러리아 명품관 EAST점",
+    "category": "쇼핑",
+    "address": "서울 강남구 압구정동 515",
+    "latitude": 37.527919,
+    "longitude": 127.0418316,
+    "keywords": ["명품 안경", "특별한 선물", "쇼핑 데이트", "개성 있는 스타일"]
+  },
+  {
+    "place_id": 100,
+    "place_name": "그랜드인터컨티넨탈 서울파르나스",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 159-8",
+    "latitude": 37.50919151,
+    "longitude": 127.0608067,
+    "keywords": ["럭셔리 호캉스", "기념일", "편안한 휴식", "도심 속 힐링"]
+  },
+  {
+    "place_id": 101,
+    "place_name": "롯데백화점 강남점",
+    "category": "쇼핑",
+    "address": "서울 강남구 대치동 937",
+    "latitude": 37.49695949,
+    "longitude": 127.0532811,
+    "keywords": ["쇼핑 데이트", "다양한 브랜드", "선물 구매", "데이트 코스"]
+  },
+  {
+    "place_id": 102,
+    "place_name": "갤러리아백화점 WEST점",
+    "category": "쇼핑",
+    "address": "서울 강남구 압구정동 494",
+    "latitude": 37.52842775,
+    "longitude": 127.0401439,
+    "keywords": ["명품 쇼핑", "세련된 분위기", "특별한 선물", "데이트 코스"]
+  },
+  {
+    "place_id": 103,
+    "place_name": "오크우드프리미어 코엑스센터",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51104533,
+    "longitude": 127.0581185,
+    "keywords": ["고급 레지던스", "장기 투숙", "편안한 휴식", "도심 전망"]
+  },
+  {
+    "place_id": 104,
+    "place_name": "안다즈 서울 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 신사동 603",
+    "latitude": 37.52541809,
+    "longitude": 127.0288703,
+    "keywords": ["트렌디한 호텔", "감각적인 디자인", "특별한 경험", "루프탑 바"]
+  },
+  {
+    "place_id": 105,
+    "place_name": "대한불교조계종 봉은사",
+    "category": "걷기",
+    "address": "서울 강남구 삼성동 73",
+    "latitude": 37.51551811,
+    "longitude": 127.0577103,
+    "keywords": ["조용한 산책", "전통 건축", "마음의 평화", "힐링 데이트"]
+  },
+  {
+    "place_id": 106,
+    "place_name": "리베라호텔 청담",
+    "category": "호캉스",
+    "address": "서울 강남구 청담동 53-7",
+    "latitude": 37.52382702,
+    "longitude": 127.0542098,
+    "keywords": ["클래식한 분위기", "한강 전망", "편안한 휴식", "가성비 호캉스"]
+  },
+  {
+    "place_id": 107,
+    "place_name": "노보텔 앰배서더 서울강남",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 603",
+    "latitude": 37.50529326,
+    "longitude": 127.0289134,
+    "keywords": ["비즈니스 호텔", "접근성 좋음", "깔끔한 시설", "편안한 숙박"]
+  },
+  {
+    "place_id": 108,
+    "place_name": "신라스테이 삼성",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 168-3",
+    "latitude": 37.50991378,
+    "longitude": 127.0631757,
+    "keywords": ["깔끔하고 모던한", "가성비 호캉스", "비즈니스 고객", "편안한 휴식"]
+  },
+  {
+    "place_id": 109,
+    "place_name": "신라스테이 역삼",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 675-3",
+    "latitude": 37.50497603,
+    "longitude": 127.0413076,
+    "keywords": ["접근성 좋은 위치", "깔끔한 객실", "가성비 숙박", "비즈니스 여행"]
+  },
+  {
+    "place_id": 110,
+    "place_name": "코엑스 아쿠아리움",
+    "category": "영화/전시",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51340939,
+    "longitude": 127.0584834,
+    "keywords": ["이색 데이트", "해양 생물 관람", "사진 찍기 좋은 곳", "실내 데이트"]
+  },
+  {
+    "place_id": 111,
+    "place_name": "압구정로데오거리",
+    "category": "놀거리",
+    "address": "서울 강남구 신사동 668-33",
+    "latitude": 37.52675582,
+    "longitude": 127.039152,
+    "keywords": ["패션 쇼핑", "트렌디한 분위기", "거리 공연", "젊은층 데이트"]
+  },
+  {
+    "place_id": 112,
+    "place_name": "메가박스 코엑스",
+    "category": "영화/전시",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51274336,
+    "longitude": 127.0588471,
+    "keywords": ["최신 영화 관람", "편안한 좌석", "데이트 코스", "문화 생활"]
+  },
+  {
+    "place_id": 113,
+    "place_name": "호텔삼정 제1주차장",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 605-1",
+    "latitude": 37.50604929,
+    "longitude": 127.0320929,
+    "keywords": ["주차 편리", "접근성 좋음", "호텔 이용객", "편안한 이동"]
+  },
+  {
+    "place_id": 114,
+    "place_name": "그랜드 머큐어 임피리얼 팰리스 서울 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 248-7",
+    "latitude": 37.51407163,
+    "longitude": 127.035907,
+    "keywords": ["고급스러운 분위기", "편안한 휴식", "기념일", "특별한 숙박"]
+  },
+  {
+    "place_id": 115,
+    "place_name": "L7 강남바이롯데",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 142-42",
+    "latitude": 37.5057648,
+    "longitude": 127.0517538,
+    "keywords": ["트렌디한 디자인", "루프탑 바", "젊은층 선호", "도심 속 휴식"]
+  },
+  {
+    "place_id": 116,
+    "place_name": "스타필드 코엑스몰",
+    "category": "쇼핑",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51292302,
+    "longitude": 127.0581324,
+    "keywords": ["다양한 쇼핑", "데이트 코스", "맛집", "문화 생활"]
+  },
+  {
+    "place_id": 117,
+    "place_name": "엘리에나호텔 웨딩홀",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 152",
+    "latitude": 37.51117615,
+    "longitude": 127.0315341,
+    "keywords": ["웨딩", "연회", "격식 있는 행사", "고급스러운 분위기"]
+  },
+  {
+    "place_id": 118,
+    "place_name": "Apple 가로수길",
+    "category": "놀거리",
+    "address": "서울 강남구 신사동 534-19",
+    "latitude": 37.52081982,
+    "longitude": 127.0227294,
+    "keywords": ["애플 제품 체험", "사진 찍기 좋은 곳", "가로수길 데이트", "트렌디한 분위기"]
+  },
+  {
+    "place_id": 119,
+    "place_name": "아난티 앳 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 74-6",
+    "latitude": 37.51755759,
+    "longitude": 127.0294758,
+    "keywords": ["고급스러운 호텔", "조용한 분위기", "특별한 경험", "도심 속 힐링"]
+  },
+  {
+    "place_id": 120,
+    "place_name": "AC 호텔 바이 메리어트 서울 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 642",
+    "latitude": 37.50123697,
+    "longitude": 127.0354203,
+    "keywords": ["모던한 디자인", "루프탑 바", "비즈니스 고객", "편안한 숙박"]
+  },
+  {
+    "place_id": 121,
+    "place_name": "포포인츠 바이쉐라톤 서울강남",
+    "category": "호캉스",
+    "address": "서울 강남구 신사동 587-21",
+    "latitude": 37.52029328,
+    "longitude": 127.0284927,
+    "keywords": ["모던한 분위기", "가성비 좋은", "비즈니스 고객", "편안한 숙박"]
+  },
+  {
+    "place_id": 122,
+    "place_name": "세븐럭카지노 강남코엑스점",
+    "category": "놀거리",
+    "address": "서울 강남구 삼성동 159",
+    "latitude": 37.51208059,
+    "longitude": 127.0581092,
+    "keywords": ["이색적인 경험", "즐거운 시간", "특별한 활동", "성인 데이트"]
+  },
+  {
+    "place_id": 123,
+    "place_name": "글래드 강남코엑스센터",
+    "category": "호캉스",
+    "address": "서울 강남구 대치동 995-16",
+    "latitude": 37.5088543,
+    "longitude": 127.0646497,
+    "keywords": ["깔끔한 인테리어", "비즈니스 고객", "코엑스 인접", "편리한 위치"]
+  },
+  {
+    "place_id": 124,
+    "place_name": "이비스 스타일 앰배서더 서울 강남",
+    "category": "호캉스",
+    "address": "서울 강남구 대치동 893-1",
+    "latitude": 37.50511002,
+    "longitude": 127.0570689,
+    "keywords": ["트렌디한 디자인", "가성비 숙박", "젊은층 선호", " lively 분위기"]
+  },
+  {
+    "place_id": 125,
+    "place_name": "CGV 청담씨네시티",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 651-21",
+    "latitude": 37.52295067,
+    "longitude": 127.0370324,
+    "keywords": ["특별관", "고급 영화관", "문화 생활", "데이트"]
+  },
+  {
+    "place_id": 126,
+    "place_name": "CGV 강남",
+    "category": "영화/전시",
+    "address": "서울 강남구 역삼동 814-6",
+    "latitude": 37.50165739,
+    "longitude": 127.0263912,
+    "keywords": ["접근성 좋은", "다양한 영화 상영", "문화 생활", "데이트"]
+  },
+  {
+    "place_id": 127,
+    "place_name": "세텍",
+    "category": "영화/전시",
+    "address": "서울 강남구 대치동 514",
+    "latitude": 37.49566838,
+    "longitude": 127.0719299,
+    "keywords": ["전시회", "박람회", "다양한 이벤트", "문화 경험"]
+  },
+  {
+    "place_id": 128,
+    "place_name": "보코서울강남",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 6",
+    "latitude": 37.51782722,
+    "longitude": 127.0245452,
+    "keywords": ["세련된 디자인", "루프탑 바", "특별한 경험", "도심 속 휴식"]
+  },
+  {
+    "place_id": 129,
+    "place_name": "CGV 압구정 본관",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 603-2",
+    "latitude": 37.52453426,
+    "longitude": 127.0286753,
+    "keywords": ["아트하우스", "독립 영화", "문화 생활", "데이트"]
+  },
+  {
+    "place_id": 130,
+    "place_name": "서울선릉과정릉",
+    "category": "걷기",
+    "address": "서울 강남구 삼성동 131",
+    "latitude": 37.50911053,
+    "longitude": 127.0489285,
+    "keywords": ["역사적인 장소", "조용한 산책", "자연 속 힐링", "문화유적"]
+  },
+  {
+    "place_id": 131,
+    "place_name": "알로프트서울호텔 누크레스토랑",
+    "category": "호캉스",
+    "address": "서울 강남구 청담동 131",
+    "latitude": 37.52374345,
+    "longitude": 127.0556622,
+    "keywords": ["트렌디한 분위기", "맛있는 음식", "특별한 날", "호텔 다이닝"]
+  },
+  {
+    "place_id": 132,
+    "place_name": "호텔더디자이너스 리즈강남프리미어",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 201-11",
+    "latitude": 37.50521018,
+    "longitude": 127.0258563,
+    "keywords": ["개성 있는 디자인", "부티크 호텔", "특별한 경험", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 133,
+    "place_name": "롯데시네마 도곡",
+    "category": "영화/전시",
+    "address": "서울 강남구 도곡동 174-3",
+    "latitude": 37.48747451,
+    "longitude": 127.0471053,
+    "keywords": ["편안한 좌석", "다양한 영화", "데이트", "문화 생활"]
+  },
+  {
+    "place_id": 134,
+    "place_name": "도미인 서울강남호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 603-1",
+    "latitude": 37.5056283,
+    "longitude": 127.0294745,
+    "keywords": ["온천", "편안한 휴식", "일본식 호텔", "특별한 경험"]
+  },
+  {
+    "place_id": 135,
+    "place_name": "자이언트호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 45-10",
+    "latitude": 37.5123682,
+    "longitude": 127.0497903,
+    "keywords": ["가성비 호텔", "편안한 숙박", "비즈니스 고객", "조용한 분위기"]
+  },
+  {
+    "place_id": 136,
+    "place_name": "에이든 바이 베스트웨스턴",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 60-8",
+    "latitude": 37.51997473,
+    "longitude": 127.0304767,
+    "keywords": ["모던한 디자인", "가성비 좋은", "편안한 숙박", "젊은층 선호"]
+  },
+  {
+    "place_id": 137,
+    "place_name": "호텔선샤인 서울",
+    "category": "호캉스",
+    "address": "서울 강남구 신사동 587-1",
+    "latitude": 37.52058334,
+    "longitude": 127.0287553,
+    "keywords": ["클래식한 분위기", "편안한 휴식", "가성비 호텔", "조용한 숙박"]
+  },
+  {
+    "place_id": 138,
+    "place_name": "호림아트센터",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 651-23",
+    "latitude": 37.52265905,
+    "longitude": 127.0360458,
+    "keywords": ["미술 전시", "고미술", "데이트", "문화 생활"]
+  },
+  {
+    "place_id": 139,
+    "place_name": "호텔인나인",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 91-28",
+    "latitude": 37.51552595,
+    "longitude": 127.060063,
+    "keywords": ["깔끔한 객실", "가성비 숙박", "비즈니스 고객", "조용한 휴식"]
+  },
+  {
+    "place_id": 140,
+    "place_name": "호텔뉴브",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 708-35",
+    "latitude": 37.50302687,
+    "longitude": 127.04911,
+    "keywords": ["모던한 디자인", "가성비 호텔", "편안한 숙박", "비즈니스 여행"]
+  },
+  {
+    "place_id": 141,
+    "place_name": "호텔유리앤",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 158",
+    "latitude": 37.50892644,
+    "longitude": 127.0575695,
+    "keywords": ["깔끔한 객실", "코엑스 인접", "가성비 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 142,
+    "place_name": "광림아트센터 BBCH홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 568-15",
+    "latitude": 37.52404214,
+    "longitude": 127.0254986,
+    "keywords": ["뮤지컬 공연", "데이트", "문화 생활", "특별한 경험"]
+  },
+  {
+    "place_id": 143,
+    "place_name": "베스트웨스턴프리미어 강남호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 205-9",
+    "latitude": 37.50637245,
+    "longitude": 127.029779,
+    "keywords": ["편안한 숙박", "비즈니스 고객", "깔끔한 시설", "가성비 호텔"]
+  },
+  {
+    "place_id": 144,
+    "place_name": "KT&G 상상마당 대치아트홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 대치동 1002",
+    "latitude": 37.50676009,
+    "longitude": 127.06515,
+    "keywords": ["연극 공연", "데이트", "문화 생활", "다양한 공연"]
+  },
+  {
+    "place_id": 145,
+    "place_name": "호텔카푸치노",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 206-1",
+    "latitude": 37.50683152,
+    "longitude": 127.0315085,
+    "keywords": ["루프탑 바", "감각적인 디자인", "특별한 경험", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 146,
+    "place_name": "K현대미술관",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 666-7",
+    "latitude": 37.52434988,
+    "longitude": 127.0391332,
+    "keywords": ["현대 미술 전시", "데이트", "문화 생활", "트렌디한 전시"]
+  },
+  {
+    "place_id": 147,
+    "place_name": "파티오세븐",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 74",
+    "latitude": 37.51780992,
+    "longitude": 127.0293062,
+    "keywords": ["정원", "야외 공간", "특별한 분위기", "휴식"]
+  },
+  {
+    "place_id": 148,
+    "place_name": "바운스트램폴린파크 삼성센터",
+    "category": "놀거리",
+    "address": "서울 강남구 대치동 983-17",
+    "latitude": 37.50333244,
+    "longitude": 127.0655497,
+    "keywords": ["액티비티 데이트", "신나는 경험", "운동", "이색 데이트"]
+  },
+  {
+    "place_id": 149,
+    "place_name": "라움아트센터",
+    "category": "영화/전시",
+    "address": "서울 강남구 역삼동 680-1",
+    "latitude": 37.50841658,
+    "longitude": 127.0398233,
+    "keywords": ["웨딩", "공연", "특별한 행사", "고급스러운 분위기"]
+  },
+  {
+    "place_id": 150,
+    "place_name": "호텔페이토 삼성",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 158-13",
+    "latitude": 37.50845374,
+    "longitude": 127.0587182,
+    "keywords": ["깔끔한 디자인", "코엑스 인접", "가성비 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 151,
+    "place_name": "파르나스몰",
+    "category": "쇼핑",
+    "address": "서울 강남구 삼성동 159-8",
+    "latitude": 37.50930683,
+    "longitude": 127.0608317,
+    "keywords": ["다양한 쇼핑", "맛집", "편리한 접근성", "데이트"]
+  },
+  {
+    "place_id": 152,
+    "place_name": "라까사호텔 서울점",
+    "category": "호캉스",
+    "address": "서울 강남구 신사동 527-2",
+    "latitude": 37.52215387,
+    "longitude": 127.0195341,
+    "keywords": ["부티크 호텔", "감각적인 디자인", "가로수길 인접", "특별한 경험"]
+  },
+  {
+    "place_id": 153,
+    "place_name": "역삼아르누보씨티",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 701-1",
+    "latitude": 37.50341765,
+    "longitude": 127.0428233,
+    "keywords": ["레지던스형 호텔", "장기 투숙", "편안한 휴식", "비즈니스 고객"]
+  },
+  {
+    "place_id": 154,
+    "place_name": "마이아트뮤지엄",
+    "category": "영화/전시",
+    "address": "서울 강남구 대치동 944-31",
+    "latitude": 37.50758784,
+    "longitude": 127.0605769,
+    "keywords": ["현대 미술 전시", "데이트", "문화 생활", "인상적인 작품"]
+  },
+  {
+    "place_id": 155,
+    "place_name": "엔트라호텔 테이블마운틴",
+    "category": "호캉스",
+    "address": "서울 강남구 청담동 48-3",
+    "latitude": 37.52406016,
+    "longitude": 127.0484903,
+    "keywords": ["루프탑 바", "한강 전망", "세련된 분위기", "특별한 날"]
+  },
+  {
+    "place_id": 156,
+    "place_name": "현대모터스튜디오 서울",
+    "category": "영화/전시",
+    "address": "서울 강남구 논현동 91",
+    "latitude": 37.5212612,
+    "longitude": 127.0343664,
+    "keywords": ["자동차 전시", "체험 공간", "이색 데이트", "새로운 경험"]
+  },
+  {
+    "place_id": 157,
+    "place_name": "호텔컬리넌 역삼",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 720-23",
+    "latitude": 37.50135641,
+    "longitude": 127.042104,
+    "keywords": ["고급스러운 분위기", "편안한 휴식", "특별한 날", "기념일"]
+  },
+  {
+    "place_id": 158,
+    "place_name": "금강쇼핑센터",
+    "category": "쇼핑",
+    "address": "서울 강남구 압구정동 458",
+    "latitude": 37.53037697,
+    "longitude": 127.0298089,
+    "keywords": ["다양한 상점", "편리한 쇼핑", "지역 주민", "일상적인 쇼핑"]
+  },
+  {
+    "place_id": 159,
+    "place_name": "기아360",
+    "category": "영화/전시",
+    "address": "서울 강남구 압구정동 518",
+    "latitude": 37.52755822,
+    "longitude": 127.0428858,
+    "keywords": ["자동차 전시", "체험 공간", "이색적인 볼거리", "데이트"]
+  },
+  {
+    "place_id": 160,
+    "place_name": "능인선원",
+    "category": "걷기",
+    "address": "서울 강남구 개포동 1055",
+    "latitude": 37.47168842,
+    "longitude": 127.0523588,
+    "keywords": ["조용한 산책", "전통 건축", "마음의 평화", "힐링"]
+  },
+  {
+    "place_id": 161,
+    "place_name": "현대면세점 무역센터점",
+    "category": "쇼핑",
+    "address": "서울 강남구 삼성동 159-7",
+    "latitude": 37.50883883,
+    "longitude": 127.0597953,
+    "keywords": ["면세 쇼핑", "다양한 브랜드", "선물 구매", "해외여행 전"]
+  },
+  {
+    "place_id": 162,
+    "place_name": "호텔크레센도 서울",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 113-5",
+    "latitude": 37.5108548,
+    "longitude": 127.0468926,
+    "keywords": ["모던한 디자인", "조용한 분위기", "편안한 휴식", "비즈니스 고객"]
+  },
+  {
+    "place_id": 163,
+    "place_name": "호텔데님",
+    "category": "호캉스",
+    "address": "서울 강남구 개포동 1229-14",
+    "latitude": 37.47613099,
+    "longitude": 127.0466414,
+    "keywords": ["가성비 호텔", "깔끔한 객실", "조용한 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 164,
+    "place_name": "리치웰호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 677-9",
+    "latitude": 37.50298171,
+    "longitude": 127.039817,
+    "keywords": ["가성비 호텔", "편안한 숙박", "비즈니스 고객", "조용한 휴식"]
+  },
+  {
+    "place_id": 165,
+    "place_name": "마루공원",
+    "category": "걷기",
+    "address": "서울 강남구 개포동",
+    "latitude": 37.49597101,
+    "longitude": 127.0804702,
+    "keywords": ["동네 공원", "가벼운 산책", "휴식 공간", "일상 속 여유"]
+  },
+  {
+    "place_id": 166,
+    "place_name": "서울옥션 강남센터",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 636-4",
+    "latitude": 37.52744942,
+    "longitude": 127.0338884,
+    "keywords": ["미술품 경매", "전시 관람", "특별한 경험", "예술 감상"]
+  },
+  {
+    "place_id": 167,
+    "place_name": "사월호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 720-12",
+    "latitude": 37.50166735,
+    "longitude": 127.0418441,
+    "keywords": ["깔끔한 객실", "가성비 호텔", "편안한 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 168,
+    "place_name": "코엑스신한카드아티움",
+    "category": "영화/전시",
+    "address": "서울 강남구 삼성동 159-9",
+    "latitude": 37.50994347,
+    "longitude": 127.0615459,
+    "keywords": ["뮤지컬 공연", "데이트", "문화 생활", "특별한 경험"]
+  },
+  {
+    "place_id": 169,
+    "place_name": "백암아트홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 삼성동 170-5",
+    "latitude": 37.51041409,
+    "longitude": 127.0659947,
+    "keywords": ["연극 공연", "뮤지컬", "데이트", "문화 생활"]
+  },
+  {
+    "place_id": 170,
+    "place_name": "리베라호텔 아노블리",
+    "category": "호캉스",
+    "address": "서울 강남구 청담동 91-2",
+    "latitude": 37.52385915,
+    "longitude": 127.0416415,
+    "keywords": ["고급스러운 분위기", "한강 전망", "특별한 날", "기념일"]
+  },
+  {
+    "place_id": 171,
+    "place_name": "청담도로공원 한강종합개발기념비",
+    "category": "걷기",
+    "address": "서울 강남구 삼성동 80-4",
+    "latitude": 37.52046373,
+    "longitude": 127.0629855,
+    "keywords": ["한강변 산책", "조용한 공원", "자전거 타기", "휴식 공간"]
+  },
+  {
+    "place_id": 172,
+    "place_name": "안테룸 서울",
+    "category": "호캉스",
+    "address": "서울 강남구 신사동 561-19",
+    "latitude": 37.51886594,
+    "longitude": 127.0252242,
+    "keywords": ["감각적인 디자인", "가로수길 인접", "특별한 경험", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 173,
+    "place_name": "타라호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 삼성동 142-19",
+    "latitude": 37.50670179,
+    "longitude": 127.0518856,
+    "keywords": ["가성비 호텔", "깔끔한 객실", "조용한 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 174,
+    "place_name": "렉스관광호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 논현동 18-2",
+    "latitude": 37.51434111,
+    "longitude": 127.0204777,
+    "keywords": ["가성비 호텔", "편안한 숙박", "비즈니스 고객", "조용한 휴식"]
+  },
+  {
+    "place_id": 175,
+    "place_name": "CGV 압구정",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 602",
+    "latitude": 37.52434937,
+    "longitude": 127.0294015,
+    "keywords": ["다양한 영화", "데이트", "문화 생활", "편안한 관람"]
+  },
+  {
+    "place_id": 176,
+    "place_name": "브라운도트 역삼점",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 677-16",
+    "latitude": 37.5028455,
+    "longitude": 127.0402863,
+    "keywords": ["가성비 호텔", "깔끔한 객실", "편안한 숙박", "비즈니스 고객"]
+  },
+  {
+    "place_id": 177,
+    "place_name": "오월호텔",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 723-3",
+    "latitude": 37.50058281,
+    "longitude": 127.0410609,
+    "keywords": ["가성비 호텔", "편안한 숙박", "비즈니스 고객", "조용한 휴식"]
+  },
+  {
+    "place_id": 178,
+    "place_name": "율현공원",
+    "category": "걷기",
+    "address": "서울 강남구 율현동 77-9",
+    "latitude": 37.47267975,
+    "longitude": 127.1154835,
+    "keywords": ["넓은 잔디밭", "산책로", "가족 나들이", "자연 속 휴식"]
+  },
+  {
+    "place_id": 179,
+    "place_name": "대모산도시자연공원",
+    "category": "걷기",
+    "address": "서울 강남구 일원동 53-22",
+    "latitude": 37.47982077,
+    "longitude": 127.0813212,
+    "keywords": ["등산로", "숲 속 산책", "자연 체험", "힐링"]
+  },
+  {
+    "place_id": 180,
+    "place_name": "호텔 디 아티스트 역삼점",
+    "category": "호캉스",
+    "address": "서울 강남구 역삼동 678-13",
+    "latitude": 37.50240191,
+    "longitude": 127.0384822,
+    "keywords": ["개성 있는 디자인", "부티크 호텔", "특별한 경험", "사진 찍기 좋은"]
+  },
+  {
+    "place_id": 181,
+    "place_name": "더샵갤러리",
+    "category": "영화/전시",
+    "address": "서울 강남구 자곡동 661-1",
+    "latitude": 37.47507459,
+    "longitude": 127.1059128,
+    "keywords": ["주택 갤러리", "새로운 경험", "조용한 관람", "미래 주거"]
+  },
+  {
+    "place_id": 182,
+    "place_name": "아이스웍스 역삼점",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 755",
+    "latitude": 37.49923572,
+    "longitude": 127.0484211,
+    "keywords": ["실내 스케이트", "액티비티 데이트", "겨울 스포츠", "이색적인 즐거움"]
+  },
+  {
+    "place_id": 183,
+    "place_name": "삼성해맞이공원",
+    "category": "걷기",
+    "address": "서울 강남구 삼성동 79-1",
+    "latitude": 37.52108443,
+    "longitude": 127.0614476,
+    "keywords": ["조용한 공원", "산책로", "휴식 공간", "동네 주민"]
+  },
+  {
+    "place_id": 184,
+    "place_name": "셀린느 갤러리아백화점 명품관 EAST점",
+    "category": "쇼핑",
+    "address": "서울 강남구 압구정동 515",
+    "latitude": 37.52791185,
+    "longitude": 127.0416642,
+    "keywords": ["명품 브랜드", "고급 쇼핑", "특별한 선물", "세련된 스타일"]
+  },
+  {
+    "place_id": 185,
+    "place_name": "잠원한강공원",
+    "category": "걷기",
+    "address": "서울 강남구 압구정동 386",
+    "latitude": 37.52733381,
+    "longitude": 127.0190467,
+    "keywords": ["한강변 산책", "자전거 타기", "피크닉", "여유로운 시간"]
+  },
+  {
+    "place_id": 186,
+    "place_name": "신사근린공원",
+    "category": "걷기",
+    "address": "서울 강남구 압구정동 422",
+    "latitude": 37.59234232,
+    "longitude": 126.9101549,
+    "keywords": ["조용한 공원", "산책로", "휴식 공간", "동네 주민"]
+  },
+  {
+    "place_id": 187,
+    "place_name": "학동근린공원",
+    "category": "걷기",
+    "address": "서울 강남구 논현동 26",
+    "latitude": 37.51550069,
+    "longitude": 127.0252185,
+    "keywords": ["조용한 공원", "산책로", "휴식 공간", "동네 주민"]
+  },
+  {
+    "place_id": 188,
+    "place_name": "도산근린공원",
+    "category": "걷기",
+    "address": "서울 강남구 신사동 649-9",
+    "latitude": 37.52455769,
+    "longitude": 127.0352876,
+    "keywords": ["도심 속 공원", "산책", "휴식", "역사적인 장소"]
+  },
+  {
+    "place_id": 189,
+    "place_name": "은곡마을공원",
+    "category": "걷기",
+    "address": "서울 강남구 세곡동 369-3",
+    "latitude": 37.46806576,
+    "longitude": 127.1006047,
+    "keywords": ["동네 공원", "산책로", "휴식 공간", "자연"]
+  },
+  {
+    "place_id": 190,
+    "place_name": "도곡시장",
+    "category": "맛집",
+    "address": "서울 강남구 역삼동 805-36",
+    "latitude": 37.4974898,
+    "longitude": 127.052128,
+    "keywords": ["재래 시장", "다양한 먹거리", "저렴한 식사", "구경거리"]
+  },
+  {
+    "place_id": 191,
+    "place_name": "강남세곡체육공원",
+    "category": "걷기",
+    "address": "서울 강남구 세곡동 산 1-7",
+    "latitude": 37.46677859,
+    "longitude": 127.1131413,
+    "keywords": ["체육 시설", "산책로", "운동", "가족 나들이"]
+  },
+  {
+    "place_id": 192,
+    "place_name": "신한아트홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 역삼동 731",
+    "latitude": 37.49861395,
+    "longitude": 127.0440272,
+    "keywords": ["공연", "콘서트", "문화 생활", "데이트"]
+  },
+  {
+    "place_id": 193,
+    "place_name": "알로프트 서울강남",
+    "category": "호캉스",
+    "address": "서울 강남구 청담동 131",
+    "latitude": 37.52376509,
+    "longitude": 127.0556351,
+    "keywords": ["트렌디한 분위기", "루프탑 바", "젊은층 선호", " lively"]
+  },
+  {
+    "place_id": 194,
+    "place_name": "일원장미공원",
+    "category": "걷기",
+    "address": "서울 강남구 일원동 732-4",
+    "latitude": 37.48076538,
+    "longitude": 127.0808067,
+    "keywords": ["장미 정원", "사진 찍기 좋은 곳", "산책", "아름다운 꽃"]
+  },
+  {
+    "place_id": 195,
+    "place_name": "대치유수지체육공원",
+    "category": "걷기",
+    "address": "서울 강남구 대치동 78-20",
+    "latitude": 37.50258085,
+    "longitude": 127.0689916,
+    "keywords": ["체육 시설", "산책로", "운동", "지역 주민"]
+  },
+  {
+    "place_id": 196,
+    "place_name": "윤당아트홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 634-10",
+    "latitude": 37.52569972,
+    "longitude": 127.0337236,
+    "keywords": ["소극장", "연극 공연", "데이트", "문화 생활"]
+  },
+  {
+    "place_id": 197,
+    "place_name": "국가유산진흥원 한국문화의집",
+    "category": "영화/전시",
+    "address": "서울 강남구 대치동 944-22",
+    "latitude": 37.50688506,
+    "longitude": 127.0605651,
+    "keywords": ["전통 공연", "문화 체험", "한국 전통", "특별한 경험"]
+  },
+  {
+    "place_id": 198,
+    "place_name": "식물관PH",
+    "category": "영화/전시",
+    "address": "서울 강남구 수서동 590-1",
+    "latitude": 37.48263486,
+    "longitude": 127.0943288,
+    "keywords": ["식물원", "카페", "사진 찍기 좋은 곳", "자연 속 힐링"]
+  },
+  {
+    "place_id": 199,
+    "place_name": "광림아트센터 장천홀",
+    "category": "영화/전시",
+    "address": "서울 강남구 신사동 570-8",
+    "latitude": 37.52425093,
+    "longitude": 127.0265801,
+    "keywords": ["뮤지컬 공연", "데이트", "문화 생활", "감동적인 무대"]
+  },
+  {
+    "place_id": 200,
+    "place_name": "레드버튼 강남점",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 814-5",
+    "latitude": 37.50193129,
+    "longitude": 127.0264523,
+    "keywords": ["보드 게임", "실내 데이트", "친구와 함께", "즐거운 시간"]
+  },
+  {
+    "place_id": 201,
+    "place_name": "홈즈앤루팡 강남점",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 619-16",
+    "latitude": 37.50145541,
+    "longitude": 127.0270742,
+    "keywords": ["방탈출", "이색 데이트", "팀워크", "스릴 넘치는"]
+  },
+  {
+    "place_id": 202,
+    "place_name": "벌툰 엔틱 강남역점",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 817-35",
+    "latitude": 37.5007308,
+    "longitude": 127.0279786,
+    "keywords": ["만화 카페", "편안한 휴식", "실내 데이트", "다양한 즐길 거리"]
+  },
+  {
+    "place_id": 203,
+    "place_name": "놀숲 신사가로수길점",
+    "category": "놀거리",
+    "address": "서울 강남구 신사동 512-9",
+    "latitude": 37.517972,
+    "longitude": 127.0213621,
+    "keywords": ["만화 카페", "아늑한 공간", "가로수길 데이트", "편안한 시간"]
+  },
+  {
+    "place_id": 204,
+    "place_name": "비트포비아 던전루나",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 819-3",
+    "latitude": 37.49942769,
+    "longitude": 127.0290299,
+    "keywords": ["방탈출", "몰입도 최고", "이색 데이트", "긴장감"]
+  },
+  {
+    "place_id": 205,
+    "place_name": "비트포비아 던전스텔라",
+    "category": "놀거리",
+    "address": "서울 강남구 역삼동 828-28",
+    "latitude": 37.49717395,
+    "longitude": 127.0336316,
+    "keywords": ["방탈출", "스토리텔링", "이색 데이트", "추리"]
+  },
+  {
+    "place_id": 206,
+    "place_name": "알베르",
+    "category": "카페/디저트",
+    "address": "서울 강남구 역삼동 618-11",
+    "latitude": 37.50305626,
+    "longitude": 127.0281028,
+    "keywords": ["넓고 조용한", "작업하기 좋은", "편안한 분위기", "디저트"]
+  },
+  {
+    "place_id": 207,
+    "place_name": "기욤 청담점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 청담동 88-37",
+    "latitude": 37.52431712,
+    "longitude": 127.0409099,
+    "keywords": ["프랑스 디저트", "예쁜 분위기", "특별한 날", "여성스러운"]
+  },
+  {
+    "place_id": 208,
+    "place_name": "테일러커피 신사점",
+    "category": "카페/디저트",
+    "address": "서울 강남구 신사동 521-17",
+    "latitude": 37.52015786,
+    "longitude": 127.0212077,
+    "keywords": ["맛있는 커피", "분위기 좋은", "조용한 대화", "커피 애호가"]
+  }
+]

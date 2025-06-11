@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=1440, initial-scale=1.0"/>
+  <title>마이페이지</title>
+  <link rel="stylesheet" th:href="@{/css/header.css}"/>
+  <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+  <link rel="stylesheet" th:href="@{/css/sidebar.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <main class="main-content">
+    <!-- 회원정보 수정 영역 -->
+    <section id="edit-section">
+      <h2>회원정보 수정</h2>
+      <div id="error-message" style="display:none; color:red;"></div>
+
+      <form id="editForm">
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <div class="input-wrapper">
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력" />
+            <div id="password-msg" class="error-field"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm">비밀번호 확인</label>
+          <div class="input-wrapper">
+            <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">전화번호</label>
+          <div class="input-wrapper">
+            <input type="text" id="phone" name="phone"/>
+            <div id="phone-msg" class="error-field"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <div class="input-wrapper">
+            <input type="email" id="email" name="email"/>
+            <div id="email-msg" class="error-field"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nickname">닉네임</label>
+          <div class="input-wrapper">
+            <input type="text" id="nickname" name="nickname"/>
+            <div id="nickname-msg" class="error-field"></div>
+          </div>
+        </div>
+
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn" id="submitBtn" disabled>수정하기</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/my_page_edit.js}"></script>
+<script th:src="@{/js/sidebar.js}"></script>
+<script th:src="@{/js/member_gg.js}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const form = document.getElementById("editForm");
+    const password = document.getElementById("password");
+    const passwordConfirm = document.getElementById("passwordConfirm");
+    const phone = document.getElementById("phone");
+    const email = document.getElementById("email");
+    const nickname = document.getElementById("nickname");
+    const errorMsg = document.getElementById("error-message");
+
+    let original = {};
+    try {
+      const res = await fetch("/api/members/info", { credentials: 'include' });
+      const data = await res.json();
+      if (res.ok) {
+        original = data;
+        email.value = data.email;
+        nickname.value = data.nickname;
+        phone.value = data.phone;
+        form.dataset.userid = data.userId;
+        email.setAttribute("data-original", data.email);
+        nickname.setAttribute("data-original", data.nickname);
+        phone.setAttribute("data-original", data.phone);
+      } else {
+        throw new Error("회원 정보를 불러오는데 실패했습니다.");
+      }
+    } catch (err) {
+      errorMsg.textContent = err.message;
+      errorMsg.style.display = "block";
+      return;
+    }
+  });
+</script>
+</body>
+</html>
