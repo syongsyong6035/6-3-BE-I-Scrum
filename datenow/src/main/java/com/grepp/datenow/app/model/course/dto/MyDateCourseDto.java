@@ -7,7 +7,8 @@ public record MyDateCourseDto(
     String title,
     String description,
     String date,
-    List<PlaceSaveDto> places
+    List<PlaceSaveDto> places,
+    List<String> hashtagNames
 ) {
 
 

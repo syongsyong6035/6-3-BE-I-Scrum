@@ -101,6 +101,7 @@ public class CourseApiController {
     }
 
     // 나의 데이트 코스 상세 정보 조회
+    // 이거 위에 상세조회랑 겹치는거 아닌가??
     @GetMapping("/recommend-course-register")
     public ResponseEntity<?> getMyCourseDetail(
         @RequestParam(required = false) Long courseId,

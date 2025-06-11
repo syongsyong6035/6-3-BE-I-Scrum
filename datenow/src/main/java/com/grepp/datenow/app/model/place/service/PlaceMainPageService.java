@@ -2,11 +2,14 @@ package com.grepp.datenow.app.model.place.service;
 
 import com.grepp.datenow.app.model.course.dto.CourseDetailDto;
 import com.grepp.datenow.app.model.course.dto.CourseDto;
+
 import com.grepp.datenow.app.model.course.dto.EditorCourseDto;
 import com.grepp.datenow.app.model.course.dto.EditorDetailCourseDto;
 import com.grepp.datenow.app.model.course.entity.Course;
 import com.grepp.datenow.app.model.course.entity.EditorCourse;
 import com.grepp.datenow.app.model.course.entity.RecommendCourse;
+import com.grepp.datenow.app.model.course.entity.CourseHashtag;
+import com.grepp.datenow.app.model.course.entity.Hashtag;
 import com.grepp.datenow.app.model.course.repository.AdminCourseRepository;
 import com.grepp.datenow.app.model.course.repository.CourseRepository;
 import com.grepp.datenow.app.model.image.entity.Image;
@@ -18,6 +21,7 @@ import com.grepp.datenow.app.model.place.entity.Place;
 import com.grepp.datenow.app.model.place.repository.PlaceRepository;
 import com.grepp.datenow.app.model.review.repository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -152,6 +156,18 @@ public class PlaceMainPageService {
             .toList();
 
     placeDetail.setImageUrl(imageUrl);
+      // ⭐⭐⭐ 해시태그 정보 매핑 (새로 추가) ⭐⭐⭐
+      // Course 엔티티에서 CourseHashtag 컬렉션 가져오기
+      List<String> hashtagNames = course.getCourseHashtags().stream()
+          // CourseHashtag 객체에서 실제 Hashtag 엔티티를 가져옴
+          .map(CourseHashtag::getHashtag)
+          // Hashtag 엔티티에서 tagName을 가져옴
+          .map(Hashtag::getTagName)
+          // Stream의 결과를 List<String>으로 수집
+          .collect(Collectors.toList());
+      placeDetail.setHashtagNames(hashtagNames); // CourseDetailDto에 해시태그 목록 설정
+      // ⭐⭐⭐ 끝 ⭐⭐⭐
+
     return placeDetail;
 
 

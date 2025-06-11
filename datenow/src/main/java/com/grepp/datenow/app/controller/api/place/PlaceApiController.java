@@ -63,7 +63,7 @@ public class PlaceApiController {
   // 기존 메서드명은 상세정보 요청인지 목록인지 모호함
   @GetMapping("/recommend-courses/{recommend_id}")
   public ResponseEntity<?> recommendCourseDetail(@PathVariable Long recommend_id){
-    CourseDetailDto  course = placeMainPageService.userDetailPlace(recommend_id);
+    CourseDetailDto course = placeMainPageService.userDetailPlace(recommend_id);
     return ResponseEntity.ok(course);
   }
 
