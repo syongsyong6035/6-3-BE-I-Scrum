@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,22 +107,50 @@ public class PlaceMainPageService {
 
   }
   @Transactional
-  public List<CourseDto> recommendCourseService() {
-    List<RecommendCourse> userPlace = courseRepository.findAllWithCourseAndMember();
-    List<CourseDto> courseDto = userPlace.stream()
-        .map(course -> {
-          Image img = imageRepository.findFirstByRecommendCourseId(course)
-              .orElse(null);
-          int count = favoriteRepository.countByRecommendCourseAndActivatedTrue(course);
-          int reviewCnt = reviewRepository.countByRecommendCourseIdAndActivatedTrue(course);
-          String imageUrl = (img != null)
-              ? "/images/" +  img.getRenameFileName()
-              : "/images/bg_night.jpg";
-          return new CourseDto(course,imageUrl,count,reviewCnt);
+  public List<CourseDto> recommendCourseService(@Nullable List<String> hashtagNames) {
+      List<RecommendCourse> userPlace;
 
-        })
-        .toList();
-    return courseDto;
+      if (hashtagNames != null && !hashtagNames.isEmpty()) {
+          // ⭐⭐ [추가] 해시태그로 필터링하여 조회 ⭐⭐
+          // 이 메서드는 아래 레포지토리에서 새로 정의할 것입니다.
+          userPlace = courseRepository.findAllCourseWithHashtags(hashtagNames);
+      } else {
+          // ⭐⭐ [수정] 해시태그가 없으면 기존처럼 전체 조회 ⭐⭐
+          userPlace = courseRepository.findAllWithCourseAndMember();
+      }
+      List<CourseDto> courseDto = userPlace.stream()
+          .map(recommendCourse -> {
+              // Course 엔티티를 별도의 변수에 할당하여 사용하면 코드 가독성이 좋아집니다.
+              Course course = recommendCourse.getCourseId(); // RecommendCourse에서 Course 엔티티를 가져옴
+
+              Image img = imageRepository.findFirstByRecommendCourseId(recommendCourse)
+                  .orElse(null);
+              int count = favoriteRepository.countByRecommendCourseAndActivatedTrue(recommendCourse);
+              int reviewCnt = reviewRepository.countByRecommendCourseIdAndActivatedTrue(recommendCourse);
+              String imageUrl = (img != null)
+                  ? "/images/" +  img.getRenameFileName()
+                  : "/images/bg_night.jpg";
+
+              List<String> currentCourseHashtags = course.getCourseHashtags().stream() // ⭐⭐⭐ 여기서 course.getCourseHashtags()로 수정 ⭐⭐⭐
+                  .map(CourseHashtag::getHashtag)
+                  .map(Hashtag::getTagName)
+                  .collect(Collectors.toList());
+
+              CourseDto dto = new CourseDto(); // ⭐ 기본 생성자 호출
+              dto.setCourseId(recommendCourse.getRecommendCourseId());
+              dto.setTitle(course.getTitle());
+              dto.setCreatorNickname(course.getId().getNickname()); // ⭐ Course의 Member 필드가 'member'인 경우
+              dto.setDescription(course.getDescription());
+              dto.setImageUrl(imageUrl);
+              dto.setFavoriteCnt(count);
+              dto.setReviewCnt(reviewCnt);
+              dto.setHashtagNames(currentCourseHashtags);
+
+              return dto;
+
+          })
+          .toList();
+      return courseDto;
 
   }
 

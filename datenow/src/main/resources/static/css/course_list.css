@@ -138,3 +138,75 @@ h1 {
   display: flex;
   align-items: center;
 }
+
+/*해시태그 관련*/
+.filter-section {
+  margin-bottom: 25px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+}
+.filter-section label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+}
+.filter-section input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+.hashtag-chip-container {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hashtag-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e0f7fa;
+  color: #00796b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.95em;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.hashtag-chip .remove-hashtag-btn {
+  background: none;
+  border: none;
+  color: #00796b;
+  font-size: 1.2em;
+  line-height: 1;
+  margin-left: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+.hashtag-chip .remove-hashtag-btn:hover {
+  color: #d32f2f;
+}
+/* 코스 카드 해시태그 표시 스타일 */
+.course-tags {
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: #777;
+  flex-wrap: wrap; /* 해시태그가 많아지면 다음 줄로 */
+  gap: 5px; /* 해시태그 간 간격 */
+  display: flex;
+}
+.course-tags span {
+  background-color: #f0f8ff; /* 연한 배경 */
+  padding: 3px 8px;
+  border-radius: 12px;
+  color: #555;
+  white-space: nowrap;
+}

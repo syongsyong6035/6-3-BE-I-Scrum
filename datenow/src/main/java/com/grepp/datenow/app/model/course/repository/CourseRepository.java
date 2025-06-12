@@ -37,4 +37,18 @@ public interface CourseRepository extends JpaRepository<RecommendCourse,Long> {
   WHERE rc.recommendCourseId = :id
 """)
   Optional<RecommendCourse> findWithCourseAndMemberById(@Param("id") Long id);
+
+  // 해시태그로 추천 코스 필터링
+  @Query("""
+      SELECT rc FROM RecommendCourse rc
+      JOIN FETCH rc.courseId c
+      JOIN FETCH c.id m
+      JOIN c.courseHashtags ch
+      JOIN ch.hashtag h
+      WHERE h.tagName IN :hashtagNames
+      GROUP BY rc.recommendCourseId
+      """)
+  List<RecommendCourse> findAllCourseWithHashtags(
+      @Param("hashtagNames") List<String> hashtagNames
+  );
 }
