@@ -1,4 +1,4 @@
-package com.grepp.datenow.infra.error;
+package com.grepp.datenow.infra.error.exception;
 
 import com.grepp.datenow.infra.response.ResponseCode;
 import lombok.extern.slf4j.Slf4j;

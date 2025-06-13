@@ -78,7 +78,7 @@ public class CourseApiController {
     public ResponseEntity<ApiResponse<?>> uploadImages(
         @RequestParam("images") List<MultipartFile> images) {
         // Service 에서 모든 유효성 검사 및 예외 처리를 담당
-        // 여기서 예외가 발생하면 GlobalExceptionHandler 가 처리
+        // 여기서 예외가 발생하면 RestApiExceptionAdvice 가 처리
         List<String> urls = imageService.upload(images);
 
         // 성공 응답은 ApiResponse 포맷으로 반환
