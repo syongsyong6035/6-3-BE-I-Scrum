@@ -83,7 +83,7 @@
 
     let original = {};
     try {
-      const res = await fetch("/api/members/info", { credentials: 'include' });
+      const res = await fetch("/api/members/info");
       const data = await res.json();
       if (res.ok) {
         original = data;

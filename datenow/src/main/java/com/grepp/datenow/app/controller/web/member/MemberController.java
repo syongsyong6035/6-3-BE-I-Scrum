@@ -26,7 +26,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 전체적으로 view 를 제외하고 모두 API Contoller 로 ㄱㄱ
     @GetMapping("/signin")
     public String signin(Model model){
         model.addAttribute("signinRequest", new SigninRequest());
@@ -50,7 +49,7 @@ public class MemberController {
         }
 
         memberService.signup(form.toDto(), Role.ROLE_USER);
-        return "redirect:/";
+        return "redirect:/member/signin";
     }
 
     @GetMapping("/find-password")

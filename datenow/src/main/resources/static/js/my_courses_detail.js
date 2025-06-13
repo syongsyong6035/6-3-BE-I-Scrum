@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`/api/course/my-course/${courseId}`, {
         method: 'GET',
         headers: { 'Accept': 'application/json' },
-        credentials: 'include'
     })
     .then(res => res.json())
     .then(data => { // 이 'data'는 ApiResponse 객체 전체입니다.

@@ -95,9 +95,7 @@
     const recommendId = button.dataset.recommendId;
 
     fetch(`/api/admin/${recommendId}/likes`, {
-      method: 'POST',
-      credentials: "include",
-    })
+      method: 'POST'})
     .then(response => {
       if (response.ok) {
         const span = button.querySelector('span');

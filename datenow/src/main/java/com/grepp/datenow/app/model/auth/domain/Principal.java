@@ -9,20 +9,12 @@ import org.springframework.security.core.userdetails.User;
 
 public class Principal extends User {
 
-    private final String email;
-
-    public Principal(String username, String password, String email,
-        Collection<? extends GrantedAuthority> authorities) {
+    public Principal(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
-        this.email = email;
     }
 
-    public static Principal createPrincipal(Member member,
-        List<SimpleGrantedAuthority> authorities){
-        return new Principal(member.getUserId(), member.getPassword(), member.getEmail(), authorities);
+    public static Principal createPrincipal(Member member, List<SimpleGrantedAuthority> authorities){
+        return new Principal(member.getUserId(), member.getPassword(), authorities);
     }
 
-    public String getEmail() {
-        return email;
-    }
 }
