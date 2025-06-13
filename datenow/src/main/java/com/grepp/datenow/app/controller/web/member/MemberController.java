@@ -3,8 +3,8 @@ package com.grepp.datenow.app.controller.web.member;
 import com.grepp.datenow.app.controller.web.member.payload.FindPasswordRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SigninRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
-import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,20 +38,6 @@ public class MemberController {
     public String signupForm(Model model) {
         model.addAttribute("signupRequest", new SignupRequest());
         return "signup";
-    }
-
-    @PostMapping("/signup")
-    public String signup(
-        @Valid @ModelAttribute("signupRequest") SignupRequest form,
-        BindingResult bindingResult,
-        Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "signup";
-        }
-
-        memberService.signup(form.toDto(), Role.ROLE_USER);
-        return "redirect:/";
     }
 
     @GetMapping("/find-password")
@@ -78,4 +65,11 @@ public class MemberController {
         }
     }
 
+    // 회원 가입 후 인증 메일 클릭
+    @GetMapping("/verify")
+    public String verifyEmail(@RequestParam String token, HttpSession session) {
+        memberService.verifyEmail(token, session);
+        return "redirect:/member/signin?msg=" + URLEncoder.encode("회원가입이 완료되었습니다. 환영합니다!");
+        // 이래야 한글이 안깨진다구
+    }
 }
