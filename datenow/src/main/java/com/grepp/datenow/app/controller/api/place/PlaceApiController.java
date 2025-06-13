@@ -16,12 +16,14 @@ import com.grepp.datenow.infra.response.ApiResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,20 +52,19 @@ public class PlaceApiController {
     return ResponseEntity.ok(adminList);
   }
 
-  // 추천 (사용자 픽) 코스 목록 조회 : 메서드명 수정 필요 > userPage? 뭔소리여
-  // recommendCourseList 같은 걸로 바꾸자
+  // 추천 (사용자 픽) 코스 목록 조회
   @GetMapping("/recommend-courses")
-  public ResponseEntity<?> recommendCourseList(){
-    List<CourseDto> adminList = placeMainPageService.recommendCourseService();
-    return ResponseEntity.ok(adminList);
+  public ResponseEntity<ApiResponse<List<CourseDto>>> recommendCourseList(
+      @RequestParam @Nullable List<String> hashtags
+  ){
+    List<CourseDto> courseList = placeMainPageService.recommendCourseService(hashtags);
+    return ResponseEntity.ok(ApiResponse.success(courseList));
   }
 
   // 추천 코스 상세정보 조회
-  // 메서드명 직관적으로 수정 > recommendCourseDetail
-  // 기존 메서드명은 상세정보 요청인지 목록인지 모호함
   @GetMapping("/recommend-courses/{recommend_id}")
   public ResponseEntity<?> recommendCourseDetail(@PathVariable Long recommend_id){
-    CourseDetailDto  course = placeMainPageService.userDetailPlace(recommend_id);
+    CourseDetailDto course = placeMainPageService.userDetailPlace(recommend_id);
     return ResponseEntity.ok(course);
   }
 

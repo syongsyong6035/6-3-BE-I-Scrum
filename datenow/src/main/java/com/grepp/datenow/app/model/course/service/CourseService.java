@@ -5,16 +5,20 @@ import com.grepp.datenow.app.model.course.dto.CourseDto;
 import com.grepp.datenow.app.model.course.dto.MyCourseResponse;
 import com.grepp.datenow.app.model.course.dto.MyDateCourseDto;
 import com.grepp.datenow.app.model.course.entity.Course;
+import com.grepp.datenow.app.model.course.entity.Hashtag;
 import com.grepp.datenow.app.model.course.entity.RecommendCourse;
+import com.grepp.datenow.app.model.course.repository.HashtagRepository;
 import com.grepp.datenow.app.model.course.repository.RecommendCourseRepository;
 import com.grepp.datenow.app.model.course.repository.RegistMyCourseRepository;
 import com.grepp.datenow.app.model.image.entity.Image;
 import com.grepp.datenow.app.model.image.repository.ImageRepository;
 import com.grepp.datenow.app.model.like.repository.FavoriteRepository;
 import com.grepp.datenow.app.model.member.entity.Member;
+import com.grepp.datenow.app.model.course.entity.CourseHashtag;
 import com.grepp.datenow.app.model.place.dto.PlaceDetailDto;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +43,8 @@ public class CourseService {
     private final PlaceRepository placeRepository;
     private final RegistMyCourseRepository courseRepository;
     private final RecommendCourseRepository recommendCourseRepository;
-    private final FavoriteRepository favoriteRepository;
     private final ImageRepository imageRepository;
+    private final HashtagRepository hashtagRepository;
     private final ModelMapper modelMapper;
 
     @Value("${upload.path}")
@@ -60,6 +64,7 @@ public class CourseService {
         log.info("File upload path initialized to: {}", uploadPath);
     }
 
+    @Transactional
     public void saveCourse(MyDateCourseDto dto, Member member) {
         // Course 저장
         Course course = Course.builder()
@@ -80,6 +85,37 @@ public class CourseService {
                 .longitude(0)
                 .build();
             placeRepository.save(place);
+        }
+
+        // ⭐ 해시태그 저장 및 연결 (새로 추가되는 로직)
+        if (dto.hashtagNames() != null && !dto.hashtagNames().isEmpty()) {
+            for (String hashtagName : dto.hashtagNames()) {
+                String trimmedHashtagName = hashtagName.trim(); // 공백 제거
+
+                // 빈 문자열이거나 유효하지 않은 해시태그 이름은 건너뜁니다.
+                if (trimmedHashtagName.isEmpty()) {
+                    continue;
+                }
+
+                // 1. 기존 해시태그가 있는지 DB에서 조회
+                Optional<Hashtag> existingHashtag = hashtagRepository.findByTagName(trimmedHashtagName);
+
+                Hashtag hashtag;
+                if (existingHashtag.isPresent()) {
+                    // 2. 존재하면 기존 해시태그 사용
+                    hashtag = existingHashtag.get();
+                } else {
+                    // 3. 없으면 새로운 해시태그 생성 및 저장
+                    hashtag = new Hashtag();
+                    hashtag.setTagName(trimmedHashtagName);
+                    hashtagRepository.save(hashtag); // 새 해시태그를 먼저 저장
+                }
+
+                // 4. Course와 Hashtag를 연결 (CourseHashtag 엔티티 생성)
+                // Course 엔티티에 구현된 addCourseHashtag 편의 메서드를 사용합니다.
+                // 이 메서드가 내부적으로 CourseHashtag 객체를 생성하고 양방향 관계를 설정합니다.
+                course.addCourseHashtag(hashtag);
+            }
         }
     }
 
@@ -157,6 +193,18 @@ public class CourseService {
                 .map(Image::getSavePath)
                 .toList();
         dto.setImageUrl(imageUrls);
+
+        // ⭐⭐⭐ 해시태그 정보 매핑 (새로 추가) ⭐⭐⭐
+        // Course 엔티티에서 CourseHashtag 컬렉션 가져오기
+        List<String> hashtagNames = course.getCourseHashtags().stream()
+            // CourseHashtag 객체에서 실제 Hashtag 엔티티를 가져옴
+            .map(CourseHashtag::getHashtag)
+            // Hashtag 엔티티에서 tagName을 가져옴
+            .map(Hashtag::getTagName)
+            // Stream의 결과를 List<String>으로 수집
+            .collect(Collectors.toList());
+        dto.setHashtagNames(hashtagNames); // CourseDetailDto에 해시태그 목록 설정
+        // ⭐⭐⭐ 끝 ⭐⭐⭐
 
         return dto;
     }

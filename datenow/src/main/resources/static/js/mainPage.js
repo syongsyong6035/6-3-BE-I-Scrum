@@ -7,7 +7,7 @@ function renderCards(cardData, containerId, type) {
   cardData.forEach(card => {
     const title = card.title;
     const author = type === 'admin' ? card.editorNickname : card.creatorNickname;
-    const imageUrl = card.imageurl || 'https://via.placeholder.com/260x160?text=No+Image';
+    const imageUrl = card.imageUrl || 'https://via.placeholder.com/260x160?text=No+Image';
     const courseId = card.courseId;
     const favoriteCount = card.favoriteCnt || 0;
     const commentCount = card.reviewCnt || 0;

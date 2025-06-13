@@ -30,6 +30,8 @@
 
     <p id="courseInstructor" class="course-instructor"></p>
     <p id="courseDate" class="course-date"></p>
+    <div class="hashtag-container" id="hashtagsDisplay">
+    </div>
     <div id="imageGallery" class="image-gallery"></div>
     <div class="course-description">
       <p id="courseDescription" class="course-description-text"></p>
@@ -76,6 +78,26 @@
     document.getElementById("courseInstructor").innerText = `작성자: ${data.nickname}`;
     document.getElementById("courseDate").innerText = `등록일: ${data.createdAt.split("T")[0]}`;
     document.getElementById("courseDescription").innerText = data.description;
+
+    // ⭐⭐ 해시태그 목록 표시 (새로 추가) ⭐⭐
+    const hashtagsDisplayContainer = document.getElementById("hashtagsDisplay");
+    hashtagsDisplayContainer.innerHTML = ""; // 초기화
+
+    if (data.hashtagNames && data.hashtagNames.length > 0) {
+      data.hashtagNames.forEach(tagName => {
+        const hashtagSpan = document.createElement("span");
+        hashtagSpan.className = "hashtag-item"; // 스타일을 적용할 클래스
+        hashtagSpan.textContent = `#${tagName}`; // 해시태그 앞에 '#' 붙여서 표시
+        hashtagsDisplayContainer.appendChild(hashtagSpan);
+      });
+    } else {
+      // 해시태그가 없는 경우 메시지 표시 (선택 사항)
+      hashtagsDisplayContainer.textContent = "등록된 해시태그가 없습니다.";
+      hashtagsDisplayContainer.style.color = '#888';
+      hashtagsDisplayContainer.style.fontSize = '0.9em';
+    }
+    // ⭐⭐ /해시태그 목록 표시 끝 ⭐⭐
+
     const imageGallery = document.getElementById("imageGallery");
     imageGallery.innerHTML = ""; // 초기화
 
