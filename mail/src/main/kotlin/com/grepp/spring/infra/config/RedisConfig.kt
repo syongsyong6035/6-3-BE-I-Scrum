@@ -20,7 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 @EnableRedisRepositories
 class RedisConfig(
-    private val eventMessageDelegate: EventMessageDelegate
 ) {
     @Value("\${spring.data.redis.port}")
     private var port = 0
@@ -34,6 +33,7 @@ class RedisConfig(
     @Value("\${spring.data.redis.password}")
     private var password: String = ""
 
+    // 이 녀석이 Redis 와 서버를 연결 시켜주는 Factory 구만.
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory {
         val configuration: RedisStandaloneConfiguration = RedisStandaloneConfiguration()
@@ -56,7 +56,8 @@ class RedisConfig(
     ): RedisMessageListenerContainer {
         val container = RedisMessageListenerContainer()
         container.setConnectionFactory(connectionFactory)
-        container.addMessageListener(listener, ChannelTopic.of("user-service"))
+        // Datenow 로?
+        container.addMessageListener(listener, ChannelTopic.of("datenow"))
         return container
     }
 

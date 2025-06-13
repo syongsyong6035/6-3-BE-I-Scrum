@@ -12,3 +12,11 @@ data class OutboxDto(
     val activated: Boolean
     ) {
 }
+
+data class OutboxPayloadDto(
+    val email: String,
+    val verifyToken: String,
+    val domain: String
+){
+
+}
