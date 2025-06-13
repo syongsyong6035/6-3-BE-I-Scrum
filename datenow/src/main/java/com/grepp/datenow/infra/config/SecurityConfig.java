@@ -105,6 +105,8 @@ public class SecurityConfig {
                         "/member/find-password").permitAll()
                     .requestMatchers("/api/members/exists/userId", "/api/members/check/email",
                         "/api/members/check/nickname", "/api/members/signup").permitAll()
+                    .requestMatchers("/api/members/verify").permitAll()
+                    .requestMatchers("/member/verify").permitAll()
                     .requestMatchers(
                         "/v3/api-docs/**",
                         "/swagger-ui.html",

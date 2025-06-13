@@ -25,10 +25,23 @@ class EventMessageDelegate(
 
     override fun handleMessage(message: String) = runBlocking {
         log.info(message)
-        val outbox = objectMapper.readValue(message, OutboxDto::class.java)
-        if(outbox.eventType.uppercase() == MailTemplatePath.SIGNUP_VERIFY.name){
-//            sendSignupCompleteMail(outbox)
-            sendSignupVerifyMail(outbox)
+        try {
+            val outbox = objectMapper.readValue(message, OutboxDto::class.java)
+            val eventType = outbox.eventType.uppercase()
+
+            when (eventType) {
+                // ... (생략: SIGNUP_COMPLETE 처리) ...
+                "SIGNUP_VERIFY" -> {
+                    sendSignupVerifyMail(outbox)
+                }
+                else -> {
+                    log.warn("Unknown event type received: {}", outbox.eventType)
+                }
+            }
+        } catch (e: JsonProcessingException) {
+            log.error("Failed to parse message JSON: {}", message, e)
+        } catch (e: Exception) {
+            log.error("Error processing message: {}", message, e)
         }
     }
 
