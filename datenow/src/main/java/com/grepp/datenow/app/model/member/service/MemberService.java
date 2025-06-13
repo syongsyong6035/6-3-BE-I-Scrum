@@ -1,23 +1,28 @@
 package com.grepp.datenow.app.model.member.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grepp.datenow.app.controller.web.member.payload.MemberUpdateRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.course.dto.MyCourseResponse;
 import com.grepp.datenow.app.model.course.entity.Course;
 import com.grepp.datenow.app.model.course.repository.MyCourseRepository;
 import com.grepp.datenow.app.model.member.dto.MemberDto;
+import com.grepp.datenow.app.model.member.dto.OutboxPayloadDto;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
 import com.grepp.datenow.infra.error.CommonException;
+import com.grepp.datenow.infra.event.Outbox;
 import com.grepp.datenow.infra.mail.MailTemplate;
 import com.grepp.datenow.infra.response.ResponseCode;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +38,8 @@ public class MemberService {
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final MailTemplate mailTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ObjectMapper objectMapper;
 
     @Transactional
     public void signup(MemberDto dto, Role role) {
@@ -54,9 +61,40 @@ public class MemberService {
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         member.setPassword(encodedPassword);
         member.setRole(role);
+        member.setVerified(false); // 아직 인증받기 전이니깐 false
+
+        // Token 만들기
+        String verifyToken = UUID.randomUUID().toString();
+        member.setVerifyToken(verifyToken);
+        // 30분 내에 인증 해야한다. 그것도 못하면 가입하지마
+        member.setTokenExpiredAt(LocalDateTime.now().plusMinutes(30));
 
         memberRepository.save(member);
 
+        OutboxPayloadDto outboxPayload = OutboxPayloadDto.builder()
+            .email(member.getEmail())
+            .verifyToken(verifyToken)
+            .domain("http://localhost:8080")
+            .build();
+
+        // OutboxPayloadDto 를 JSON 문자열로 변환
+        String payloadJson;
+        try {
+            payloadJson = objectMapper.writeValueAsString(outboxPayload);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            // 로깅 또는 예외 처리
+            log.error("Failed to serialize OutboxPayloadDto to JSON", e);
+            throw new CommonException(ResponseCode.INTERNAL_SERVER_ERROR, "Failed to prepare email data.");
+        }
+
+        Outbox outbox = Outbox.builder()
+            .eventType("signup_verify")
+            .payload(payloadJson)
+            .sourceService("datenow")
+            .build();
+
+        // datenow 채널로 보내버리깅
+        redisTemplate.convertAndSend("datenow", outbox);
     }
 
     @Transactional
