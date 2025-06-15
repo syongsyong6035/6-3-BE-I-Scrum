@@ -106,7 +106,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((requests) -> requests
                     .requestMatchers(GET, "/css/**", "/js/**", "/images/**").permitAll()
                     .requestMatchers(GET, "/member/signup", "/member/signup/**", "/member/signin", "/member/find-password").permitAll()
-                    .requestMatchers(POST, "/member/signup", "/member/find-password").permitAll()
+                    .requestMatchers(POST, "/api/members/signup", "/member/find-password").permitAll()
                     .requestMatchers(POST,"/auth/signin").permitAll()
                     .requestMatchers(GET, "/api/members/exists", "/api/members/check/email", "/api/members/check/nickname", "/api/members/signup").permitAll()
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
