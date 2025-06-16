@@ -8,7 +8,7 @@ import com.grepp.datenow.app.model.auth.token.entity.UserBlackList;
 import com.grepp.datenow.infra.auth.token.JwtProvider;
 import com.grepp.datenow.infra.auth.token.TokenCookieFactory;
 import com.grepp.datenow.infra.auth.token.code.TokenType;
-import com.grepp.datenow.infra.error.CommonException;
+import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.response.ResponseCode;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

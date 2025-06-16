@@ -1,8 +1,8 @@
 package com.grepp.datenow.infra.auth.token.filter;
 
-import com.grepp.datenow.infra.error.CommonException;
 import com.grepp.datenow.infra.error.exception.AuthApiException;
 import com.grepp.datenow.infra.error.exception.AuthWebException;
+import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.response.ResponseCode;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;

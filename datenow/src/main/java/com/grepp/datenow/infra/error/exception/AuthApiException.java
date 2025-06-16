@@ -1,6 +1,5 @@
 package com.grepp.datenow.infra.error.exception;
 
-import com.grepp.datenow.infra.error.CommonException;
 import com.grepp.datenow.infra.response.ResponseCode;
 
 public class AuthApiException extends CommonException {

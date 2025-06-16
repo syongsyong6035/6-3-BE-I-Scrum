@@ -33,8 +33,6 @@ public class RedisConfig {
     @Value("${spring.data.redis.password}")
     private String password;
 
-    private final ApplicationContext applicationContext;
-
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();

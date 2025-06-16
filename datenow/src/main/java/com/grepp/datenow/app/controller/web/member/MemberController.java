@@ -45,13 +45,13 @@ public class MemberController {
     public String signup(
         @Valid @ModelAttribute("signupRequest") SignupRequest form,
         BindingResult bindingResult,
-        Model model) {
+        HttpSession session) {
 
         if (bindingResult.hasErrors()) {
             return "signup";
         }
 
-        memberService.signup(form.toDto(), Role.ROLE_USER);
+        memberService.signup(form.toDto(), Role.ROLE_USER, session);
         return "redirect:/member/signin";
     }
 
