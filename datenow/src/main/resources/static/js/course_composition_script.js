@@ -535,15 +535,19 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
-        .then(res => res.ok ? res.text() : Promise.reject(res))
+        .then(res => {
+            if (!res.ok) {
+                return res.json().then(error => Promise.reject(error));
+            }
+            return res.text(); // 또는 json으로 통일하고 처리
+        })
         .then(msg => {
-            // 코스 저장 성공 시 바로 메인 페이지로 이동
             alert('나의 데이트 코스가 등록되었습니다!');
             window.location.href = '/';
         })
         .catch(err => {
             console.error('코스 저장 실패:', err);
-            alert('코스 저장 중 오류가 발생했습니다.');
+            alert(err.message || '코스 저장 중 오류가 발생했습니다.');
         });
 
         if (selectedPlaces.length === 0) {

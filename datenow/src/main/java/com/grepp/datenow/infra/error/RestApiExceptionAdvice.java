@@ -1,5 +1,6 @@
 package com.grepp.datenow.infra.error;
 
+import com.grepp.datenow.infra.error.exception.course.BadWordsException;
 import com.grepp.datenow.infra.error.exception.image.ImageUploadException;
 import com.grepp.datenow.infra.error.exception.image.InvalidFileFormatException;
 import com.grepp.datenow.infra.response.ApiResponse;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.grepp.datenow.app.controller.api")
 @Slf4j
 public class RestApiExceptionAdvice {
 
@@ -39,6 +40,14 @@ public class RestApiExceptionAdvice {
             .body(ApiResponse.fail(ResponseCode.INTERNAL_SERVER_ERROR, e.getMessage()));
     }
     // 여기까지 Image Upload 관련
+
+    // 여기부터 나쁜말 필터링
+    @ExceptionHandler(BadWordsException.class)
+    public ResponseEntity<ApiResponse<?>> handleBadWordsException(BadWordsException e) {
+        return ResponseEntity
+            .status(ResponseCode.BAD_WORD.status())
+            .body(ApiResponse.fail(ResponseCode.BAD_WORD, e.getMessage()));
+    }
 
 
 }
