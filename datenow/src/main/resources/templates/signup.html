@@ -10,7 +10,6 @@
   <h1 class="logo">💖 DateNow.</h1>
 
   <form th:action="@{/member/signup}" th:object="${signupRequest}" method="post" id="signupForm">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
     <div class="field">
       <label for="userId">아이디</label>

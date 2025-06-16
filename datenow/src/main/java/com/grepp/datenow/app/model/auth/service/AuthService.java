@@ -1,17 +1,20 @@
 package com.grepp.datenow.app.model.auth.service;
 
-import com.grepp.datenow.app.model.auth.domain.Principal;
-import com.grepp.datenow.app.model.member.entity.Member;
-import com.grepp.datenow.app.model.member.repository.MemberRepository;
-import java.util.ArrayList;
-import java.util.List;
+import com.grepp.datenow.app.controller.api.auth.payload.SigninRequest;
+import com.grepp.datenow.app.model.auth.token.RefreshTokenRepository;
+import com.grepp.datenow.app.model.auth.token.RefreshTokenService;
+import com.grepp.datenow.app.model.auth.token.UserBlackListRepository;
+import com.grepp.datenow.app.model.auth.token.dto.AccessTokenDto;
+import com.grepp.datenow.app.model.auth.token.dto.TokenDto;
+import com.grepp.datenow.app.model.auth.token.entity.RefreshToken;
+import com.grepp.datenow.infra.auth.token.JwtProvider;
+import com.grepp.datenow.infra.auth.token.code.GrantType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,30 +22,42 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
-public class AuthService implements UserDetailsService {
+public class AuthService {
 
-    private final MemberRepository memberRepository;
+    private final RefreshTokenService refreshTokenService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserBlackListRepository userBlackListRepository;
+    private final JwtProvider jwtProvider;
 
-    @Override
-    public UserDetails loadUserByUsername(String userid){
+    public TokenDto signin(SigninRequest loginRequest) {
+        UsernamePasswordAuthenticationToken authenticationToken =
+            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                loginRequest.getPassword());
 
-        Member member = memberRepository.findByUserId(userid)
-            .orElseThrow(() -> new UsernameNotFoundException(userid));
+        // loadUserByUsername + password 검증 후 인증 객체 반환
+        // 인증 실패 시: AuthenticationException 발생
+        Authentication authentication = authenticationManagerBuilder.getObject()
+            .authenticate(authenticationToken);
 
-        if (!member.getActivated() || member.isLeaved()) {
-            throw new DisabledException("탈퇴된 회원입니다.");
-        }
-
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
-
-        // 스프링시큐리티는 기본적으로 권한 앞에 ROLE_ 이 있음을 가정
-        // hasRole("ADMIN") =>  ROLE_ADMIN 권한이 있는 지 확인.
-        // TEAM_{teamId}:{role}
-        // hasAuthority("ADMIN") => ADMIN 권한을 확인
-
-        return Principal.createPrincipal(member, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return processTokenSignin(authentication.getName());
     }
 
+    public TokenDto processTokenSignin(String userId){
+        // black list 에 있다면 해제
+        userBlackListRepository.deleteById(userId);
+
+        // 3. 인증 정보를 기반으로 JWT 토큰 생성
+        AccessTokenDto accessToken = jwtProvider.generateAccessToken(userId);
+        RefreshToken refreshToken = refreshTokenService.saveWithAtId(accessToken.getId());
+
+        return TokenDto.builder()
+            .accessToken(accessToken.getToken())
+            .refreshToken(refreshToken.getToken())
+            .grantType(GrantType.BEARER)
+            .atExpiresIn(jwtProvider.getAtExpiration())
+            .rtExpiresIn(jwtProvider.getRtExpiration())
+            .build();
+    }
 
 }

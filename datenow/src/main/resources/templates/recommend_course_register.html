@@ -101,7 +101,6 @@
     fetch(`/api/course/my-course/${courseId}`, {
       method: 'GET',
       headers: { 'Accept': 'application/json' },
-      credentials: 'include'
     })
     .then(response => response.json())
     .then(apiResponse => {

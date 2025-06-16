@@ -3,6 +3,7 @@ package com.grepp.datenow.app.controller.web.member;
 import com.grepp.datenow.app.controller.web.member.payload.FindPasswordRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SigninRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
+import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -40,6 +41,20 @@ public class MemberController {
         return "signup";
     }
 
+    @PostMapping("/signup")
+    public String signup(
+        @Valid @ModelAttribute("signupRequest") SignupRequest form,
+        BindingResult bindingResult,
+        HttpSession session) {
+
+        if (bindingResult.hasErrors()) {
+            return "signup";
+        }
+
+        memberService.signup(form.toDto(), Role.ROLE_USER, session);
+        return "redirect:/member/signin";
+    }
+
     @GetMapping("/find-password")
     public String findPassword(Model model){
         model.addAttribute("findPasswordRequest", new FindPasswordRequest());
@@ -72,4 +87,5 @@ public class MemberController {
         return "redirect:/member/signin?msg=" + URLEncoder.encode("회원가입이 완료되었습니다. 환영합니다!");
         // 이래야 한글이 안깨진다구
     }
+
 }

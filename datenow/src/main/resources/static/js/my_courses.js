@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const mycourseList = document.getElementById("mycourse-list");
 
-    fetch("/api/course/my-course", {
-        credentials: "include"
-    })
+    fetch("/api/course/my-course")
     .then((res) => res.json())
     .then((response) => {
         const courses = response.data;

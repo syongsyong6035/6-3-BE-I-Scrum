@@ -3,13 +3,18 @@ package com.grepp.datenow.infra.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+import com.grepp.datenow.infra.auth.token.filter.AuthExceptionFilter;
+import com.grepp.datenow.infra.auth.token.filter.JwtAuthenticationFilter;
+import com.grepp.datenow.infra.auth.token.filter.LogoutFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +24,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -27,20 +35,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Value("${remember-me.key}")
-    private String rememberMeKey;
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-            .build();
-    }
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthExceptionFilter authExceptionFilter;
+    private final LogoutFilter logoutFilter;
 
     @Bean
     public AuthenticationFailureHandler failureHandler() {
@@ -93,40 +98,31 @@ public class SecurityConfig {
         // ** : 모든 depth 의 모든 경로
         // Security Config 에는 인증과 관련된 설정만 지정 (PermitAll or Authenticated)
         http
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/**")  // REST API는 제외
+            .exceptionHandling(e -> e
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/member/signin");
+                })
             )
-            .authorizeHttpRequests(
-                (requests) -> requests
-                    .requestMatchers(GET, "/css/**", "/js/**", "/images/**").permitAll()
-                    .requestMatchers(GET, "/member/signup", "/member/signup/**", "/member/signin",
-                        "/member/find-password").permitAll()
-                    .requestMatchers(POST, "/member/signin", "/member/signup",
-                        "/member/find-password").permitAll()
-                    .requestMatchers("/api/members/exists/userId", "/api/members/check/email",
-                        "/api/members/check/nickname", "/api/members/signup").permitAll()
-                    .requestMatchers("/api/members/verify").permitAll()
-                    .requestMatchers("/member/verify").permitAll()
-                    .requestMatchers(
-                        "/v3/api-docs/**",
-                        "/swagger-ui.html",
-                        "/swagger-ui/**"
-                    ).permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/api/**").authenticated()
-                    .anyRequest().authenticated()
+            .csrf(AbstractHttpConfigurer::disable)
+            .formLogin(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests((requests) -> requests
+                .requestMatchers(GET, "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers(GET, "/member/signup", "/member/signup/**", "/member/signin", "/member/find-password").permitAll()
+                .requestMatchers(POST, "/api/members/signup", "/member/find-password").permitAll()
+                .requestMatchers(POST,"/auth/signin").permitAll()
+                .requestMatchers(GET, "/api/members/exists", "/api/members/check/email", "/api/members/check/nickname", "/api/members/signup").permitAll()
+                .requestMatchers("/api/members/verify").permitAll()
+                .requestMatchers("/member/verify").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                .anyRequest().authenticated()
             )
-            .formLogin((form) -> form
-                .loginPage("/member/signin")
-                .usernameParameter("userId")
-                .loginProcessingUrl("/member/signin")
-                .defaultSuccessUrl("/")
-                .successHandler(successHandler())
-                .failureHandler(failureHandler())
-                .permitAll()
-            )
-            .rememberMe(rememberMe -> rememberMe.key(rememberMeKey))
-            .logout(LogoutConfigurer::permitAll);
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(logoutFilter, JwtAuthenticationFilter.class)
+            .addFilterBefore(authExceptionFilter, JwtAuthenticationFilter.class);
 
         return http.build();
     }
@@ -136,4 +132,9 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
 }
