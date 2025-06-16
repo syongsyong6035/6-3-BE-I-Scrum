@@ -34,9 +34,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class JwtProvider {
-    
-    private RefreshTokenRepository refreshTokenRepository;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
     private final UserDetailsServiceImpl userDetailsService;
     
     @Value("${jwt.secrete}")
