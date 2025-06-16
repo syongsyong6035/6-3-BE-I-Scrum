@@ -15,6 +15,7 @@ import com.grepp.datenow.infra.response.ResponseCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -62,15 +63,18 @@ public class MemberApiController {
         return ResponseEntity.ok(ApiResponse.success(exists));
     }
 
+    // 회원 가입 요청
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<?>> signup(@RequestBody @Valid SignupRequest form) {
+    public ResponseEntity<ApiResponse<?>> signup(
+        @RequestBody @Valid SignupRequest form,
+        HttpSession session) {
 
         MemberDto dto = modelMapper.map(form, MemberDto.class);
-        memberService.signup(dto, Role.ROLE_USER);
+        memberService.signup(dto, Role.ROLE_USER, session);
 
         return ResponseEntity
             .status(ResponseCode.OK.status())
-            .body(ApiResponse.success(Map.of("message", "회원가입이 완료되었습니다.")));
+            .body(ApiResponse.success(Map.of("message", "회원가입 인증 메일이 전송되었습니다.")));
     }
 
     @PutMapping("/edit/{user_id}")

@@ -51,5 +51,4 @@ public class Member extends BaseEntity {
 
     @Column(columnDefinition="DATETIME(6) DEFAULT NULL")
     private LocalDateTime leavedAt;
-
 }

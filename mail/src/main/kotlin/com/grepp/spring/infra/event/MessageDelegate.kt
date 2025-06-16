@@ -1,5 +1,6 @@
 package com.grepp.spring.infra.event
 
+import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.grepp.spring.app.model.MailService
 import com.grepp.spring.app.model.code.MailTemplatePath
@@ -24,9 +25,23 @@ class EventMessageDelegate(
 
     override fun handleMessage(message: String) = runBlocking {
         log.info(message)
-        val outbox = objectMapper.readValue(message, OutboxDto::class.java)
-        if(outbox.eventType.uppercase() == MailTemplatePath.SIGNUP_COMPLETE.name){
-            sendSignupCompleteMail(outbox)
+        try {
+            val outbox = objectMapper.readValue(message, OutboxDto::class.java)
+            val eventType = outbox.eventType.uppercase()
+
+            when (eventType) {
+                // ... (생략: SIGNUP_COMPLETE 처리) ...
+                "SIGNUP_VERIFY" -> {
+                    sendSignupVerifyMail(outbox)
+                }
+                else -> {
+                    log.warn("Unknown event type received: {}", outbox.eventType)
+                }
+            }
+        } catch (e: JsonProcessingException) {
+            log.error("Failed to parse message JSON: {}", message, e)
+        } catch (e: Exception) {
+            log.error("Error processing message: {}", message, e)
         }
     }
 
@@ -38,5 +53,30 @@ class EventMessageDelegate(
             templatePath = MailTemplatePath.SIGNUP_COMPLETE.path
         )
         mailTemplate.send(dto)
+    }
+
+    // 새로운 회원가입 인증 메일 발송 로직
+    private suspend fun sendSignupVerifyMail(outbox: OutboxDto) {
+        try {
+            // Outbox.payload (JSON 문자열)를 OutboxPayloadDto로 역직렬화
+            val payloadDto = objectMapper.readValue(outbox.payload, OutboxPayloadDto::class.java)
+
+            val dto = SmtpDto(
+                from = "DateNow", // 발신자 설정 (환경 변수 등으로 관리하는 것이 좋습니다)
+                to = payloadDto.email, // payloadDto에서 이메일 추출
+                subject = "회원가입을 완료해주세요: 이메일 인증", // 제목 설정
+                templatePath = MailTemplatePath.SIGNUP_VERIFY.path, // 실제 템플릿 경로로 변경 (예: resources/templates/mail/signup-verify.html)
+                properties = mapOf( // 템플릿에서 사용할 변수들
+                    "token" to payloadDto.verifyToken,
+                    "domain" to payloadDto.domain // 인증 링크 생성을 위한 도메인
+                )
+            )
+            mailTemplate.send(dto)
+            log.info("Sent signup verification mail to: {}", payloadDto.email)
+        } catch (e: JsonProcessingException) {
+            log.error("Failed to parse Outbox payload JSON for signup_verify event: {}", outbox.payload, e)
+        } catch (e: Exception) {
+            log.error("Error sending signup verification mail for payload: {}", outbox.payload, e)
+        }
     }
 }

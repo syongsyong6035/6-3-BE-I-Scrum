@@ -32,9 +32,9 @@ public class RedisConfig {
     private String username;
     @Value("${spring.data.redis.password}")
     private String password;
-    
+
     private final ApplicationContext applicationContext;
-    
+
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
@@ -71,7 +71,6 @@ public class RedisConfig {
         mapper.activateDefaultTyping(
             BasicPolymorphicTypeValidator.builder()
                 .allowIfBaseType("org.springframework.security.") // 기존 설정 (유지)
-                .allowIfBaseType("com.grepp.datenow.")    // 당신의 도메인 객체 패키지 (유지)
                 .build(),
             ObjectMapper.DefaultTyping.NON_FINAL,
             JsonTypeInfo.As.PROPERTY

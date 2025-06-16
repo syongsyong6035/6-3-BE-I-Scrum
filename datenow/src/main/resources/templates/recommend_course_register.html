@@ -9,6 +9,29 @@
   <link rel="stylesheet" th:href="@{/css/header.css}"/>
   <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
   <link rel="stylesheet" th:href="@{/css/sidebar.css}"/>
+  <style>
+    .hashtag-container {
+      margin-top: 10px;
+      margin-bottom: 20px; /* 제목과 장소 목록 사이 간격 */
+      padding: 5px 0;
+    }
+    .hashtag-item {
+      display: inline-block;
+      background-color: #e0f7fa; /* 연한 하늘색 배경 */
+      color: #00796b; /* 진한 청록색 글씨 */
+      padding: 5px 10px;
+      margin-right: 8px;
+      margin-bottom: 8px; /* 여러 줄일 경우 간격 */
+      border-radius: 15px; /* 둥근 모서리 */
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+    .section-title { /* h2.section-title이므로, 기존 스타일이 있다면 유지 */
+      text-align: center;
+      margin-bottom: 15px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
@@ -23,6 +46,10 @@
       <main class="main">
         <section class="course-section">
           <h2 class="section-title section-subtitle">코스 제목 로딩 중...</h2>
+
+          <div class="hashtag-container" id="hashtagsDisplay">
+          </div>
+
           <div id="place-list" class="place-grid">
             <!-- JS가 장소 카드 렌더링 -->
           </div>
@@ -84,6 +111,27 @@
         if (sectionSubtitle && course.title) {
           sectionSubtitle.textContent = course.title;
         }
+
+        // ⭐⭐ 해시태그 목록 표시 (새로 추가) ⭐⭐
+        const hashtagsDisplayContainer = document.getElementById('hashtagsDisplay');
+        if (hashtagsDisplayContainer) {
+          hashtagsDisplayContainer.innerHTML = ''; // 기존 내용 초기화
+
+          if (course.hashtagNames && course.hashtagNames.length > 0) {
+            course.hashtagNames.forEach(tagName => {
+              const hashtagSpan = document.createElement('span');
+              hashtagSpan.className = 'hashtag-item'; // HTML에 추가한 스타일 클래스
+              hashtagSpan.textContent = `#${tagName}`; // 해시태그 앞에 '#' 붙여서 표시
+              hashtagsDisplayContainer.appendChild(hashtagSpan);
+            });
+          } else {
+            // 해시태그가 없는 경우 메시지 표시 (선택 사항)
+            hashtagsDisplayContainer.textContent = '등록된 해시태그가 없습니다.';
+            hashtagsDisplayContainer.style.color = '#888';
+            hashtagsDisplayContainer.style.fontSize = '0.9em';
+          }
+        }
+        // ⭐⭐ /해시태그 목록 표시 ⭐⭐
 
         const placeContainer = document.getElementById('place-list');
         if (placeContainer && course.places && course.places.length > 0) {

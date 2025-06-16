@@ -5,6 +5,7 @@ import com.grepp.datenow.app.controller.web.member.payload.SigninRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 전체적으로 view 를 제외하고 모두 API Contoller 로 ㄱㄱ
     @GetMapping("/signin")
     public String signin(Model model){
         model.addAttribute("signinRequest", new SigninRequest());
@@ -75,6 +78,14 @@ public class MemberController {
             model.addAttribute("errorMsg", "등록되지 않은 메일입니다");
             return "find_password";
         }
+    }
+
+    // 회원 가입 후 인증 메일 클릭
+    @GetMapping("/verify")
+    public String verifyEmail(@RequestParam String token, HttpSession session) {
+        memberService.verifyEmail(token, session);
+        return "redirect:/member/signin?msg=" + URLEncoder.encode("회원가입이 완료되었습니다. 환영합니다!");
+        // 이래야 한글이 안깨진다구
     }
 
 }

@@ -21,5 +21,6 @@ public class CourseDetailDto {
   String description;
   List<String> imageUrl;
   List<PlaceDetailDto> places;
+  List<String> hashtagNames;
 
 }

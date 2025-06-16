@@ -21,6 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('detail-course-title').textContent = course.title;
             document.getElementById('course-description').textContent = course.description;
 
+            // 2. ⭐ 해시태그 목록 표시 (새로 추가되는 로직) ⭐
+            const hashtagsDisplayContainer = document.getElementById('hashtagsDisplay');
+            hashtagsDisplayContainer.innerHTML = ''; // 기존 내용 초기화
+
+            if (course.hashtagNames && course.hashtagNames.length > 0) {
+                course.hashtagNames.forEach(tagName => {
+                    const hashtagSpan = document.createElement('span');
+                    hashtagSpan.className = 'hashtag-item';
+                    hashtagSpan.textContent = `#${tagName}`; // 해시태그 앞에 '#' 붙여서 표시
+                    hashtagsDisplayContainer.appendChild(hashtagSpan);
+                });
+            } else {
+                // 해시태그가 없는 경우 메시지 표시 (선택 사항)
+                hashtagsDisplayContainer.textContent = '등록된 해시태그가 없습니다.';
+                hashtagsDisplayContainer.style.color = '#888';
+                hashtagsDisplayContainer.style.fontSize = '0.9em';
+            }
+
             const placeContainer = document.querySelector('.place-container');
             placeContainer.innerHTML = '';
             course.places.forEach(place => {

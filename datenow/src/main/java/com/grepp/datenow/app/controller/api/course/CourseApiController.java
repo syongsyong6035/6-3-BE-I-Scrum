@@ -78,7 +78,7 @@ public class CourseApiController {
     public ResponseEntity<ApiResponse<?>> uploadImages(
         @RequestParam("images") List<MultipartFile> images) {
         // Service 에서 모든 유효성 검사 및 예외 처리를 담당
-        // 여기서 예외가 발생하면 GlobalExceptionHandler 가 처리
+        // 여기서 예외가 발생하면 RestApiExceptionAdvice 가 처리
         List<String> urls = imageService.upload(images);
 
         // 성공 응답은 ApiResponse 포맷으로 반환
@@ -101,6 +101,7 @@ public class CourseApiController {
     }
 
     // 나의 데이트 코스 상세 정보 조회
+    // 이거 위에 상세조회랑 겹치는거 아닌가??
     @GetMapping("/recommend-course-register")
     public ResponseEntity<?> getMyCourseDetail(
         @RequestParam(required = false) Long courseId,

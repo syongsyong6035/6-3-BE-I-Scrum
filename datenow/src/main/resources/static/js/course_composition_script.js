@@ -1,3 +1,38 @@
+// ⭐⭐ [추가] 1. 전역 변수: 현재 추가된 해시태그 목록을 저장 ⭐⭐
+let currentHashtags = [];
+
+// ⭐⭐ [추가] 2. 헬퍼 함수: 태그 이름 정돈 ⭐⭐
+function sanitizeTagName(tag) {
+    // 입력된 문자열에서 선행하는 '#'을 제거하고 앞뒤 공백을 제거합니다.
+    return tag.replace(/^#+/, '').trim();
+}
+
+// ⭐⭐ [추가] 3. 헬퍼 함수: 해시태그 칩 UI 렌더링 및 이벤트 연결 ⭐⭐
+function renderHashtagChips() {
+    const chipContainer = document.getElementById('hashtagChipsContainer');
+    if (!chipContainer) return;
+
+    chipContainer.innerHTML = ''; // 기존 칩들을 모두 지우고 다시 그립니다.
+
+    currentHashtags.forEach(tag => {
+        const chip = document.createElement('span');
+        chip.className = 'hashtag-chip';
+        // 화면에는 #을 붙여서 표시하지만, 내부적으로는 # 없이 저장합니다.
+        chip.innerHTML = `#${tag} <button class="remove-hashtag-btn" data-tag="${tag}">x</button>`;
+        chipContainer.appendChild(chip);
+    });
+
+    // 각 칩의 'x' 버튼에 클릭 이벤트 리스너를 연결합니다.
+    chipContainer.querySelectorAll('.remove-hashtag-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const tagToRemove = event.target.dataset.tag; // 'x' 버튼에 저장된 태그 이름을 가져옵니다.
+            // currentHashtags 배열에서 해당 태그를 제거합니다.
+            currentHashtags = currentHashtags.filter(tag => tag !== tagToRemove);
+            renderHashtagChips(); // UI를 다시 그려 변경사항을 반영합니다.
+        });
+    });
+}
+
 // AI 추천 코스 관련 로직
 document.addEventListener("DOMContentLoaded", () => {
     const saved = sessionStorage.getItem('recommendedPlaces');
@@ -12,6 +47,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedDate = sessionStorage.getItem('selectedDate');
     if (selectedDate) {
         document.getElementById('selectedDateText').textContent = selectedDate;
+    }
+
+    // ⭐⭐ [추가] 4. 해시태그 입력 필드에 이벤트 리스너 연결 ⭐⭐
+    const hashtagInput = document.getElementById('hashtagInput');
+    if (hashtagInput) {
+        // 'keyup' 이벤트를 사용하여 사용자가 키를 떼는 순간을 감지합니다.
+        hashtagInput.addEventListener('keyup', (event) => {
+            // 스페이스바(space) 또는 엔터(Enter) 키를 눌렀을 때만 해시태그를 생성합니다.
+            if (event.key === ' ' || event.key === 'Enter') {
+                event.preventDefault(); // 스페이스바나 엔터 키의 기본 동작(예: 공백 입력, 폼 제출)을 막습니다.
+
+                let inputValue = hashtagInput.value.trim(); // 현재 입력 필드 값의 앞뒤 공백을 제거합니다.
+
+                // 만약 스페이스바를 눌렀고, 입력값이 공백으로 끝났다면, 그 공백을 제거합니다.
+                if (event.key === ' ' && inputValue.endsWith(' ')) {
+                    inputValue = inputValue.substring(0, inputValue.length - 1).trim();
+                }
+
+                const newTag = sanitizeTagName(inputValue); // 정돈된(cleanup된) 태그 이름을 얻습니다.
+
+                if (newTag.length > 0) { // 정돈된 태그 이름이 비어있지 않다면
+                    if (!currentHashtags.includes(newTag)) { // 이미 추가된 태그가 아니라면
+                        currentHashtags.push(newTag); // 전역 배열에 추가
+                        hashtagInput.value = ''; // 입력 필드 초기화
+                        renderHashtagChips(); // UI 업데이트
+                    } else {
+                        alert(`'${newTag}' 해시태그는 이미 추가되었습니다.`); // 중복 경고
+                        hashtagInput.value = ''; // 입력 필드 초기화
+                    }
+                } else if (inputValue.length > 0) { // #만 있거나 공백만 있는 경우
+                    hashtagInput.value = ''; // 입력 필드 초기화
+                }
+            }
+        });
+
+        // ⭐ (선택 사항) [추가] 5. 입력 필드에서 포커스를 잃었을 때도 태그 추가 처리 ⭐
+        // 사용자가 스페이스/엔터 없이 그냥 다른 곳을 클릭하여 포커스를 잃을 때 남은 텍스트를 태그로 추가합니다.
+        hashtagInput.addEventListener('blur', () => {
+            const inputValue = hashtagInput.value.trim();
+            const newTag = sanitizeTagName(inputValue);
+            if (newTag.length > 0 && !currentHashtags.includes(newTag)) {
+                currentHashtags.push(newTag);
+                hashtagInput.value = '';
+                renderHashtagChips();
+            }
+        });
     }
 });
 
@@ -445,7 +526,8 @@ document.addEventListener('DOMContentLoaded', function() {
             title,
             description,
             date,
-            places: selectedPlaces
+            places: selectedPlaces,
+            hashtagNames: currentHashtags // ⭐ 해시태그 목록 추가
         };
 
         fetch('/api/course/save', {
