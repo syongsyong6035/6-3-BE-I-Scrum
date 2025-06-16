@@ -51,12 +51,4 @@ public class Member extends BaseEntity {
 
     @Column(columnDefinition="DATETIME(6) DEFAULT NULL")
     private LocalDateTime leavedAt;
-
-    @Column(nullable = false)
-    private Boolean verified = false;
-
-    private String verifyToken;
-
-    private LocalDateTime tokenExpiredAt;
-
 }
