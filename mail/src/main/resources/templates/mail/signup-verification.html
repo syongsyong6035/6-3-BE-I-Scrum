@@ -2,52 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Insert title here</title>
-  <link href="/css/mail/signup-mail.css">
+  <title>회원가입 이메일 인증을 완료해주세요</title>
+  <!-- 외부 CSS 파일은 대부분의 이메일 클라이언트에서 지원되지 않습니다. -->
+  <!-- <link href="/css/mail/signup-mail.css"> <-- 이 줄은 제거하거나, 이 CSS의 모든 스타일을 아래 HTML 태그들의 'style' 속성으로 인라인하세요. -->
+  <style type="text/css">
+    /* 여기에 이메일 전반에 걸쳐 공통적으로 적용될 스타일을 추가할 수 있습니다. */
+    /* 다만, 이메일 클라이언트 호환성을 위해 모든 중요한 스타일은 인라인으로 작성하는 것이 좋습니다. */
+    body { margin: 0; padding: 0; font-family: 'Lato', Helvetica, Arial, sans-serif; }
+    table { border-collapse: collapse; }
+    td { padding: 0; }
+    img { display: block; border: 0; }
+    a { text-decoration: none; }
+  </style>
 </head>
-<body>
-<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-  <!-- LOGO -->
+<body style="margin: 0; padding: 0;">
+<!-- 숨김 텍스트 (미리보기 텍스트) -->
+<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> 인증을 완료하여 새로운 계정을 활성화하세요! </div>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+  <!-- 로고 섹션 -->
   <tr>
-    <td bgcolor="#FFA73B" align="center">
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+    <td bgcolor="#FFA73B" align="center" style="padding: 40px 10px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
         <tr>
-          <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> </td>
+          <td align="center" valign="top" style="padding: 0;"> </td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <td bgcolor="#FFA73B" align="center" style="padding: 0px 10px 0px 10px;">
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+    <td bgcolor="#f4f4f4" align="center" style="padding: 0 10px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
         <tr>
           <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-            <h1 style="font-size: 48px; font-weight: 400; margin: 2;"></h1> <img src=" https://img.icons8.com/clouds/100/000000/handshake.png" width="125" height="120" style="display: block; border: 0px;" />
+            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">계정 확인</h1>
+            <img src="https://img.icons8.com/clouds/100/000000/handshake.png" width="125" height="120" style="display: block; border: 0px;" alt="계정 확인 아이콘" />
           </td>
         </tr>
       </table>
     </td>
   </tr>
+  <!-- 본문 시작 -->
   <tr>
-    <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+    <td bgcolor="#f4f4f4" align="center" style="padding: 0 10px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <p style="margin: 0;">We're excited to have you get started. First, you need to confirm your account. Just press the button below.</p>
+            <p style="margin: 0;">저희 서비스에 오신 것을 환영합니다! 계정을 활성화하려면 아래 버튼을 눌러주세요.</p>
           </td>
         </tr>
         <tr>
           <td bgcolor="#ffffff" align="left">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
               <tr>
                 <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
-                  <table border="0" cellspacing="0" cellpadding="0">
+                  <table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
                     <tr>
                       <td align="center" style="border-radius: 3px;" bgcolor="#FFA73B">
-                        <a th:href="|${domain}/api/member/add/${token}|"
-                           target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;">
-                          Confirm Account
+                        <!-- 인증 링크 버튼: 새로운 웹 컨트롤러 엔드포인트로 변경 -->
+                        <a th:href="|${domain + '/member/verify?token=' + token}|"
+                           target="_blank"
+                           style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;">
+                          계정 확인하기
                         </a>
                       </td>
                     </tr>
@@ -56,48 +72,57 @@
               </tr>
             </table>
           </td>
-        </tr> <!-- COPY -->
+        </tr>
+        <!-- 복사-붙여넣기용 링크 -->
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+            <p style="margin: 0;">만약 버튼이 작동하지 않는다면, 아래 링크를 복사하여 웹 브라우저에 붙여넣어 주세요:</p>
           </td>
-        </tr> <!-- COPY -->
+        </tr>
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <p style="margin: 0;"><a href="#" target="_blank" style="color: #FFA73B;">https://ts.xx/sdfgd</a></p>
+            <!-- 하드코딩된 링크 대신 동적 링크로 변경 -->
+            <p style="margin: 0;">
+              <a th:href="|${domain + '/member/verify?token=' + token}|"
+                 target="_blank"
+                 style="color: #FFA73B; text-decoration: underline;">
+                <span th:text="${domain + '/member/verify?token=' + token}"></span>
+              </a>
+            </p>
           </td>
         </tr>
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+            <p style="margin: 0;">궁금한 점이 있으시면 이 이메일에 회신해주세요. 언제든지 도와드리겠습니다.</p>
           </td>
         </tr>
         <tr>
           <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <p style="margin: 0;">Cheers,<br>GoSnippets Team</p>
+            <p style="margin: 0;">감사합니다,<br>GoSnippets 팀</p>
           </td>
         </tr>
       </table>
     </td>
   </tr>
+  <!-- 푸터 시작 -->
   <tr>
     <td bgcolor="#f4f4f4" align="center" style="padding: 30px 10px 0px 10px;">
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
         <tr>
-          <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-            <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Need more help?</h2>
-            <p style="margin: 0;"><a href="#" target="_blank" style="color: #FFA73B;">We&rsquo;re here to help you out</a></p>
+          <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px; border-radius: 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+            <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">더 많은 도움이 필요하신가요?</h2>
+            <p style="margin: 0;"><a href="#" target="_blank" style="color: #FFA73B; text-decoration: underline;">저희가 도와드리겠습니다.</a></p>
           </td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+    <td bgcolor="#f4f4f4" align="center" style="padding: 0 10px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; border-collapse: collapse;">
         <tr>
           <td bgcolor="#f4f4f4" align="left" style="padding: 0px 30px 30px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 18px;"> <br>
-            <p style="margin: 0;">If these emails get annoying, please feel free to <a href="#" target="_blank" style="color: #111111; font-weight: 700;">unsubscribe</a>.</p>
+            <p style="margin: 0;">더 이상 이메일을 받고 싶지 않으시다면 <a href="#" target="_blank" style="color: #111111; font-weight: 700; text-decoration: underline;">수신 거부</a>하세요.</p>
           </td>
         </tr>
       </table>

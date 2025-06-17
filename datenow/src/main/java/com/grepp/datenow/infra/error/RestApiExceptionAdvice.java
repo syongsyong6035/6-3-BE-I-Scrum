@@ -12,8 +12,9 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class RestApiExceptionAdvice {
 
+    // 여기부터 Image Upload 관련
     // Image 유효성 검사
     @ExceptionHandler(InvalidFileFormatException.class)
     public ResponseEntity<ApiResponse<?>> handleInvalidFileFormatException(InvalidFileFormatException e) {
@@ -37,4 +38,7 @@ public class GlobalExceptionHandler {
             .status(ResponseCode.INTERNAL_SERVER_ERROR.status()) // 500 Internal Server Error
             .body(ApiResponse.fail(ResponseCode.INTERNAL_SERVER_ERROR, e.getMessage()));
     }
+    // 여기까지 Image Upload 관련
+
+
 }

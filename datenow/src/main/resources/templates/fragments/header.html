@@ -19,12 +19,11 @@
         <a th:href="@{/recommend-course}">나의 코스 만들기</a>
         <a th:href="@{/my-page}">마이페이지</a>
       </div>
-      <form th:action="@{/logout}" method="post" style="display:inline;">
-        <button type="submit" class="logout-button">로그아웃</button>
-      </form>
+      <a href="#" class="logout-button" id="logout">로그아웃</a>
       <span class="profile-icon"></span>
     </div>
   </div>
+<script th:src="@{/js/header.js}"></script>
 </div>
 </body>
 </html>

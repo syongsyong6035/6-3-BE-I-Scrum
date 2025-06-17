@@ -135,8 +135,7 @@
     const recommendId = button.dataset.recommendId;
 
     fetch(`/api/users/${recommendId}/likes`, {
-      method: 'POST',
-      credentials: "include",
+      method: 'POST'
     })
     .then(response => {
       if (response.ok) {
@@ -167,7 +166,6 @@
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include",
       body: JSON.stringify({
         content: content,
         star: star
@@ -229,8 +227,7 @@
     if (!confirm("정말 삭제하시겠습니까?")) return;
 
     fetch(`/api/recommend-courses/delete/${reviewId}`, {
-      method: "POST",
-      credentials: "include"
+      method: "POST"
     })
     .then(res => {
       if (res.ok) {

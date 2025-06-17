@@ -42,34 +42,35 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final ModelMapper modelMapper;
-    private final MemberRepository memberRepository;
     private final FavoriteService favoriteService;
 
 
-    @GetMapping("/exists/userId")
+    @GetMapping("/exists")
     public ResponseEntity<ApiResponse<Boolean>> checkUserId(@RequestParam String userId) {
-        boolean exists = memberRepository.existsByUserId(userId);
+        boolean exists = memberService.isExistsId(userId);
         return ResponseEntity.ok(ApiResponse.success(exists));
     }
 
     @GetMapping("/check/email")
     public ResponseEntity<ApiResponse<Boolean>> checkEmail(@RequestParam String email) {
-        boolean exists = memberRepository.existsByEmail(email);
+        boolean exists = memberService.isExistsEmail(email);
         return ResponseEntity.ok(ApiResponse.success(exists));
     }
 
     @GetMapping("/check/nickname")
     public ResponseEntity<ApiResponse<Boolean>> checkNickname(@RequestParam String nickname) {
-        boolean exists = memberRepository.existsByNickname(nickname);
+        boolean exists = memberService.isExistsNickname(nickname);
         return ResponseEntity.ok(ApiResponse.success(exists));
     }
 
     // 회원 가입 요청
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<?>> signup(@RequestBody @Valid SignupRequest form) {
+    public ResponseEntity<ApiResponse<?>> signup(
+        @RequestBody @Valid SignupRequest form,
+        HttpSession session) {
 
         MemberDto dto = modelMapper.map(form, MemberDto.class);
-        memberService.signup(dto, Role.ROLE_USER);
+        memberService.signup(dto, Role.ROLE_USER, session);
 
         return ResponseEntity
             .status(ResponseCode.OK.status())

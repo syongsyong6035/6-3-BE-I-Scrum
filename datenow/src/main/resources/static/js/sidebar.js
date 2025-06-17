@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetch("/api/members/info", {
-    method: "GET",
-    credentials: "include"
+    method: "GET"
   })
   .then(res => res.json())
   .then(data => {
