@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div th:fragment="sidebar">
+  <aside class="sidebar">
+    <div class="user-info">
+      <p class="user-name">닉네임: 로딩 중...</p>
+      <p class="user-email">이메일: 로딩 중...</p>
+    </div>
+    <ul class="menu">
+      <li><a th:href="@{/admin/users}">회원관리</a></li>
+      <li><a th:href="@{/admin/recommend-courses}">에디터 픽 코스 목록</a></li>
+      <li><a th:href="@{/admin/editor-course}">에디터 픽 코스 추가</a></li>
+    </ul>
+  </aside>
+</div>
+</body>
+</html>

@@ -5,44 +5,38 @@
   <link rel="stylesheet" th:href="@{/css/admin_userManager.css}" />
   <link rel="stylesheet" th:href="@{/css/header.css}">
   <link rel="stylesheet" th:href="@{/css/footer.css}"/>
-
-  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/sidebar.css}">
 </head>
 <body>
+
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="admin-layout">
-
-  <nav class="sidebar">
-    <ul>
-      <li><a th:href="@{/admin/users}">회원관리</a></li>
-      <li><a th:href="@{/admin/recommend-courses}">에디터픽코스</a></li>
-      <li><a th:href="@{/admin/editor-course}">에디터픽코스추가</a></li>
-    </ul>
-  </nav>
+  <div th:replace="~{fragments/admin_sidebar :: sidebar}"></div>
   <main class="main-content">
-<div class="member-management-container">
-  <h1>회원 관리</h1>
-  <table class="member-table">
-    <thead>
-    <tr>
-      <th>번호</th>
-      <th>이름</th>
-      <th>유저 아이디</th>
-      <th>닉네임</th>
-      <th>가입일</th>
+    <div class="member-management-container">
+      <h1>회원 관리</h1>
+      <table class="member-table">
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>이름</th>
+          <th>유저 아이디</th>
+          <th>닉네임</th>
+          <th>가입일</th>
 
 
-    </tr>
-    </thead>
-    <tbody id="memberTableBody">
-    <!-- JS로 회원 데이터가 들어갑니다 -->
-    </tbody>
-  </table>
-</div>
+        </tr>
+        </thead>
+        <tbody id="memberTableBody">
+        <!-- JS로 회원 데이터가 들어갑니다 -->
+        </tbody>
+      </table>
+    </div>
   </main>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
-<script src="/js/admin_userManager.js"></script>
+<script th:src="@{/js/admin_userManager.js}"></script>
+<script th:src="@{/js/sidebar.js}"></script>
 </body>
 
 </html>
