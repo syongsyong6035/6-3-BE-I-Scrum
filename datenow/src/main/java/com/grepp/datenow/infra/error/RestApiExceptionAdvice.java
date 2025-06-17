@@ -1,5 +1,6 @@
 package com.grepp.datenow.infra.error;
 
+import com.grepp.datenow.infra.error.exception.course.BadWordsException;
 import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.error.exception.image.ImageUploadException;
 import com.grepp.datenow.infra.error.exception.image.InvalidFileFormatException;
@@ -48,5 +49,11 @@ public class RestApiExceptionAdvice {
     }
     // 여기까지 Image Upload 관련
 
+    @ExceptionHandler(BadWordsException.class)
+    public ResponseEntity<ApiResponse<?>> handleBadWordsException(BadWordsException e) {
+        return ResponseEntity
+            .status(ResponseCode.BAD_WORD.status())
+            .body(ApiResponse.fail(ResponseCode.BAD_WORD, e.getMessage()));
+    }
 
 }
