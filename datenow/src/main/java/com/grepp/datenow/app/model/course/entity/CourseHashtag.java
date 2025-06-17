@@ -22,13 +22,13 @@ public class CourseHashtag {
     @JoinColumn(name = "tag_id") // Hashtag 엔티티의 기본 키(tagId)를 참조
     private Hashtag hashtag;
 
-    // 생성자 (편의 메서드에서 사용)
+    // 생성자 (양방향 연관관계 주입 시에 사용할 거임)
     public CourseHashtag(Course course, Hashtag hashtag) {
         this.course = course;
         this.hashtag = hashtag;
     }
 
-    // ⭐ 필수: equals()와 hashCode() 오버라이드 ⭐
+    // 필수: equals()와 hashCode() override
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
