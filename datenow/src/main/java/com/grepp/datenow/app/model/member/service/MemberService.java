@@ -3,6 +3,8 @@ package com.grepp.datenow.app.model.member.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grepp.datenow.app.controller.web.member.payload.MemberUpdateRequest;
+import com.grepp.datenow.app.controller.web.member.payload.OAuthSignupRequest;
+import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.course.dto.MyCourseResponse;
 import com.grepp.datenow.app.model.course.entity.Course;
@@ -11,6 +13,7 @@ import com.grepp.datenow.app.model.member.dto.MemberDto;
 import com.grepp.datenow.app.model.member.dto.OutboxPayloadDto;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
+import com.grepp.datenow.infra.auth.oauth2.user.OAuth2UserInfo;
 import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.error.exception.member.NotExistEmailException;
 import com.grepp.datenow.infra.error.exception.member.SessionExpiredException;
@@ -22,6 +25,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -237,5 +241,25 @@ public class MemberService {
         for (int i = 0; i < length; i++)
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
         return sb.toString();
+    }
+
+    @Transactional
+    public void signupOAuthMember(OAuth2UserInfo userInfo, OAuthSignupRequest request) {
+
+        if (memberRepository.existsByEmail(request.getEmail())) {
+            throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 이메일입니다.");
+        }
+        if (memberRepository.existsByNickname(request.getNickname())) {
+            throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 닉네임입니다.");
+        }
+
+        Member member = mapper.map(request, Member.class);
+
+        String userId = userInfo.getProvider() + "_" + userInfo.getProviderId();
+        member.setUserId(userId);
+        member.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+        member.setRole(Role.ROLE_USER);
+
+        memberRepository.save(member);
     }
 }

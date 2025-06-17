@@ -1,6 +1,7 @@
 package com.grepp.datenow.app.controller.api.member;
 
 import com.grepp.datenow.app.controller.web.member.payload.MemberUpdateRequest;
+import com.grepp.datenow.app.controller.web.member.payload.OAuthSignupRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.auth.domain.Principal;
@@ -10,6 +11,8 @@ import com.grepp.datenow.app.model.member.dto.MemberDto;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
 import com.grepp.datenow.app.model.member.service.MemberService;
+import com.grepp.datenow.infra.auth.oauth2.user.OAuth2UserInfo;
+import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.response.ApiResponse;
 import com.grepp.datenow.infra.response.ResponseCode;
 import jakarta.servlet.ServletException;
@@ -22,9 +25,12 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,6 +81,23 @@ public class MemberApiController {
         return ResponseEntity
             .status(ResponseCode.OK.status())
             .body(ApiResponse.success(Map.of("message", "회원가입 인증 메일이 전송되었습니다.")));
+    }
+
+    @PostMapping("/oauth/signup")
+    public ResponseEntity<ApiResponse<String>> completeSignup(
+        @Valid @RequestBody OAuthSignupRequest request,
+        HttpSession session
+    ) {
+        OAuth2UserInfo userInfo = (OAuth2UserInfo) session.getAttribute("oauth2_user_info");
+
+        if (userInfo == null) {
+            throw new CommonException(ResponseCode.UNAUTHORIZED, "OAuth 인증 세션이 없습니다.");
+        }
+
+        memberService.signupOAuthMember(userInfo, request);
+        session.removeAttribute("oauth2_user_info");
+
+        return ResponseEntity.ok(ApiResponse.success("회원가입이 완료되었습니다."));
     }
 
     @PutMapping("/edit/{user_id}")
