@@ -29,24 +29,49 @@ import org.springframework.security.jackson2.SecurityJackson2Modules;
 @RequiredArgsConstructor
 public class RedisConfig {
 
-    @Value("${spring.data.redis.port}")
-    private int port;
-    @Value("${spring.data.redis.host}")
-    private String host;
-    @Value("${spring.data.redis.username}")
-    private String username;
-    @Value("${spring.data.redis.password}")
-    private String password;
+  @Value("${spring.data.redis.port}")
+  private int port;
+  @Value("${spring.data.redis.host}")
+  private String host;
+  @Value("${spring.data.redis.username}")
+  private String username;
+  @Value("${spring.data.redis.password}")
+  private String password;
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory(){
-        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setUsername(username);
-        configuration.setPort(port);
-        configuration.setHostName(host);
-        configuration.setPassword(password);
-        return new LettuceConnectionFactory(configuration);
-    }
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory(){
+    RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+    configuration.setUsername(username);
+    configuration.setPort(port);
+    configuration.setHostName(host);
+    configuration.setPassword(password);
+    return new LettuceConnectionFactory(configuration);
+  }
+
+
+
+  @Bean
+  public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+
+    ClassLoader loader = getClass().getClassLoader();
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModules( SecurityJackson2Modules.getModules(loader));
+
+    // 1. Java 8 Date/Time API 지원을 위한 모듈 등록 (필수 권장)
+    mapper.registerModule(new JavaTimeModule());
+    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 날짜를 타임스탬프가 아닌 문자열로 직렬화
+
+    mapper.activateDefaultTyping(
+        BasicPolymorphicTypeValidator.builder()
+            .allowIfBaseType("org.springframework.security.") // 기존 설정 (유지)
+            .allowIfBaseType("com.grepp.datenow")    // 당신의 도메인 객체 패키지 (유지)
+            .build(),
+        ObjectMapper.DefaultTyping.NON_FINAL,
+        JsonTypeInfo.As.PROPERTY
+    );
+    return new GenericJackson2JsonRedisSerializer(mapper);
+  }
+
 
   @Bean
   public RedisTemplate<String, Object> redisTemplate(
@@ -60,43 +85,6 @@ public class RedisConfig {
     return redisTemplate;
   }
 
-    @Bean
-    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
-
-        ClassLoader loader = getClass().getClassLoader();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModules( SecurityJackson2Modules.getModules(loader));
-
-        // 1. Java 8 Date/Time API 지원을 위한 모듈 등록 (필수 권장)
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // 날짜를 타임스탬프가 아닌 문자열로 직렬화
-
-        mapper.activateDefaultTyping(
-            BasicPolymorphicTypeValidator.builder()
-                .allowIfBaseType("org.springframework.security.") // 기존 설정 (유지)
-                .allowIfBaseType("com.grepp.datenow")    // 당신의 도메인 객체 패키지 (유지)
-                .build(),
-            ObjectMapper.DefaultTyping.NON_FINAL,
-            JsonTypeInfo.As.PROPERTY
-        );
-        return new GenericJackson2JsonRedisSerializer(mapper);
-    }
-
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
-
-        // Value 직렬화 설정 (공통 ObjectMapper를 사용하는 JSON Serializer)
-        redisTemplate.setValueSerializer(springSessionDefaultRedisSerializer()); // 주입받은 Serializer 사용
-        redisTemplate.setHashValueSerializer(springSessionDefaultRedisSerializer());
-
-        redisTemplate.afterPropertiesSet();
-
-        return redisTemplate;
-    }
   @Bean
   public PatternTopic channelTopic(){
     return new PatternTopic("chat.*");//어디채널에

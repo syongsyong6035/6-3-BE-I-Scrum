@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Slf4j
 public class ChatApiController {
 
-  //pubsub결국 발행자는 몰라도 되고 구독자들만 이제 내용을 받는다 느슨한 결합
-  private final RedisPublisher redisPublisher;
   private final MemberRepository memberRepository;
   private final ChatService chatService;
 //app/chat/send

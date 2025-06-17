@@ -9,7 +9,6 @@ import com.grepp.datenow.app.model.chat.entity.ChatRoom;
 import com.grepp.datenow.app.model.chat.repository.ChatRoomRepository;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
-import com.grepp.datenow.infra.error.CommonException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

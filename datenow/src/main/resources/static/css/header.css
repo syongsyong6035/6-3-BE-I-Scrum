@@ -5,15 +5,33 @@ body {
 }
 
 .navbar {
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 64px;
   background: #fff0f5;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0 32px;
-  box-sizing: border-box;
   box-shadow: 0 2px 6px rgba(255, 79, 160, 0.08);
+}
+
+.navbar-right button {
+  background-color: #ff4fa0;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navbar-right button:hover {
+  background-color: #e03b88;
+}
+
+#status {
+  color: #777;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
 .navbar-left {
@@ -52,7 +70,7 @@ body {
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .navbar-right a {

@@ -1,10 +1,7 @@
 package com.grepp.datenow.app.model.chat.sevice;
 
-import com.grepp.datenow.app.model.auth.domain.Principal;
 import com.grepp.datenow.app.model.chat.dto.ChatDto;
 import com.grepp.datenow.app.model.chat.dto.ChattingResponseDto;
-import com.grepp.datenow.app.model.chat.dto.CreateChatRoomDto;
-import com.grepp.datenow.app.model.chat.dto.ResponseChatDto;
 import com.grepp.datenow.app.model.chat.dto.ResponseChatRoomDto;
 import com.grepp.datenow.app.model.chat.entity.ChatMessage;
 import com.grepp.datenow.app.model.chat.entity.ChatRoom;
@@ -14,7 +11,6 @@ import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
 import com.grepp.datenow.infra.chat.config.RedisPublisher;
 import jakarta.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +41,9 @@ public class ChatService {
     ChatMessage chatMessage = new ChatMessage(member, chatRoom, dto.getContent(), dto.getDateTime());
     chatMessageRepository.save(chatMessage);
 
+    String redisKey = "chat:lastMessage:" + dto.getRoomId();
+    redisTemplate.opsForValue().set(redisKey, dto.getContent());
+
     redisPublisher.sendMessagePublish(dto);
   }
 
@@ -53,16 +52,19 @@ public class ChatService {
     List<ChatRoom> chatRooms = chatRoomRepository.findAllByUser1OrUser2(user, user);
 
 
-    List<ResponseChatRoomDto> rooms = chatRooms.stream()
-        .map(chat -> ResponseChatRoomDto.builder()
-            .roomId(chat.getRoomId())
-            .lastMessage(chat.getLastMessage())
-            .nickname(user.getNickname())
-            .build()
-        )
+    return chatRooms.stream()
+        .map(room -> {
+          String redisKey = "chat:lastMessage:" + room.getRoomId();
+          String lastMessage = (String) redisTemplate.opsForValue().get(redisKey);
+
+          return ResponseChatRoomDto.builder()
+              .roomId(room.getRoomId())
+              .nickname(user.getNickname())
+              .lastMessage(lastMessage != null ? lastMessage : "채팅을 시작해보세요.")
+              .build();
+        })
         .toList();
 
-    return rooms;
 
   }
 
