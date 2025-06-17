@@ -1,5 +1,6 @@
 package com.grepp.datenow.infra.error;
 
+import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.error.exception.image.ImageUploadException;
 import com.grepp.datenow.infra.error.exception.image.InvalidFileFormatException;
 import com.grepp.datenow.infra.response.ApiResponse;
@@ -13,6 +14,13 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 @RestControllerAdvice
 @Slf4j
 public class RestApiExceptionAdvice {
+
+    @ExceptionHandler(CommonException.class)
+    public ResponseEntity<ApiResponse<?>> handleCommonException(CommonException e) {
+        return ResponseEntity
+            .status(e.code().status())
+            .body(ApiResponse.fail(e.code(), e.getMessage()));
+    }
 
     // 여기부터 Image Upload 관련
     // Image 유효성 검사

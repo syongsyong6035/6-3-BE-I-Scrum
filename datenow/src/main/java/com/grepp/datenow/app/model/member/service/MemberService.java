@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +51,19 @@ public class MemberService {
     private final ObjectMapper objectMapper;
 
     @Transactional
-    public void signup(MemberDto dto, Role role, HttpSession session) { // HttpSession 파라미터 추가
+    public void signup(MemberDto dto, Role role, HttpSession session, @Nullable OAuth2UserInfo userInfo ) { // HttpSession 파라미터 추가
         log.info("회원가입 요청 시작: userId={}", dto.getUserId());
+
+        if (userInfo != null) {
+            // OAuth 회원가입일 경우
+            dto.setUserId(userInfo.getProvider() + "_" + userInfo.getProviderId());
+            dto.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+            dto.setRole(Role.ROLE_USER);
+        } else {
+            // 일반 회원가입일 경우
+            dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+            dto.setRole(role);
+        }
 
         if (memberRepository.existsByUserId(dto.getUserId())) {
             throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 아이디입니다.");
@@ -64,10 +76,6 @@ public class MemberService {
         if (memberRepository.existsByNickname(dto.getNickname())) {
             throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 닉네임입니다.");
         }
-
-        // 비밀번호 인코딩 (dto.setPassword를 통해 dto에 인코딩된 비밀번호 저장)
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-        dto.setRole(role); // dto에 Role 설정
 
         String verifyToken = session.getId(); // ⭐ verifyToken으로 session.getId() 사용
 
@@ -243,23 +251,4 @@ public class MemberService {
         return sb.toString();
     }
 
-    @Transactional
-    public void signupOAuthMember(OAuth2UserInfo userInfo, OAuthSignupRequest request) {
-
-        if (memberRepository.existsByEmail(request.getEmail())) {
-            throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 이메일입니다.");
-        }
-        if (memberRepository.existsByNickname(request.getNickname())) {
-            throw new CommonException(ResponseCode.BAD_REQUEST, "이미 사용 중인 닉네임입니다.");
-        }
-
-        Member member = mapper.map(request, Member.class);
-
-        String userId = userInfo.getProvider() + "_" + userInfo.getProviderId();
-        member.setUserId(userId);
-        member.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
-        member.setRole(Role.ROLE_USER);
-
-        memberRepository.save(member);
-    }
 }

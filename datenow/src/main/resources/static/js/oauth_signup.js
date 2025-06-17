@@ -115,7 +115,7 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     phone: document.getElementById('phone').value
   };
 
-  fetch('/api/members/oauth/signup', {
+  fetch('/api/members/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -126,7 +126,7 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     return res.json();
   })
   .then(json => {
-    alert(json.data || '회원가입이 완료되었습니다.');
+    alert(json.data.message || '회원가입이 완료되었습니다.');
     window.location.href = '/';
   })
   .catch(err => {

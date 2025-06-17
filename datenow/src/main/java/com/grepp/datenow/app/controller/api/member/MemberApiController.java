@@ -71,33 +71,23 @@ public class MemberApiController {
 
     // 회원 가입 요청
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<?>> signup(
-        @RequestBody @Valid SignupRequest form,
-        HttpSession session) {
-
-        MemberDto dto = modelMapper.map(form, MemberDto.class);
-        memberService.signup(dto, Role.ROLE_USER, session);
-
-        return ResponseEntity
-            .status(ResponseCode.OK.status())
-            .body(ApiResponse.success(Map.of("message", "회원가입 인증 메일이 전송되었습니다.")));
-    }
-
-    @PostMapping("/oauth/signup")
-    public ResponseEntity<ApiResponse<String>> completeSignup(
-        @Valid @RequestBody OAuthSignupRequest request,
+    public ResponseEntity<ApiResponse<?>> unifiedSignup(
+        @RequestBody @Valid MemberDto dto,
         HttpSession session
     ) {
         OAuth2UserInfo userInfo = (OAuth2UserInfo) session.getAttribute("oauth2_user_info");
 
-        if (userInfo == null) {
-            throw new CommonException(ResponseCode.UNAUTHORIZED, "OAuth 인증 세션이 없습니다.");
+        // userInfo가 null이면 일반 회원가입
+        memberService.signup(dto, Role.ROLE_USER, session, userInfo);
+
+        // OAuth일 경우 세션 삭제
+        if (userInfo != null) {
+            session.removeAttribute("oauth2_user_info");
         }
 
-        memberService.signupOAuthMember(userInfo, request);
-        session.removeAttribute("oauth2_user_info");
-
-        return ResponseEntity.ok(ApiResponse.success("회원가입이 완료되었습니다."));
+        return ResponseEntity
+            .status(ResponseCode.OK.status())
+            .body(ApiResponse.success(Map.of("message", "회원가입 인증 메일이 전송되었습니다.")));
     }
 
     @PutMapping("/edit/{user_id}")
