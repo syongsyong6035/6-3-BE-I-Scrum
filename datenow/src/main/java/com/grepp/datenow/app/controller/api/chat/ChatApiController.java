@@ -10,6 +10,7 @@ import com.grepp.datenow.app.model.chat.sevice.ChatService;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
 import com.grepp.datenow.infra.chat.config.RedisPublisher;
+import com.grepp.datenow.infra.response.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +50,7 @@ public class ChatApiController {
 
     chatService.sendChatMessage(chatDto);
 
-    return ResponseEntity.ok("성공적으로 메세지가 보내졌습니다");
+    return ResponseEntity.ok(ApiResponse.success("성공적으로 메세지를 보냈습니다"));
 
 
   }
@@ -60,7 +62,7 @@ public class ChatApiController {
     log.info(auth.getName());
     List<ResponseChatRoomDto> dto = chatService.chatRoomList(user);
 
-    return ResponseEntity.ok(dto);
+    return ResponseEntity.ok(ApiResponse.success(dto));
   }
 
   @GetMapping("/api/chatList/{roomId}")
@@ -68,7 +70,7 @@ public class ChatApiController {
     log.info(auth.getName());
     List<ChattingResponseDto> chatting = chatService.userChatting(roomId, auth);
 
-    return ResponseEntity.ok(chatting);
+    return ResponseEntity.ok(ApiResponse.success(chatting));
 
   }
 
@@ -85,7 +87,7 @@ public class ChatApiController {
       return ResponseEntity.ok().body("");  // 빈 문자열 리턴
     }
 
-     return ResponseEntity.ok(roomId);
+     return ResponseEntity.ok(ApiResponse.success(roomId));
   }
 
   @GetMapping("/api/userId")
@@ -93,7 +95,15 @@ public class ChatApiController {
     Member user = memberRepository.findByUserId(auth.getName())
         .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
 
-    return ResponseEntity.ok(Map.of("userId", user.getId()));
+    return ResponseEntity.ok(ApiResponse.success(Map.of("userId", user.getId())));
+  }
+
+  @DeleteMapping("/chatList/{roomId}")
+  public ResponseEntity<?> deleteChat(@PathVariable Long roomId, Authentication auth) {
+    Member member = memberRepository.findByUserId(auth.getName())
+            .orElseThrow(() -> new EntityNotFoundException("해당 엔티티가 존재 하지 않습니다"));
+    chatService.deleteByRoomId(roomId,member);
+    return ResponseEntity.ok(ApiResponse.success("정상 삭제 되었습니다"));
   }
 
 

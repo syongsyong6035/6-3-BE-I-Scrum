@@ -65,6 +65,21 @@
         color: #666;
         margin-top: 4px;
       }
+    .delete-button {
+      background-color: transparent;
+      border: none;
+      color: #f19fea;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .delete-button:hover {
+      color: #ea5a87;
+    }
+
   </style>
 </head>
 <body>
@@ -78,7 +93,7 @@
   <!-- 오른쪽 버튼 영역 -->
   <div style="width: 250px; padding: 20px; border-left: 1px solid #ddd; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 70%;">
     <h2 style="margin-bottom: 10px;">랜덤 채팅</h2>
-    <button onclick="startRandomChat()">랜덤 채팅 시작</button>
+    <button id="startBtn" disabled>랜덤 채팅 시작</button>
     <p id="status" style="margin-top: 12px;">대기 중...</p>
   </div>
 </div>
@@ -88,49 +103,70 @@
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script th:src="@{/js/header.js}"></script>
 <script>
+  let userId = null;
   let stompClient = null;
 
-  function connectStomp(userId) {
-    const socket = new SockJS("/ws/connect");
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, () => {
-      stompClient.subscribe("/topic/match." + userId, (message) => {
-        const data = JSON.parse(message.body);
-        const roomId = data.roomId;
-        document.getElementById("status").textContent = `매칭 완료! 채팅방으로 이동합니다...`;
-        window.location.href = `/chatList/${roomId}`;
+  window.addEventListener("DOMContentLoaded", () => {
+    fetch("/api/userId")
+    .then(res => res.json())
+    .then(data => {
+      userId = data.data.userId;
+
+      const socket = new SockJS("/ws/connect");
+      stompClient = Stomp.over(socket);
+
+      stompClient.connect({}, () => {
+        // ✅ 구독 먼저
+        stompClient.subscribe("/topic/match." + userId, (message) => {
+          const data = JSON.parse(message.body);
+          const roomId = data.roomId;
+          document.getElementById("status").textContent = "매칭 완료! 채팅방으로 이동합니다...";
+          window.location.href = `/chatList/${roomId}`;
+        });
+
+        // ✅ 버튼 활성화
+        document.getElementById("startBtn").disabled = false;
+        document.getElementById("startBtn").addEventListener("click", startRandomChat);
       });
     });
-  }
+  });
 
   function startRandomChat() {
+    document.getElementById("startBtn").disabled = true;
+    document.getElementById("status").textContent = "매칭을 시도 중입니다...";
+
     fetch("/api/randomChat", { method: "POST" })
-    .then(res => res.text()) // 일단 문자열로 받기
+    .then(res => res.text())
     .then(text => {
-      if (!text) return {}; // 빈 응답이면 빈 객체
-      return JSON.parse(text);
-    })
-    .then(data => {
-      const roomId = typeof data === 'object' ? data.roomId : data;
-      if (roomId) {
-        window.location.href = `/chatList/${roomId}`;
-      } else {
-        document.getElementById("status").textContent = "상대방을 기다리는 중입니다...";
-        fetch("/api/userId")
-        .then(res => res.json())
-        .then(data => connectStomp(data.userId));
+      if (!text) {
+        document.getElementById("status").textContent = "상대방을 기다리는 중입니다... (웹소켓 알림을 대기 중)";
+        return;
+      }
+
+      try {
+        const data = JSON.parse(text);
+        const roomId = data.roomId;
+        if (roomId) {
+          window.location.href = `/chatList/${roomId}`;
+        }
+      } catch (e) {
+        window.location.href = `/chatList/${text}`;
       }
     })
-
-
     .catch(err => {
       console.error(err);
       document.getElementById("status").textContent = "에러 발생";
     });
   }
   fetch('/api/chatList')
-  .then(response => response.json())
-  .then(chats => {
+  .then(res => res.json())
+  .then(data => {
+    const chats = data.data;
+    if (!Array.isArray(chats)) {
+      console.error("chats가 배열이 아님:", chats);
+      return;
+    }
+
     const list = document.getElementById("chatList");
     list.innerHTML = '';
 
@@ -138,22 +174,43 @@
       const card = document.createElement("div");
       card.className = "chat-card";
       card.dataset.roomId = chat.roomId;
+
       card.innerHTML = `
         <div class="chat-avatar"></div>
-        <div class="chat-info">
+        <div class="chat-info" style="flex: 1; cursor: pointer;">
           <div class="chat-nickname">${chat.nickname}</div>
           <div class="chat-last-message">${chat.lastMessage}</div>
         </div>
+        <button class="delete-button" style="margin-left: 10px;">삭제</button>
       `;
 
+      card.querySelector('.chat-info').onclick = () => {
+        window.location.href = `/chatList/${chat.roomId}`;
+      };
 
-      card.onclick = () => {
-        window.location.href = `/chatList/${chat.roomId}`; // 또는 모달 열기 등
+      card.querySelector('.delete-button').onclick = (e) => {
+        e.stopPropagation();
+        if (confirm("이 채팅방을 삭제하시겠습니까?")) {
+          fetch(`/chatList/${chat.roomId}`, { method: 'DELETE' })
+          .then(res => {
+            if (res.ok) card.remove();
+            else alert("삭제 실패");
+          })
+          .catch(err => {
+            console.error(err);
+            alert("오류 발생");
+          });
+        }
       };
 
       list.appendChild(card);
     });
+  })
+  .catch(err => {
+    console.error("채팅 리스트 불러오기 실패:", err);
   });
+
+
 </script>
 
 </body>

@@ -13,4 +13,6 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
 
   @Query("SELECT m FROM ChatMessage m JOIN FETCH m.id WHERE m.roomId = :chatRoom")
   List<ChatMessage> findAllByRoomIdOrderByDateTimeAsc(ChatRoom chatRoom);
+
+  void deleteByRoomId(ChatRoom chatRoom);
 }
