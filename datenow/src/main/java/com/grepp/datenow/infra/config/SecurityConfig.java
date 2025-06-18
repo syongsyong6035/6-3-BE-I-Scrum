@@ -127,6 +127,7 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/api/members/exists", "/api/members/check/email", "/api/members/check/nickname", "/api/members/signup").permitAll()
                 .requestMatchers("/api/members/verify").permitAll()
                 .requestMatchers("/member/verify").permitAll()
+                .requestMatchers("/chatList/**", "/chatList").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
