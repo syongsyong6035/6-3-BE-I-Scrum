@@ -62,6 +62,7 @@
   <div id="reviewList" class="review-list"></div>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/header.js}"></script>
 <script>
   const recommendId = [[${recommendId}]];
   const currentUserNickname = '[[${loginNickname}]]';
