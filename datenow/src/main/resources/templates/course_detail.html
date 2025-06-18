@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -32,10 +31,19 @@
     <p id="courseDate" class="course-date"></p>
     <div class="hashtag-container" id="hashtagsDisplay">
     </div>
-    <div id="imageGallery" class="image-gallery"></div>
+
+    <div class="image-slider-container">
+      <button class="slider-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+      <div class="image-slider" id="imageSlider">
+        <!-- JavaScript로 이미지들이 들어감 -->
+      </div>
+      <button class="slider-btn next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
     <div class="course-description">
       <p id="courseDescription" class="course-description-text"></p>
     </div>
+
     <div id="placeList" class="place-list"></div>
   </div>
 
@@ -80,7 +88,7 @@
     document.getElementById("courseDate").innerText = `등록일: ${data.createdAt.split("T")[0]}`;
     document.getElementById("courseDescription").innerText = data.description;
 
-    // ⭐⭐ 해시태그 목록 표시 (새로 추가) ⭐⭐
+    // 해시태그 목록 표시
     const hashtagsDisplayContainer = document.getElementById("hashtagsDisplay");
     hashtagsDisplayContainer.innerHTML = ""; // 초기화
 
@@ -97,21 +105,12 @@
       hashtagsDisplayContainer.style.color = '#888';
       hashtagsDisplayContainer.style.fontSize = '0.9em';
     }
-    // ⭐⭐ /해시태그 목록 표시 끝 ⭐⭐
 
-    const imageGallery = document.getElementById("imageGallery");
-    imageGallery.innerHTML = ""; // 초기화
+    const imageUrls = data.imageUrl && data.imageUrl.length > 0
+        ? data.imageUrl
+        : ["/image/bg_night.jpg"];
 
-    if (data.imageUrl && data.imageUrl.length > 0) {
-      data.imageUrl.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "장소 이미지";
-        img.className = "gallery-image";
-
-        imageGallery.appendChild(img);
-      });
-    }
+    renderSlider(imageUrls);
 
     const placeList = document.getElementById("placeList");
     placeList.innerHTML = "";
@@ -130,7 +129,36 @@
     console.error("코스 정보를 불러오는 데 실패했습니다.", err);
   });
 
+  let currentSlide = 0;
 
+  function renderSlider(images) {
+    const slider = document.getElementById("imageSlider");
+    slider.innerHTML = "";
+
+    images.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "슬라이드 이미지";
+      slider.appendChild(img);
+    });
+
+    moveSlide(0);
+  }
+
+  function moveSlide(n) {
+    const slider = document.getElementById("imageSlider");
+    const slides = slider.querySelectorAll("img");
+    const slideWidth = slides[0].offsetWidth + 20; // 이미지 너비 + gap
+    const totalSlides = slides.length;
+
+    currentSlide += n;
+
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+
+    const offset = -currentSlide * slideWidth;
+    slider.style.transform = `translateX(${offset}px)`;
+  }
 
   function toggleLike(button) {
     const recommendId = button.dataset.recommendId;
@@ -248,5 +276,3 @@
 </script>
 </body>
 </html>
-
-

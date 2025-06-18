@@ -35,7 +35,11 @@
         <span th:text="${isLiked} ? '❤️' : '🩶'"></span>
       </button>
     </div>
-    <div id="imageGallery" class="image-gallery"></div>
+    <div class="image-slider-container">
+      <button class="slider-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+      <div class="image-slider" id="imageSlider"></div>
+      <button class="slider-btn next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
     <div class="course-description">
       <p id="courseDescription" class="course-description-text"></p>
     </div>
@@ -61,19 +65,11 @@
     document.getElementById("courseInstructor").innerText = `${data.nickname} 에디터의 픽!`;
     document.getElementById("courseDate").innerText = `등록일: ${data.createdAt.split("T")[0]}`;
     document.getElementById("courseDescription").innerText = data.description;
-    const imageGallery = document.getElementById("imageGallery");
-    imageGallery.innerHTML = ""; // 초기화
 
-    if (data.imageUrl && data.imageUrl.length > 0) {
-      data.imageUrl.forEach(url => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = "장소 이미지";
-        img.className = "gallery-image";
-
-        imageGallery.appendChild(img);
-      });
-    }
+    const imageUrls = data.imageUrl && data.imageUrl.length > 0
+        ? data.imageUrl
+        : ["/image/bg_night.jpg"];
+    renderSlider(imageUrls);
 
     const placeList = document.getElementById("placeList");
     placeList.innerHTML = "";
@@ -91,6 +87,38 @@
   .catch(err => {
     console.error("코스 정보를 불러오는 데 실패했습니다.", err);
   });
+
+  let currentSlide = 0;
+
+  function renderSlider(images) {
+    const slider = document.getElementById("imageSlider");
+    slider.innerHTML = "";
+
+    images.forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "슬라이드 이미지";
+      slider.appendChild(img);
+    });
+
+    moveSlide(0);
+  }
+
+  function moveSlide(n) {
+    const slider = document.getElementById("imageSlider");
+    const slides = slider.querySelectorAll("img");
+    const slideWidth = slides[0].offsetWidth + 20; // 이미지 너비 + gap
+    const totalSlides = slides.length;
+
+    currentSlide += n;
+
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+
+    const offset = -currentSlide * slideWidth;
+    slider.style.transform = `translateX(${offset}px)`;
+  }
+
   function toggleEditorLike(button) {
     const recommendId = button.dataset.recommendId;
 

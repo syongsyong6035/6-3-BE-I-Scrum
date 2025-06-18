@@ -13,14 +13,7 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="admin-layout">
-  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-<!--  <nav class="sidebar">-->
-<!--    <ul>-->
-<!--      <li><a th:href="@{/admin/users}">회원관리</a></li>-->
-<!--      <li><a th:href="@{/admin/recommend-courses}">에디터픽코스</a></li>-->
-<!--      <li><a th:href="@{/admin/editor-course}">에디터픽코스추가</a></li>-->
-<!--    </ul>-->
-<!--  </nav>-->
+  <div th:replace="~{fragments/admin_sidebar :: sidebar}"></div>
   <main class="main-content">
 <div class="course-list-container">
   <h1>에디터픽 코스 목록</h1>

@@ -21,6 +21,7 @@ public class EditorCourse extends BaseEntity {
     @JoinColumn(name = "id")
     private Member member;
     private String title;
+    @Lob
     private String description;
     //소프트 delete때문에
     private Boolean activated =true;
