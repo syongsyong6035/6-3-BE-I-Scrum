@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -22,6 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class ChatRoom {
 
   @Id
@@ -41,6 +43,10 @@ public class ChatRoom {
 
 
   private String lastMessage;
+
+
+  private boolean visibleToUser1 = true;
+  private boolean visibleToUser2 = true;
 
 
 
