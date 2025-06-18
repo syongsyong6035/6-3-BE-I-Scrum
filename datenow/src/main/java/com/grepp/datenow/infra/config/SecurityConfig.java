@@ -3,6 +3,8 @@ package com.grepp.datenow.infra.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+import com.grepp.datenow.infra.auth.oauth2.OAuth2FailureHandler;
+import com.grepp.datenow.infra.auth.oauth2.OAuth2SuccessHandler;
 import com.grepp.datenow.infra.auth.token.filter.AuthExceptionFilter;
 import com.grepp.datenow.infra.auth.token.filter.JwtAuthenticationFilter;
 import com.grepp.datenow.infra.auth.token.filter.LogoutFilter;
@@ -46,6 +48,8 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthExceptionFilter authExceptionFilter;
     private final LogoutFilter logoutFilter;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final OAuth2FailureHandler oAuth2FailureHandler;
 
     @Bean
     public AuthenticationFailureHandler failureHandler() {
@@ -106,10 +110,18 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
+            .oauth2Login(oauth ->
+                oauth
+                    .successHandler(oAuth2SuccessHandler)
+                    .failureHandler(oAuth2FailureHandler)
+            )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(GET, "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers(GET, "/member/signup", "/member/signup/**", "/member/signin", "/member/find-password").permitAll()
+                .requestMatchers(GET,"/member/oauth/signup").permitAll()
+                .requestMatchers(POST,"/member/oauth/signup").permitAll()
+                .requestMatchers(POST, "/api/members/oauth/signup").permitAll()
                 .requestMatchers(POST, "/api/members/signup", "/member/find-password").permitAll()
                 .requestMatchers(POST,"/auth/signin").permitAll()
                 .requestMatchers(GET, "/api/members/exists", "/api/members/check/email", "/api/members/check/nickname", "/api/members/signup").permitAll()
