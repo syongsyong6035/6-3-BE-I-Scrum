@@ -1,6 +1,7 @@
 package com.grepp.datenow.app.controller.api.member;
 
 import com.grepp.datenow.app.controller.web.member.payload.MemberUpdateRequest;
+import com.grepp.datenow.app.controller.web.member.payload.OAuthSignupRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.auth.domain.Principal;
@@ -10,6 +11,8 @@ import com.grepp.datenow.app.model.member.dto.MemberDto;
 import com.grepp.datenow.app.model.member.entity.Member;
 import com.grepp.datenow.app.model.member.repository.MemberRepository;
 import com.grepp.datenow.app.model.member.service.MemberService;
+import com.grepp.datenow.infra.auth.oauth2.user.OAuth2UserInfo;
+import com.grepp.datenow.infra.error.exception.CommonException;
 import com.grepp.datenow.infra.response.ApiResponse;
 import com.grepp.datenow.infra.response.ResponseCode;
 import jakarta.servlet.ServletException;
@@ -22,9 +25,12 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,12 +71,19 @@ public class MemberApiController {
 
     // 회원 가입 요청
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse<?>> signup(
-        @RequestBody @Valid SignupRequest form,
-        HttpSession session) {
+    public ResponseEntity<ApiResponse<?>> unifiedSignup(
+        @RequestBody @Valid MemberDto dto,
+        HttpSession session
+    ) {
+        OAuth2UserInfo userInfo = (OAuth2UserInfo) session.getAttribute("oauth2_user_info");
 
-        MemberDto dto = modelMapper.map(form, MemberDto.class);
-        memberService.signup(dto, Role.ROLE_USER, session);
+        // userInfo가 null이면 일반 회원가입
+        memberService.signup(dto, Role.ROLE_USER, session, userInfo);
+
+        // OAuth일 경우 세션 삭제
+        if (userInfo != null) {
+            session.removeAttribute("oauth2_user_info");
+        }
 
         return ResponseEntity
             .status(ResponseCode.OK.status())

@@ -1,10 +1,12 @@
 package com.grepp.datenow.app.controller.web.member;
 
 import com.grepp.datenow.app.controller.web.member.payload.FindPasswordRequest;
+import com.grepp.datenow.app.controller.web.member.payload.OAuthSignupRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SigninRequest;
 import com.grepp.datenow.app.controller.web.member.payload.SignupRequest;
 import com.grepp.datenow.app.model.auth.code.Role;
 import com.grepp.datenow.app.model.member.service.MemberService;
+import com.grepp.datenow.infra.auth.oauth2.user.OAuth2UserInfo;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.net.URLEncoder;
@@ -41,18 +43,18 @@ public class MemberController {
         return "signup";
     }
 
-    @PostMapping("/signup")
-    public String signup(
-        @Valid @ModelAttribute("signupRequest") SignupRequest form,
-        BindingResult bindingResult,
-        HttpSession session) {
-
-        if (bindingResult.hasErrors()) {
-            return "signup";
+    @GetMapping("/oauth/signup")
+    public String oauthSignupForm(HttpSession session, Model model) {
+        OAuth2UserInfo userInfo = (OAuth2UserInfo) session.getAttribute("oauth2_user_info");
+        if (userInfo == null) {
+            return "redirect:/member/signin";
         }
 
-        memberService.signup(form.toDto(), Role.ROLE_USER, session);
-        return "redirect:/member/signin";
+        String userId = userInfo.getProvider() + "_" + userInfo.getProviderId();
+        model.addAttribute("userId", userId);
+        model.addAttribute("signupRequest", new OAuthSignupRequest());
+
+        return "oauth_signup";
     }
 
     @GetMapping("/find-password")

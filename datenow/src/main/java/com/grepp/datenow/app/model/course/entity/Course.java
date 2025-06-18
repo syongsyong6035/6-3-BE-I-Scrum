@@ -39,10 +39,12 @@ public class Course extends BaseEntity {
     @Builder.Default
     private List<CourseHashtag> courseHashtags = new ArrayList<>();
 
-    // ⭐ addCourseHashtag 편의 메서드 ⭐
+    // 양방향 연관관계 주입 메서드
     public void addCourseHashtag(Hashtag hashtag) {
         CourseHashtag courseHashtag = new CourseHashtag(this, hashtag);
+        // Course 객체의 courseHashtags 리스트 컬렉션에 연결 테이블 객체를 추가
         this.courseHashtags.add(courseHashtag);
-        hashtag.getCourseHashtags().add(courseHashtag); // Hashtag 엔티티에도 해당 컬렉션 추가 필요
+        // Hashtag 객체에도 연결 테이블 객체 추가해줌
+        hashtag.getCourseHashtags().add(courseHashtag);
     }
 }

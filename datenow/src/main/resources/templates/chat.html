@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>실시간 채팅</title>
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}"/>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatting-List {
+      display: flex;
+      flex: 1;
+
+      overflow: hidden;
+    }
+
+    /* 리스트 및 채팅방 모두 높이 고정 */
+    .chat-list-container {
+      width: 30%;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+      height: 100%
+    }
+
+    .chat-room-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .message-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      min-height: 0;
+      height: 95%;
+    }
+
+    .message {
+      display: inline-block;
+      position: relative;
+      margin: 6px 0;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 70%;
+      font-size: 0.95em;
+      line-height: 1.4;
+      word-break: break-word;
+      clear: both;
+    }
+
+
+    .my-message {
+      background-color: #dcf8c6;
+      float: right;
+      border-bottom-right-radius: 0;
+    }
+
+
+    .my-message::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #dcf8c6;
+      border-left: 10px solid transparent;
+    }
+
+
+    .other-message {
+      background-color: #f1f0f0;
+      float: left;
+      border-bottom-left-radius: 0;
+    }
+
+    .other-message::after {
+      content: "";
+      position: absolute;
+      left: -10px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid #f1f0f0;
+      border-right: 10px solid transparent;
+    }
+
+    .message-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+
+    }
+
+
+    .message-input input {
+      flex: 1;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      height: auto;
+    }
+
+    .message-input button {
+      margin-left: 10px;
+      padding: 10px 15px;
+      font-size: 1em;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .message-input button:hover {
+      background-color: #45a049;
+    }
+  /*  여기는 채팅 리스트를 가지는것이다 */
+
+    .chat-room-container {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      height: 95%;
+    }
+
+    .chat-card {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .chat-card:hover {
+      background-color: #f9f9f9;
+    }
+
+    .chat-avatar {
+      width: 50px;
+      height: 50px;
+      background-image: url('/images/user.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .chat-info {
+      flex: 1;
+    }
+
+    .chat-nickname {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .chat-last-message {
+      font-size: 0.95em;
+      color: #666;
+      margin-top: 4px;
+    }
+    .delete-button {
+      background-color: transparent;
+      border: none;
+      color: #f19fea;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .delete-button:hover {
+      color: #ea5a87;
+    }
+
+  </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class = "chatting-List">
+<div class="chat-list-container">
+  <div id="chatList"></div>
+</div>
+  <div class="chat-room-container">
+    <div class="message-list" id="messageList"></div>
+    <div class="message-input">
+      <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." onkeydown="handleEnter(event)" />
+      <button onclick="sendMessage()">전송</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script th:src="@{/js/header.js}"></script>
+<script>
+  let stompClient = null;
+  let roomId = [[${roomId}]];
+  let currentUserId = null;
+  const messageList = document.getElementById("messageList");
+
+  // 사용자 ID 가져오고 구독 및 연결
+  fetch('/api/userId')
+  .then(res => res.json())
+  .then(res => {
+    currentUserId = res.data.userId;
+
+    const socket = new SockJS('/ws/connect');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, () => {
+      // 1. match 이벤트 수신 → 채팅방으로 이동
+      stompClient.subscribe(`/topic/match.${currentUserId}`, (message) => {
+        const data = JSON.parse(message.body);
+        window.location.href = `/chatList/${data.roomId}`;
+      });
+
+      // 2. 채팅방 ID 있으면, 채팅방 구독 시작
+      if (roomId) {
+        subscribeChatRoom(roomId);
+        loadChatHistory();
+      }
+    });
+  });
+
+  // 채팅방 구독 함수
+  function subscribeChatRoom(roomId) {
+    stompClient.subscribe(`/topic/chat.${roomId}`, (message) => {
+      const msg = JSON.parse(message.body);
+      const isMyMessage = msg.senderId === currentUserId;
+
+      const div = document.createElement('div');
+      div.className = `message ${isMyMessage ? 'my-message' : 'other-message'}`;
+      div.textContent = msg.content;
+      messageList.appendChild(div);
+      scrollToBottom();
+
+      const chatCard = document.querySelector(`.chat-card[data-room-id="${roomId}"]`);
+      if (chatCard) {
+        const lastMsgDiv = chatCard.querySelector('.chat-last-message');
+        lastMsgDiv.textContent = msg.content;
+      }
+    });
+  }
+
+  // 채팅 기록 로드
+  function loadChatHistory() {
+    fetch(`/api/chatList/${roomId}`)
+    .then(res => res.json())
+    .then(res => {
+      const messages = res.data;
+      if (!Array.isArray(messages)) return;
+
+      messageList.innerHTML = '';
+      messages.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = `message ${msg.usertrue ? 'my-message' : 'other-message'}`;
+        div.textContent = msg.content;
+        messageList.appendChild(div);
+      });
+
+      scrollToBottom();
+    });
+  }
+
+  // 메시지 전송
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const content = input.value.trim();
+    if (!content) return;
+
+    stompClient.send('/app/chat/send', {}, JSON.stringify({
+      roomId: roomId,
+      content: content
+    }));
+
+    input.value = '';
+  }
+
+  // 엔터로 전송
+  function handleEnter(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      sendMessage();
+    }
+  }
+
+  // 채팅 리스트 조회
+  fetch('/api/chatList')
+  .then(response => response.json())
+  .then(res => {
+    const chats = res.data;
+    if (!Array.isArray(chats)) return;
+
+    const list = document.getElementById("chatList");
+    list.innerHTML = '';
+
+    chats.forEach(chat => {
+      const card = document.createElement("div");
+      card.className = "chat-card";
+      card.dataset.roomId = chat.roomId;
+
+      card.innerHTML = `
+        <div class="chat-avatar"></div>
+        <div class="chat-info" style="flex: 1; cursor: pointer;">
+          <div class="chat-nickname">${chat.nickname}</div>
+          <div class="chat-last-message">${chat.lastMessage}</div>
+        </div>
+        <button class="delete-button" title="삭제">✕</button>
+      `;
+
+      // 채팅방 이동
+      card.querySelector('.chat-info').onclick = () => {
+        window.location.href = `/chatList/${chat.roomId}`;
+      };
+
+      // 삭제 버튼
+      card.querySelector('.delete-button').onclick = (e) => {
+        e.stopPropagation();
+        if (confirm("이 채팅방을 삭제하시겠습니까?")) {
+          fetch(`/chatList/${chat.roomId}`, {
+            method: 'DELETE'
+          })
+          .then(res => {
+            if (res.ok) card.remove();
+            else alert("삭제 실패");
+          })
+          .catch(err => {
+            console.error(err);
+            alert("오류 발생");
+          });
+        }
+      };
+
+      list.appendChild(card);
+    });
+  });
+
+  // 메시지 스크롤 아래로
+  function scrollToBottom() {
+    messageList.scrollTop = messageList.scrollHeight;
+  }
+</script>
+
+</body>
+</html>

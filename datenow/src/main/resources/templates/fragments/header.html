@@ -5,6 +5,7 @@
   <title>헤더</title>
 </head>
 <body>
+<!-- templates/fragments/header.html -->
 <div th:fragment="header">
   <div class="navbar">
     <a th:href="@{/}" class="logo-link">
@@ -12,10 +13,12 @@
     </a>
     <div class="navbar-right">
       <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/newchat}">랜덤채팅 시작</a>
         <a th:href="@{/admin/editor-course}">에디터 픽 코스 만들기</a>
         <a th:href="@{/admin/users}">관리자 대시보드</a>
       </div>
       <div th:if="${#authorization.expression('hasRole(''USER'')')}">
+        <a th:href="@{/newchat}">랜덤채팅 시작</a>
         <a th:href="@{/recommend-course}">나의 코스 만들기</a>
         <a th:href="@{/my-page}">마이페이지</a>
       </div>
@@ -23,7 +26,6 @@
       <span class="profile-icon"></span>
     </div>
   </div>
-<script th:src="@{/js/header.js}"></script>
 </div>
 </body>
 </html>

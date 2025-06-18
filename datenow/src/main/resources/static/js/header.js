@@ -1,16 +1,15 @@
 (() => {
   const logout = document.querySelector('#logout');
-  if(!logout) return;
+  if (!logout) return;
 
   logout.addEventListener('click', async ev => {
     ev.preventDefault();
 
-    const response = await fetch("/auth/logout",{
-      method:"POST"
+    const response = await fetch("/auth/logout", {
+      method: "POST"
     });
 
-
-    if(!response.ok){
+    if (!response.ok) {
       alert("로그아웃에 실패했습니다.")
       return;
     }

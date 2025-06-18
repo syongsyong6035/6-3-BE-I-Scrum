@@ -112,21 +112,15 @@ public class CourseService {
                     throw new BadWordsException("해시태그에 부적절한 단어가 포함되어 있습니다:" + trimmedHashtagName);
                 }
 
-                Optional<Hashtag> existingHashtag = hashtagRepository.findByTagName(trimmedHashtagName);
-
-                Hashtag hashtag;
-                if (existingHashtag.isPresent()) {
-                    // 존재하면 기존 해시태그 사용
-                    hashtag = existingHashtag.get();
-                } else {
-                    // 없으면 새로운 해시태그 생성 및 저장
-                    hashtag = new Hashtag();
-                    hashtag.setTagName(trimmedHashtagName);
-                    hashtagRepository.save(hashtag); // 새 해시태그를 먼저 저장
-                }
-
-                // Course 와 Hashtag 를 연결 (CourseHashtag 엔티티 생성)
-                // 이거 없으면 CourseHashtag 엔티티에 아무것도 안생김
+                // 해시태그가 이미 존재하면 그거를 쓰고 아니면 새로 만들어서 저장
+                Hashtag hashtag = hashtagRepository.findByTagName(trimmedHashtagName)
+                    .orElseGet(() -> {
+                        Hashtag newhashtag = new Hashtag();
+                        newhashtag.setTagName(trimmedHashtagName);
+                        return hashtagRepository.save(newhashtag);
+                    });
+                // Course 와 Hashtag 의 연관관계를 만들어주기
+                // 이거 없으면 CourseHashtag 엔티티에 아무것도 안생김 -> 연관관계 알 수 없음
                 course.addCourseHashtag(hashtag);
             }
         }
