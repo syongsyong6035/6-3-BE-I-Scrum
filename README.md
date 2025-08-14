@@ -68,14 +68,22 @@ AI 추천 + 지도 API + 사용자 정의 코스 제작
 GitHub 소셜 로그인 및 일반 로그인 지원
 
 이메일 인증/비밀번호 재설정(SMTP)
+### 회원가입
+아이디, 닉네임, 이메일 등 **중복 입력에 대한 예외처리**를 했어요.<br>
+소셜 로그인을 하는 경우 필요한 정보만 입력하시면 돼요.
+이메일 인증 메일을 통해 회원가입이 완료되니, 꼭 본인의 이메일을 사용해주세요!
 
-중복 체크 및 예외 처리
+<table width="100%" align="center">
+  <tr>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/0ad373e9-395e-401b-910c-8db8014e1115" alt="로그인 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/b00666ab-eb3a-4f45-a043-30d12c6f1daf" alt="회원가입 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+  </tr>
+</table>
 
-<table width="100%"> <tr> <td width="50%" align="center"><img width="1010" height="899" alt="image" src="https://github.com/user-attachments/assets/8b6fea09-7977-46f3-8643-2e66c275720d" />
-</td> <td width="50%" align="center"><img width="1266" height="1226" alt="image" src="https://github.com/user-attachments/assets/c74d872e-eb5b-4d58-8bcd-0734ad93ce28" />
-<img width="1251" height="1264" alt="image" src="https://github.com/user-attachments/assets/5bed9f75-5487-4ac9-bee3-8353280da197" />
-
-</td> </tr> </table>
 메인 페이지 & 추천 코스
 
 에디터 픽, 유저 추천 코스 섹션
@@ -84,27 +92,59 @@ GitHub 소셜 로그인 및 일반 로그인 지원
 
 해시태그/키워드 필터링
 
-<table width="100%"> <tr> <td width="50%" align="center"<img width="1264" height="1259" alt="image" src="https://github.com/user-attachments/assets/14351b93-7f32-4514-8342-157d3677b295" />
-></td> <td width="50%" align="center"><img width="1265" height="1252" alt="image" src="https://github.com/user-attachments/assets/8cd1d486-afe1-476c-aa8a-7ad158b26d9d" />
-<img width="1261" height="1253" alt="image" src="https://github.com/user-attachments/assets/8367ab6e-d675-44cf-8eb5-08de38ce3afe" />
+<table width="100%" align="center">
+  <tr>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/23c21ee6-9751-4a9f-bc35-0a25afa2de73" alt="메인 페이지 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/1e3909b7-57f0-47d6-8d72-d93bf7b712b0" alt="추천 데이트 코스 상세 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+  </tr>
+</table>
 
-</td> </tr> </table>
 🧠 분위기 기반 AI 추천 코스
 
 분위기 선택 → Gemini + LangChain4j (RAG) 기반 추천
 
 추천 리스트를 바탕으로 나만의 코스 편집/저장
 
-<table width="100%"> <tr> <td align="center"><img src="./docs/screens/ai-1.png" /></td> <td align="center"><img src="./docs/screens/ai-2.png" /></td> </tr> <tr> <td align="center"><img src="./docs/screens/ai-3.png" /></td> <td align="center"><img src="./docs/screens/ai-4.png" /></td> </tr> </table>
+<table width="100%" align="center">
+  <tr>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/988f8a2a-9304-4d0b-baf9-0d6238d5751a" alt="AI 추천 코스 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+    <td width="50%" align="center" style="padding: 0 5px;">
+    <img src="https://github.com/user-attachments/assets/2a9809c8-b72a-4644-a9fd-43030e38eb4c" alt="AI 추천 코스 화면" style="width:100%; height:auto; display:block;" />  
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/acc37b2f-f338-4349-a81c-a103900b4d62" alt="AI 추천 코스 화면" style="width:100%; height:auto; display:block;" />
+    </td>
+    <td width="50%" align="center" style="padding: 0 5px;">
+    <img src="https://github.com/user-attachments/assets/137419c2-96a8-4f37-a7cf-a4e0f6473d38" alt="AI 추천 코스 화면" style="width:100%; height:auto; display:block;" />  
+    </td>
+  </tr>
+</table>
 리뷰 & 랜덤 채팅
 
 코스별 댓글/후기
 
 WebSocket + Redis 기반 랜덤 채팅
 
-<table width="100%"> <tr> <td width="50%" align="center"><img width="1255" height="1260" alt="image" src="https://github.com/user-attachments/assets/0ca362d1-d36d-47dc-bc89-559b4b0a362e" />
-</td> <td width="50%" align="center"><img width="893" height="881" alt="image" src="https://github.com/user-attachments/assets/dc05e68b-46b7-45bb-a464-2db8b9aa97e3" />
-</td> </tr> </table>
+<table width="100%" align="center">
+  <tr>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/e9476869-8d98-451a-8bea-127a79ddd53b" alt="데이트 코스 리뷰" style="width:100%; height:auto; display:block;" />
+    </td>
+    <td width="50%" align="center" style="padding: 0 5px;">
+      <img src="https://github.com/user-attachments/assets/4d3622b3-9850-4b79-b2ea-3746018959e7" alt="랜덤 채팅 메시지" style="width:100%; height:auto; display:block;" />
+    </td>
+  </tr>
+</table>
+
+---
 6️⃣ 🚀 주요 기능
 DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 기능을 제공합니다.
 
