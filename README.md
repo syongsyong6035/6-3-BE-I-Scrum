@@ -1,14 +1,33 @@
 # 🌸 DateNow : LLM 기반 데이트 코스 추천 앱
 
 <p align="center">
-  <img src="./docs/logo.png" width="260" alt="DateNow logo" />
+  
 </p>
 
 원하는 분위기를 고르면 **AI가 데이트 코스**를 추천해줘요!  
 추천받은 코스는 **직접 편집**하고 **사진과 함께 저장**할 수 있어요.  
 다른 사람들의 **추천 코스**도 확인해보세요!
 
-<p align="center"> <img src="https://img.shields.io/badge/Java-21-007396?logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white"/> <img src="https://img.shields.io/badge/Maven-3.9-C71A36?logo=apachemaven&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white"/> <img src="https://img.shields.io/badge/Redis-Cloud-DC382D?logo=redis&logoColor=white"/> <img src="https://img.shields.io/badge/WebSocket-RandomChat-85EA2D"/> <img src="https://img.shields.io/badge/Gemini%20API-Google%20AI-4285F4?logo=google&logoColor=white"/> <img src="https://img.shields.io/badge/LangChain4j-Java-FF6F00"/> <img src="https://img.shields.io/badge/Kakao%20Map-API-FFCD00"/> </p>
+## 🛠 기술 스택
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring_Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring_Cloud-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
+  <img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white" />
+  <img src="https://img.shields.io/badge/QueryDSL-0096C7?style=for-the-badge&logo=querydsl&logoColor=white" />
+  <img src="https://img.shields.io/badge/LangChain4j-0056D6?style=for-the-badge&logo=langchain&logoColor=white" />
+  <img src="https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white" />
+  <img src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
+  <img src="https://img.shields.io/badge/NGNIX-429345?style=for-the-badge&logo=ngnix&logoColor=white" />
+  <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white" />
+</p>
+
 목차
 
 1. 기획 배경
