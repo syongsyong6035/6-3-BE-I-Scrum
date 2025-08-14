@@ -65,7 +65,7 @@
 - GitHub **소셜 로그인** 및 일반 로그인  
 - **이메일 인증/비밀번호 재설정(SMTP)**  
 - 아이디/닉네임/이메일 **중복 검증**
-- 
+  
 ### 회원가입
 아이디, 닉네임, 이메일 등 **중복 입력에 대한 예외처리**를 했어요.<br>
 소셜 로그인을 하는 경우 필요한 정보만 입력하시면 돼요.
@@ -120,9 +120,15 @@
     </td>
   </tr>
 </table>
-### 🖼 리뷰 & 💬 랜덤 채팅
-- 코스별 **댓글/후기**  
-- **WebSocket + Redis** 기반 **랜덤 채팅**
+
+## 🖼️ 데이트 코스 리뷰 & 랜덤 채팅
+
+### 데이트 코스 리뷰
+유저들이 추천한 코스에는 **댓글로 리뷰를 달 수 있어요**.
+
+### 랜덤 채팅
+혼자서 사용하기 **심심하고**, 데이트 하고 싶은 **상대방을 찾고 싶을 때!**<br>
+랜덤채팅을 **정보 교류**나 **새로운 인연**을 시작해봐요!
 
 <table width="100%" align="center">
   <tr>
@@ -136,7 +142,7 @@
 </table>
 
 ---
-6️⃣ 🚀 주요 기능
+6️⃣ ## 🚀 주요 기능
 DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 기능을 제공합니다.
 
 ### AI 데이트 코스 추천<br>
@@ -158,7 +164,8 @@ DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 �
 <p align="center"><img width="2557" height="816" alt="image" src="https://github.com/user-attachments/assets/e14a3235-f1bc-483a-ae07-e8fa3900b32f" />
 </p> <p align="center"><img width="1887" height="1050" alt="image" src="https://github.com/user-attachments/assets/420c5284-e351-402f-9a68-3de4c622f44f" />
 </p>
-8️⃣ 기술 스택
+8️⃣  ⚙️ 기술 스택
+
 | 분류 | 기술 |
 |---|---|
 | 💻 Language | Java 21, (선택) Kotlin 1.9 |
@@ -179,7 +186,8 @@ DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 �
 - (선택) Redis, MongoDB
 
 
-🔟 폴더 구조 
+🔟 ## 폴더 구조 
+
 datenow/
   ├─ src/main/java/com/grepp/datenow
   │   ├─ app (controller, service, dto 등)
@@ -191,7 +199,8 @@ datenow/
   └─ test
 
 
- 팀원
+
+## 🏃 팀원 소개
 
 
 | <img src="https://img.shields.io/badge/Leader-FF5733" /> | <img src="https://img.shields.io/badge/Member-%2300264B" /> | <img src="https://img.shields.io/badge/Member-%2310069F%20" /> | <img src="https://img.shields.io/badge/Member-blue" /> |
