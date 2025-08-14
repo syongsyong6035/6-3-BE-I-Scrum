@@ -142,7 +142,7 @@
 </table>
 
 ---
-6️⃣ 🚀 주요 기능
+6️⃣ 🚀 주요 기능 <br>
 DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 기능을 제공합니다.
 
 ### AI 데이트 코스 추천<br>
@@ -186,18 +186,19 @@ DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 �
 - (선택) Redis, MongoDB
 
 
-🔟 폴더 구조 
+🔟 폴더 구조
 
-datenow/
-  ├─ src/main/java/com/grepp/datenow
-  │   ├─ app (controller, service, dto 등)
-  │   ├─ model
-  │   └─ infra
-  ├─ src/main/resources
-  │   ├─ static (css, js, images)
-  │   └─ templates
-  └─ test
-
+```
+datenow
+ ├─ src/main/java/com/grepp/datenow
+ │   ├─ app (controller, service, dto 등)
+ │   ├─ model
+ │   └─ infra
+ ├─ src/main/resources
+ │   ├─ static (css, js, images)
+ │   └─ templates
+ └─ test
+```
 
 
 ## 🏃 팀원 소개
