@@ -12,6 +12,7 @@ import com.grepp.datenow.app.model.course.entity.CourseHashtag;
 import com.grepp.datenow.app.model.course.entity.Hashtag;
 import com.grepp.datenow.app.model.course.repository.AdminCourseRepository;
 import com.grepp.datenow.app.model.course.repository.CourseRepository;
+import com.grepp.datenow.app.model.course.repository.custom.RecommendCourseRepository;
 import com.grepp.datenow.app.model.image.entity.Image;
 import com.grepp.datenow.app.model.image.repository.ImageRepository;
 import com.grepp.datenow.app.model.like.repository.FavoriteRepository;
@@ -22,6 +23,7 @@ import com.grepp.datenow.app.model.place.repository.PlaceRepository;
 import com.grepp.datenow.app.model.review.repository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +42,7 @@ public class PlaceMainPageService {
   private final PlaceRepository placeRepository;
   private final ReviewRepository reviewRepository;
   private final FavoriteRepository favoriteRepository;
-
-
+  private final RecommendCourseRepository recommendCourseRepository;
 
 
   @Transactional
@@ -71,7 +72,7 @@ public class PlaceMainPageService {
 
     List<CourseDto> userDto = userplace.stream()
         .map(course -> {
-          Image img = imageRepository.findFirstByRecommendCourseId(course)
+          Image img = imageRepository.findFirstByRecommendCourse(course)
               .orElse(null);
           int count = favoriteRepository.countByRecommendCourseAndActivatedTrue(course);
           int reviewCnt = reviewRepository.countByRecommendCourseIdAndActivatedTrue(course);
@@ -107,50 +108,18 @@ public class PlaceMainPageService {
 
   }
   @Transactional
-  public List<CourseDto> recommendCourseService(@Nullable List<String> hashtagNames) {
-      List<RecommendCourse> userPlace;
+  public Page<CourseDto> recommendCourseService(List<String> hashtagNames, int page) {
+      Page<RecommendCourse> userPlace;
 
       if (hashtagNames != null && !hashtagNames.isEmpty()) {
-          // ⭐⭐ [추가] 해시태그로 필터링하여 조회 ⭐⭐
-          // 이 메서드는 아래 레포지토리에서 새로 정의할 것입니다.
-          userPlace = courseRepository.findAllCourseWithHashtags(hashtagNames);
+        //가져올때
+          userPlace = recommendCourseRepository.findAllCourseWithHashtags(hashtagNames, page, 10);
       } else {
-          // ⭐⭐ [수정] 해시태그가 없으면 기존처럼 전체 조회 ⭐⭐
-          userPlace = courseRepository.findAllWithCourseAndMember();
+
+          userPlace = recommendCourseRepository.findAllWithCourseAndMember(page, 10);
       }
-      List<CourseDto> courseDto = userPlace.stream()
-          .map(recommendCourse -> {
-              // Course 엔티티를 별도의 변수에 할당하여 사용하면 코드 가독성이 좋아집니다.
-              Course course = recommendCourse.getCourseId(); // RecommendCourse에서 Course 엔티티를 가져옴
-
-              Image img = imageRepository.findFirstByRecommendCourseId(recommendCourse)
-                  .orElse(null);
-              int count = favoriteRepository.countByRecommendCourseAndActivatedTrue(recommendCourse);
-              int reviewCnt = reviewRepository.countByRecommendCourseIdAndActivatedTrue(recommendCourse);
-              String imageUrl = (img != null)
-                  ? "/images/" +  img.getRenameFileName()
-                  : "/images/bg_night.jpg";
-
-              List<String> currentCourseHashtags = course.getCourseHashtags().stream() // ⭐⭐⭐ 여기서 course.getCourseHashtags()로 수정 ⭐⭐⭐
-                  .map(CourseHashtag::getHashtag)
-                  .map(Hashtag::getTagName)
-                  .collect(Collectors.toList());
-
-              CourseDto dto = new CourseDto(); // ⭐ 기본 생성자 호출
-              dto.setCourseId(recommendCourse.getRecommendCourseId());
-              dto.setTitle(course.getTitle());
-              dto.setCreatorNickname(course.getId().getNickname()); // ⭐ Course의 Member 필드가 'member'인 경우
-              dto.setDescription(course.getDescription());
-              dto.setImageUrl(imageUrl);
-              dto.setFavoriteCnt(count);
-              dto.setReviewCnt(reviewCnt);
-              dto.setHashtagNames(currentCourseHashtags);
-
-              return dto;
-
-          })
-          .toList();
-      return courseDto;
+      Page<CourseDto> courseDtoPage = userPlace.map(CourseDto::new);
+      return courseDtoPage;
 
   }
 
@@ -161,18 +130,18 @@ public class PlaceMainPageService {
     RecommendCourse recommendCourse = courseRepository.findWithCourseAndMemberById(recommendId)
         .orElseThrow(() -> new EntityNotFoundException("엔티티가 존재하지 않습니다."));
     CourseDetailDto placeDetail = new CourseDetailDto();
-    placeDetail.setTitle(recommendCourse.getCourseId().getTitle());
-    placeDetail.setNickname(recommendCourse.getCourseId().getId().getNickname());
+    placeDetail.setTitle(recommendCourse.getCourse().getTitle());
+    placeDetail.setNickname(recommendCourse.getId().getName());
     placeDetail.setCreatedAt(recommendCourse.getCreatedAt());
-    placeDetail.setDescription(recommendCourse.getCourseId().getDescription());
-    Course course = recommendCourse.getCourseId();
+    placeDetail.setDescription(recommendCourse.getCourse().getDescription());
+    Course course = recommendCourse.getCourse();
     List<Place> places = placeRepository.findAllByCourseId(course);
     List<PlaceDetailDto> placeDetailDtos = places.stream()
             .map(PlaceDetailDto::new)
                 .toList();
 
     placeDetail.setPlaces(placeDetailDtos);
-    List<Image> image = imageRepository.findAllByRecommendCourseId(recommendCourse);
+    List<Image> image = imageRepository.findAllByRecommendCourse(recommendCourse);
     List<String> imageUrl = image.stream()
         .map(img -> {
           if(img != null){
@@ -186,8 +155,8 @@ public class PlaceMainPageService {
 
     placeDetail.setImageUrl(imageUrl);
       // ⭐⭐⭐ 해시태그 정보 매핑 (새로 추가) ⭐⭐⭐
-      // Course 엔티티에서 CourseHashtag 컬렉션 가져오기
-      List<String> hashtagNames = course.getCourseHashtags().stream()
+      // RecommendCourse 엔티티에서 CourseHashtag 컬렉션 가져오기
+      List<String> hashtagNames = recommendCourse.getCourseHashtags().stream()
           // CourseHashtag 객체에서 실제 Hashtag 엔티티를 가져옴
           .map(CourseHashtag::getHashtag)
           // Hashtag 엔티티에서 tagName을 가져옴
