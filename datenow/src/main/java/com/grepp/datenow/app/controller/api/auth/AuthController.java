@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
     
     private final AuthService authService;
     
-    @PostMapping("signin")
+    @PostMapping("/signin")
     public ResponseEntity<ApiResponse<TokenResponse>> signin(
         @RequestBody
         SigninRequest req,

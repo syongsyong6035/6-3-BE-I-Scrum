@@ -30,7 +30,7 @@ public class Image extends BaseEntity {
     private Long imageId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recommend_course_id",nullable = true)
-    private RecommendCourse recommendCourseId;
+    private RecommendCourse recommendCourse;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "editor_course_id",nullable = true)

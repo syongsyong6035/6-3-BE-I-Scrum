@@ -29,7 +29,7 @@ public class Place extends BaseEntity {
     private Long placeId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "course_id", nullable = true)
+    @JoinColumn(name = "courses_id", nullable = true)
     private Course courseId;
 
     @ManyToOne(fetch = FetchType.LAZY)

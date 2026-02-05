@@ -9,12 +9,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Hashtag extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +27,8 @@ public class Hashtag extends BaseEntity {
     private String tagName;
     @OneToMany(mappedBy = "hashtag")
     private List<CourseHashtag> courseHashtags = new ArrayList<>();
+
+    public Hashtag(String tagName) {
+        this.tagName = tagName;
+    }
 }
