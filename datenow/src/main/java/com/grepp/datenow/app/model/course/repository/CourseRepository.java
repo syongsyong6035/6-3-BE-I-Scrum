@@ -14,8 +14,7 @@ public interface CourseRepository extends JpaRepository<RecommendCourse,Long> {
 
   @Query("""
     SELECT rc FROM RecommendCourse rc
-    JOIN FETCH rc.courseId c
-    JOIN FETCH c.id
+    JOIN FETCH rc.course c
     ORDER BY rc.createdAt DESC
 """)
   List<RecommendCourse> findTop4ByOrderByCreatedAtDesc(Pageable pageable);
@@ -23,8 +22,7 @@ public interface CourseRepository extends JpaRepository<RecommendCourse,Long> {
     static void save(){}
   @Query("""
     SELECT rc FROM RecommendCourse rc
-    JOIN FETCH rc.courseId c
-    JOIN FETCH c.id
+    JOIN FETCH rc.course c
     ORDER BY c.createdAt DESC
 """)
   List<RecommendCourse> findAllWithCourseAndMember();
@@ -32,8 +30,7 @@ public interface CourseRepository extends JpaRepository<RecommendCourse,Long> {
 
   @Query("""
   SELECT rc FROM RecommendCourse rc
-  JOIN FETCH rc.courseId c
-  JOIN FETCH c.id
+  JOIN FETCH rc.course c
   WHERE rc.recommendCourseId = :id
 """)
   Optional<RecommendCourse> findWithCourseAndMemberById(@Param("id") Long id);
@@ -41,9 +38,8 @@ public interface CourseRepository extends JpaRepository<RecommendCourse,Long> {
   // 해시태그로 추천 코스 필터링
   @Query("""
       SELECT rc FROM RecommendCourse rc
-      JOIN FETCH rc.courseId c
-      JOIN FETCH c.id m
-      JOIN c.courseHashtags ch
+      JOIN FETCH rc.course c
+      JOIN rc.courseHashtags ch
       JOIN ch.hashtag h
       WHERE h.tagName IN :hashtagNames
       GROUP BY rc.recommendCourseId

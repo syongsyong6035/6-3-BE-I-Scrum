@@ -29,7 +29,7 @@ public interface FavoriteRepository extends JpaRepository<FavoriteCourse,Long> {
 
     @Query("SELECT f FROM FavoriteCourse f " +
         "LEFT JOIN FETCH f.recommendCourse rc " +
-        "LEFT JOIN FETCH rc.courseId c " +
+        "LEFT JOIN FETCH rc.course c " +
         "LEFT JOIN FETCH f.editorCourse ec " +
         "WHERE f.member.id = :memberId AND f.activated = true")
     List<FavoriteCourse> findByMemberId(Integer memberId);

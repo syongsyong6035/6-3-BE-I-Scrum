@@ -21,9 +21,9 @@ public class ModelMapperConfig {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         modelMapper.typeMap(SignupRequest.class, Member.class).addMappings(mapper -> {mapper.skip(Member::setId);});
         modelMapper.typeMap(MemberDto.class, Member.class).addMappings(mapper -> mapper.skip(Member::setId));
+        // Course -> CourseDetailDto 매핑 (작성자 정보는 RecommendCourse에서 별도로 세팅)
         modelMapper.typeMap(Course.class, CourseDetailDto.class)
-            .addMapping(Course::getCoursesId, CourseDetailDto::setCoursesId)
-            .addMapping(src -> src.getId().getNickname(), CourseDetailDto::setNickname);
+            .addMapping(Course::getCoursesId, CourseDetailDto::setCoursesId);
 
         return modelMapper;
     }

@@ -14,11 +14,11 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
 
   Optional<Image> findFirstByEditorCourseId(EditorCourse course);
 
-  Optional<Image> findFirstByRecommendCourseId(RecommendCourse recommendCourseId);
+  Optional<Image> findFirstByRecommendCourse(RecommendCourse recommendCourse);
 
-  List<Image> findAllByRecommendCourseId(RecommendCourse recommendCourse);
+  List<Image> findAllByRecommendCourse(RecommendCourse recommendCourse);
 
   List<Image> findAllByEditorCourseId(EditorCourse places);
 
-  List<Image> findByRecommendCourseId_CourseId(Course course);
+  List<Image> findByRecommendCourse_Course(Course course);
 }

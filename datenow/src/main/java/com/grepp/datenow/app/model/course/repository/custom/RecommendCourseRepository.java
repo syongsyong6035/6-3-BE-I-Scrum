@@ -1,4 +1,4 @@
-package com.grepp.datenow.app.model.course.repository;
+package com.grepp.datenow.app.model.course.repository.custom;
 
 import com.grepp.datenow.app.model.course.entity.Course;
 import com.grepp.datenow.app.model.course.entity.RecommendCourse;
@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RecommendCourseRepository extends JpaRepository<RecommendCourse, Long> {
-    boolean existsByCourseId(Course course);
-    Optional<RecommendCourse> findByCourseId(Course course);
+public interface RecommendCourseRepository extends JpaRepository<RecommendCourse, Long>,
+    RecommendCourseRepositoryCustom {
+    boolean existsByCourse(Course course);
+    Optional<RecommendCourse> findByCourse(Course course);
 
     @Query("""
     SELECT fc.recommendCourse
