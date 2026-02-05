@@ -121,6 +121,7 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/member/signup", "/member/signup/**", "/member/signin", "/member/find-password").permitAll()
                 .requestMatchers(GET,"/member/oauth/signup").permitAll()
                 .requestMatchers(POST,"/member/oauth/signup").permitAll()
+                .requestMatchers("/api/**").permitAll()
                 .requestMatchers(POST, "/api/members/oauth/signup").permitAll()
                 .requestMatchers(POST, "/api/members/signup", "/member/find-password").permitAll()
                 .requestMatchers(POST,"/auth/signin").permitAll()
