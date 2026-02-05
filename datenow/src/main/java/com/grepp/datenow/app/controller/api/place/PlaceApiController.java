@@ -13,12 +13,15 @@ import com.grepp.datenow.app.model.review.dto.RequestReviewDto;
 import com.grepp.datenow.app.model.review.dto.ResponseReviewDto;
 import com.grepp.datenow.app.model.review.service.ReviewService;
 import com.grepp.datenow.infra.response.ApiResponse;
+import com.grepp.datenow.infra.update.DummyDataService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +39,13 @@ public class PlaceApiController {
   private final ReviewService reviewService;
   private final FavoriteService favoriteService;
   private final CourseService courseService;
+  private final DummyDataService dummyDataService;
+
+  @GetMapping("/bulk-insert")
+  public String triggerBulkInsert() {
+    dummyDataService.bulkInsertForPerformanceTest();
+    return "데이터 삽입 완료! DB를 확인해 보세요.";
+  }
 
   // 메인페이지에서 에디터픽과 추천 코스의 최근 4개 코스 조회
   // 엔드포인트가 너무 건방짐. 메인페이지인지 어떻/게 알아. > main 이런식으로 해야지
@@ -54,10 +64,11 @@ public class PlaceApiController {
 
   // 추천 (사용자 픽) 코스 목록 조회
   @GetMapping("/recommend-courses")
-  public ResponseEntity<ApiResponse<List<CourseDto>>> recommendCourseList(
-      @RequestParam @Nullable List<String> hashtags
+  public ResponseEntity<ApiResponse<Page<CourseDto>>> recommendCourseList(
+      @RequestParam(required = false) List<String> hashtags,
+      @RequestParam(defaultValue = "1") int page // 쿼리 파라미터로 변경
   ){
-    List<CourseDto> courseList = placeMainPageService.recommendCourseService(hashtags);
+    Page<CourseDto> courseList = placeMainPageService.recommendCourseService(hashtags, page);
     return ResponseEntity.ok(ApiResponse.success(courseList));
   }
 
