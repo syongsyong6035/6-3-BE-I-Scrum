@@ -121,10 +121,10 @@ public class FavoriteService {
       String title = null;
       String nickname = null;
 
-      if (fav.getRecommendCourse() != null && fav.getRecommendCourse().getCourseId() != null) {
+      if (fav.getRecommendCourse() != null && fav.getRecommendCourse().getCourse() != null) {
         recommendCourseId = fav.getRecommendCourse().getRecommendCourseId();
-        title = fav.getRecommendCourse().getCourseId().getTitle();
-        nickname = fav.getRecommendCourse().getCourseId().getId().getNickname();
+        title = fav.getRecommendCourse().getCourse().getTitle();
+        nickname = fav.getRecommendCourse().getId().getNickname();
       } else if (fav.getEditorCourse() != null) {
         editorCourseId = fav.getEditorCourse().getEditorCourseId();
         title = fav.getEditorCourse().getTitle();

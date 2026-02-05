@@ -8,7 +8,7 @@ import com.grepp.datenow.app.model.course.entity.Course;
 import com.grepp.datenow.app.model.course.entity.Hashtag;
 import com.grepp.datenow.app.model.course.entity.RecommendCourse;
 import com.grepp.datenow.app.model.course.repository.HashtagRepository;
-import com.grepp.datenow.app.model.course.repository.RecommendCourseRepository;
+import com.grepp.datenow.app.model.course.repository.custom.RecommendCourseRepository;
 import com.grepp.datenow.app.model.course.repository.RegistMyCourseRepository;
 import com.grepp.datenow.app.model.image.entity.Image;
 import com.grepp.datenow.app.model.image.repository.ImageRepository;
@@ -18,12 +18,10 @@ import com.grepp.datenow.app.model.place.dto.PlaceDetailDto;
 import com.grepp.datenow.infra.error.exception.course.BadWordsException;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import com.grepp.datenow.app.model.course.repository.MyCourseRepository;
-import com.grepp.datenow.app.model.place.dto.PlaceSaveDto;
 import com.grepp.datenow.app.model.place.entity.Place;
 import com.grepp.datenow.app.model.place.repository.PlaceRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -67,61 +65,37 @@ public class CourseService {
 
     @Transactional
     public void saveCourse(MyDateCourseDto dto, Member member) {
-
-        // 비속어 필터링
-        if (badWordFilterService.containBadWords(dto.title())) {
-            throw new BadWordsException("제목에 부적절한 단어가 포함되어 있습니다.");
-        }
-
-        if (badWordFilterService.containBadWords(dto.description())) {
-            throw new BadWordsException("소개글에 부적절한 단어가 포함되어 있습니다.");
-        }
-
-        // Course 저장
+        // 1. 기본 Course 저장 (내용, 작성자 등)
         Course course = Course.builder()
-            .id(member)
             .title(dto.title())
             .description(dto.description())
             .build();
         myCourseRepository.save(course);
 
-        // Place 저장
-        for (PlaceSaveDto placeDto : dto.places()) {
-            Place place = Place.builder()
-                .courseId(course)
-                .placeName(placeDto.placeName())
-                .address(placeDto.address())
-                .placeUrl("")
-                .latitude(0)
-                .longitude(0)
-                .build();
-            placeRepository.save(place);
-        }
+        // 2. RecommendCourse 생성 (Course와 1:1 관계)
+        RecommendCourse recommendCourse = RecommendCourse.builder()
+            .course(course)
+            .id(member) // 작성자 정보는 RecommendCourse.id 에 저장
+            .build();
+        recommendCourseRepository.save(recommendCourse);
 
-        // 해시태그 저장 및 연결
-        if (dto.hashtagNames() != null && !dto.hashtagNames().isEmpty()) {
-            for (String hashtagName : dto.hashtagNames()) {
-                String trimmedHashtagName = hashtagName.trim(); // 공백 제거
+        // 3. 해시태그 처리 (RecommendCourse에 연결!)
+        if (dto.hashtagNames() != null) {
+            for (String name : dto.hashtagNames()) {
+                String trimmedName = name.trim();
+                if (trimmedName.isEmpty()) continue;
 
-                // 빈 문자열은 패스
-                if (trimmedHashtagName.isEmpty()) {
-                    continue;
-                }
-                // 해시태그 비속어 필터링
-                if (badWordFilterService.containBadWords(trimmedHashtagName)) {
-                    throw new BadWordsException("해시태그에 부적절한 단어가 포함되어 있습니다:" + trimmedHashtagName);
+                // 비속어 필터링
+                if (badWordFilterService.containBadWords(trimmedName)) {
+                    throw new BadWordsException("부적절한 해시태그: " + trimmedName);
                 }
 
-                // 해시태그가 이미 존재하면 그거를 쓰고 아니면 새로 만들어서 저장
-                Hashtag hashtag = hashtagRepository.findByTagName(trimmedHashtagName)
-                    .orElseGet(() -> {
-                        Hashtag newhashtag = new Hashtag();
-                        newhashtag.setTagName(trimmedHashtagName);
-                        return hashtagRepository.save(newhashtag);
-                    });
-                // Course 와 Hashtag 의 연관관계를 만들어주기
-                // 이거 없으면 CourseHashtag 엔티티에 아무것도 안생김 -> 연관관계 알 수 없음
-                course.addCourseHashtag(hashtag);
+                // 해시태그 조회 또는 생성
+                Hashtag hashtag = hashtagRepository.findByTagName(trimmedName)
+                    .orElseGet(() -> hashtagRepository.save(new Hashtag(trimmedName)));
+
+                // [핵심] CourseHashtag를 RecommendCourse에 연결 (연관관계 편의 메서드 사용)
+                recommendCourse.addCourseHashtag(hashtag);
             }
         }
     }
@@ -145,20 +119,20 @@ public class CourseService {
             throw new IllegalArgumentException("추천 코스 등록을 위해서는 최소 1장의 이미지가 필요합니다.");
         }
 
-        if (recommendCourseRepository.existsByCourseId(course)) {
+        if (recommendCourseRepository.existsByCourse(course)) {
             throw new IllegalStateException("이미 추천 코스로 등록된 코스입니다.");
         }
 
         // 추천 코스 생성 및 저장
         RecommendCourse recommendCourse = RecommendCourse.builder()
-            .courseId(course)
+            .course(course)
             .build();
         recommendCourseRepository.save(recommendCourse);
 
         // 이미지 처리
         for (String imagePath : imageUrls) {
             Image image = Image.builder()
-                .recommendCourseId(recommendCourse)
+                .recommendCourse(recommendCourse)
                 .originFileName(extractFileName(imagePath))
                 .renameFileName(extractFileName(imagePath))
                 .savePath(imagePath)
@@ -170,7 +144,7 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public List<MyCourseResponse> findMyCourses(Member member) {
-        List<Course> courses = myCourseRepository.findById(member);
+        List<Course> courses = myCourseRepository.findAllByMemberOrderByCreatedAtDesc(member);
         return courses.stream()
             .map(course -> new MyCourseResponse(course.getCoursesId(), course.getTitle()))
             .collect(Collectors.toList());
@@ -193,15 +167,16 @@ public class CourseService {
                 .toList();
         dto.setPlaces(placeDtos);
 
-        List<Image> images = imageRepository.findByRecommendCourseId_CourseId(course);
+        List<Image> images = imageRepository.findByRecommendCourse_Course(course);
 
         List<String> imageUrls = images.stream()
                 .map(Image::getSavePath)
                 .toList();
         dto.setImageUrl(imageUrls);
+        RecommendCourse recommendCourse = recommendCourseRepository.findByCourse(course).orElseThrow();
 
         // Course 엔티티에서 CourseHashtag 컬렉션 가져오기
-        List<String> hashtagNames = course.getCourseHashtags().stream()
+        List<String> hashtagNames = recommendCourse.getCourseHashtags().stream()
             // CourseHashtag 객체에서 실제 Hashtag 엔티티를 가져옴
             .map(CourseHashtag::getHashtag)
             // Hashtag 엔티티에서 tagName 을 가져옴
