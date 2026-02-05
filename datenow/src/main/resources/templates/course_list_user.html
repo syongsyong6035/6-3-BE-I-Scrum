@@ -57,129 +57,158 @@
       });
     });
   }
+  let currentPage = 1; // ⭐ 현재 페이지 상태 저장
 
-  // ⭐⭐ [추가] 4. 코스 데이터를 가져와 렌더링하는 핵심 함수 ⭐⭐
-  // 해시태그 필터를 적용하여 서버에서 데이터를 가져옵니다.
-  function fetchAndRenderCourses() {
+  // 1. 코스 데이터를 가져와 렌더링하는 핵심 함수
+  function fetchAndRenderCourses(page = 1) {
+    currentPage = page; // 페이지 업데이트
     const courseList = document.getElementById('courseList');
-    courseList.innerHTML = '<p style="text-align: center; color: #888;">코스 목록을 불러오는 중...</p>'; // 로딩 메시지
+    courseList.innerHTML = '<p style="text-align: center; color: #888;">코스 목록을 불러오는 중...</p>';
 
-    // 필터링 해시태그를 URL 쿼리 파라미터로 변환 (예: ?hashtags=맛집,카페)
-    const queryParams = new URLSearchParams();
+    let fetchUrl = `/api/recommend-courses?page=${page}`;
+
     if (currentFilterHashtags.length > 0) {
-      queryParams.append('hashtags', currentFilterHashtags.join(','));
+      // 이미 URL에 ?가 있으니 &로 이어붙입니다.
+      fetchUrl += `&hashtags=${currentFilterHashtags.join(',')}`;
     }
-    const queryString = queryParams.toString();
-    const fetchUrl = queryString ? `/api/recommend-courses?${queryString}` : '/api/recommend-courses';
 
     fetch(fetchUrl)
     .then(response => {
-      if (!response.ok) {
-        if (response.status === 404) { // 404 Not Found는 검색 결과 없음으로 간주
-          return response.json().then(errorData => {
-            if (errorData.message === "No courses found for the given hashtags") {
-              return []; // 검색 결과 없음으로 처리
-            } else {
-              throw new Error(errorData.message || "데이터를 불러오지 못했습니다.");
-            }
-          });
-        }
-        throw new Error("데이터를 불러오지 못했습니다");
-      }
+      if (!response.ok) throw new Error("데이터를 불러오지 못했습니다");
       return response.json();
     })
-    .then(apiResponse => { // ⭐ 서버 응답이 ApiResponse<List<CourseListItemDto>> 형태라고 가정
-      const courses = apiResponse.data || []; // apiResponse.data에서 실제 코스 리스트 추출
+    .then(apiResponse => {
+      // 서버 응답 구조가 ApiResponse<Page<CourseDto>> 일 때를 가정
+      // 만약 data 자체가 리스트라면 apiResponse.data.content 등을 확인해야 합니다.
+      const courses = apiResponse.data.content || apiResponse.data || [];
+      const totalPages = apiResponse.data.totalPages || 1; // 전체 페이지 수
 
-      courseList.innerHTML = ''; // 기존 목록 초기화
-
-      if (courses.length === 0) {
-        courseList.innerHTML = '<p style="text-align: center; color: #888;">해당 해시태그를 포함하는 코스가 없습니다.</p>';
-        return;
-      }
-
-      courses.forEach(course => {
-        const card = document.createElement('div');
-        card.className = 'course-card';
-        card.onclick = () => {
-          window.location.href = `/recommend-courses/${course.courseId}`;
-        };
-
-        // ⭐⭐ [수정] 7. 이미지 URL은 백엔드에서 이미 /images/ 접두사를 붙여 보내므로 직접 사용 ⭐⭐
-        const imageUrl = course.imageUrl && course.imageUrl.length > 0
-            ? course.imageUrl
-            : "/image/bg_night.jpg"; // 기본 이미지
-
-        // ⭐⭐ [추가] 6. 해시태그 렌더링 로직 추가 ⭐⭐
-        const hashtagsHtml = course.hashtagNames && course.hashtagNames.length > 0
-            ? `<div class="course-tags">${course.hashtagNames.map(tag => `<span>#${tag}</span>`).join('')}</div>`
-            : '';
-
-
-        card.innerHTML = `
-          <img src="${imageUrl}" alt="${course.title} 썸네일" />
-          <div class="course-card-content">
-            <div class="course-title">${course.title}</div>
-            ${hashtagsHtml} <div class="card-author">
-              <div class="author-avatar" style="background-image:url('/images/user.jpg');"></div>
-            <div class="course-instructor">${course.creatorNickname}</div>
-            </div>
-            <div class="card-footer">
-            <div class ="card-stats">❤️ ${course.favoriteCnt}</div>
-            <div class ="card-stats">💬 ${course.reviewCnt}</div>
-          </div>
-          </div>
-        `;
-        courseList.appendChild(card);
-      });
+      renderCourseCards(courses);    // 카드 그리기
+      renderPaginationUI(totalPages); // 페이지 버튼 그리기
     })
     .catch(error => {
       console.error('에러 발생:', error);
-      courseList.innerHTML = '<p>코스를 불러오는 데 실패했습니다.</p>';
+      courseList.innerHTML = '<p style="text-align: center;">데이터를 불러오는 데 실패했습니다.</p>';
     });
   }
 
-  // ⭐⭐ [수정] 7. DOMContentLoaded 이벤트에서 초기 로딩 함수 호출 및 필터링 이벤트 설정 ⭐⭐
+  // 2. 카드 렌더링 함수 (기존 로직 유지)
+  function renderCourseCards(courses) {
+    const courseList = document.getElementById('courseList');
+    courseList.innerHTML = '';
+
+    if (courses.length === 0) {
+      courseList.innerHTML = '<p style="text-align: center; color: #888;">검색 결과가 없습니다.</p>';
+      return;
+    }
+
+    courses.forEach(course => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.onclick = () => window.location.href = `/recommend-courses/${course.courseId}`;
+
+      const imageUrl = (course.imageUrl && course.imageUrl.length > 0) ? course.imageUrl : "/image/bg_night.jpg";
+      const hashtagsHtml = (course.hashtagNames && course.hashtagNames.length > 0)
+          ? `<div class="course-tags">${course.hashtagNames.map(tag => `<span>#${tag}</span>`).join('')}</div>` : '';
+
+      card.innerHTML = `
+      <img src="${imageUrl}" alt="${course.title} 썸네일" />
+      <div class="course-card-content">
+        <div class="course-title">${course.title}</div>
+        ${hashtagsHtml}
+        <div class="card-author">
+          <div class="author-avatar" style="background-image:url('/images/user.jpg');"></div>
+          <div class="course-instructor">${course.creatorNickname}</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-stats">❤️ ${course.favoriteCnt}</div>
+          <div class="card-stats">💬 ${course.reviewCnt}</div>
+        </div>
+      </div>
+    `;
+      courseList.appendChild(card);
+    });
+  }
+
+  function renderPaginationUI(totalPages) {
+    let paginationContainer = document.getElementById('pagination');
+    if (!paginationContainer) {
+      paginationContainer = document.createElement('div');
+      paginationContainer.id = 'pagination';
+      paginationContainer.className = 'pagination-container';
+      document.querySelector('.course-list-container').appendChild(paginationContainer);
+    }
+
+    paginationContainer.innerHTML = '';
+
+    // 표시할 페이지 버튼의 범위 설정 (예: 현재 페이지 앞뒤로 2개씩, 총 5개)
+    const pageLimit = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(pageLimit / 2));
+    let endPage = Math.min(totalPages, startPage + pageLimit - 1);
+
+    // 끝부분에서 범위가 모자랄 경우 시작 페이지 재조정
+    if (endPage - startPage + 1 < pageLimit) {
+      startPage = Math.max(1, endPage - pageLimit + 1);
+    }
+
+    // [처음으로] 버튼
+    if (startPage > 1) {
+      appendPageBtn(paginationContainer, 1, '<<');
+    }
+
+    // [이전] 버튼
+    if (currentPage > 1) {
+      const prevBtn = document.createElement('button');
+      prevBtn.innerText = '<';
+      prevBtn.onclick = () => fetchAndRenderCourses(currentPage - 1);
+      paginationContainer.appendChild(prevBtn);
+    }
+
+    // 숫자 페이지 버튼
+    for (let i = startPage; i <= endPage; i++) {
+      appendPageBtn(paginationContainer, i, i);
+    }
+
+    // [다음] 버튼
+    if (currentPage < totalPages) {
+      const nextBtn = document.createElement('button');
+      nextBtn.innerText = '>';
+      nextBtn.onclick = () => fetchAndRenderCourses(currentPage + 1);
+      paginationContainer.appendChild(nextBtn);
+    }
+
+    // [마지막으로] 버튼
+    if (endPage < totalPages) {
+      appendPageBtn(paginationContainer, totalPages, '>>');
+    }
+  }
+
+  // 버튼 생성을 돕는 헬퍼 함수
+  function appendPageBtn(container, pageNum, text) {
+    const btn = document.createElement('button');
+    btn.innerText = text;
+    btn.className = (pageNum === currentPage) ? 'page-btn active' : 'page-btn';
+    btn.onclick = () => fetchAndRenderCourses(pageNum);
+    container.appendChild(btn);
+  }
+  // ⭐ [필수 추가] 페이지 로드 시 초기 실행 및 이벤트 연결 로직
   document.addEventListener('DOMContentLoaded', () => {
-    fetchAndRenderCourses(); // 페이지 로드 시 초기 코스 목록 불러오기
+    fetchAndRenderCourses(1); // 페이지 열리자마자 1페이지 불러오기
 
     const filterHashtagInput = document.getElementById('filterHashtagInput');
     if (filterHashtagInput) {
       filterHashtagInput.addEventListener('keyup', (event) => {
         if (event.key === ' ' || event.key === 'Enter') {
           event.preventDefault();
-
           let inputValue = filterHashtagInput.value.trim();
-          if (event.key === ' ' && inputValue.endsWith(' ')) {
-            inputValue = inputValue.substring(0, inputValue.length - 1).trim();
-          }
-
           const newTag = sanitizeTagName(inputValue);
 
-          if (newTag.length > 0) {
-            if (!currentFilterHashtags.includes(newTag)) {
-              currentFilterHashtags.push(newTag);
-              filterHashtagInput.value = '';
-              renderFilterHashtagChips();
-              fetchAndRenderCourses(); // ⭐ 해시태그 추가 시 코스 목록 재조회 ⭐
-            } else {
-              alert(`'${newTag}' 해시태그는 이미 필터에 추가되었습니다.`);
-              filterHashtagInput.value = '';
-            }
-          } else if (inputValue.length > 0) {
+          if (newTag.length > 0 && !currentFilterHashtags.includes(newTag)) {
+            currentFilterHashtags.push(newTag);
             filterHashtagInput.value = '';
+            renderFilterHashtagChips();
+            fetchAndRenderCourses(1); // ⭐ 태그 추가 시 1페이지부터 다시 조회
           }
-        }
-      });
-
-      filterHashtagInput.addEventListener('blur', () => {
-        const inputValue = filterHashtagInput.value.trim();
-        const newTag = sanitizeTagName(inputValue);
-        if (newTag.length > 0 && !currentFilterHashtags.includes(newTag)) {
-          currentFilterHashtags.push(newTag);
-          filterHashtagInput.value = '';
-          renderFilterHashtagChips();
-          fetchAndRenderCourses(); // ⭐ 해시태그 추가 시 코스 목록 재조회 ⭐
         }
       });
     }
