@@ -216,10 +216,6 @@ Solution: Spring Data JPA의 Pageable을 적용하여 DB 단계에서 필요한 
 
 Result: 서버 자원(CPU, RAM) 점유율 안정화 및 데이터 확장성 확보.
 
-3. 멀티스레드 기반 동시성 제어 (Concurrency)
-   Issue: 좋아요 및 게시글 수정 시 다수 사용자의 동시 접근으로 인한 데이터 정합성 이슈 우려.
-
-Solution: 비관적 락(Pessimistic Lock) 및 트랜잭션 격리 수준 조정을 통해 데이터 무결성 보장.
 
 9️⃣ 빠른 시작
 사전 준비
