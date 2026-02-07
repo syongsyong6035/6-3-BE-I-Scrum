@@ -195,6 +195,32 @@ DateNow는 특별한 데이트 경험을 선사하기 위해 다양한 핵심 �
 | 🗃 DB | MySQL 8.0, MongoDB Atlas (VectorDB) |
 | 🧰 협업 | Notion, Zoom, Discord, GitHub |
 
+🚀 Core Troubleshooting & Performance Optimization
+기존의 기능 중심 개발에서 벗어나, 실제 운영 환경에서의 병목 현상을 진단하고 **응답 속도를 약 96% 개선(15.6s → 0.6s)**한 과정을 기록했습니다.
+
+1. N+1 문제 해결 및 DB I/O 최적화
+   Issue: 코스 조회 시 루프 내에서 이미지, 좋아요, 리뷰를 개별 조회하는 N+1 문제 발생. (데이터 1,000건 기준 3,001번의 쿼리 실행)
+
+Solution:
+
+Fetch Join을 활용해 연관된 엔티티를 한 번에 조회하도록 쿼리 최적화.
+
+default_batch_fetch_size 설정을 통해 컬렉션 조회 시 IN 절을 사용하여 쿼리 횟수 최소화.
+
+Result: k6 부하 테스트 결과, 평균 응답 시간 15.6s에서 0.6s대로 단축.
+
+2. 대량 데이터 처리를 위한 Pagination 도입
+   Issue: 페이징 처리 없는 findAll() 수행으로 데이터 증가 시 힙 메모리 포화 및 응답 지연 발생.
+
+Solution: Spring Data JPA의 Pageable을 적용하여 DB 단계에서 필요한 데이터만큼만 끊어서 조회하도록 변경.
+
+Result: 서버 자원(CPU, RAM) 점유율 안정화 및 데이터 확장성 확보.
+
+3. 멀티스레드 기반 동시성 제어 (Concurrency)
+   Issue: 좋아요 및 게시글 수정 시 다수 사용자의 동시 접근으로 인한 데이터 정합성 이슈 우려.
+
+Solution: 비관적 락(Pessimistic Lock) 및 트랜잭션 격리 수준 조정을 통해 데이터 무결성 보장.
+
 9️⃣ 빠른 시작
 사전 준비
 - JDK **21**
